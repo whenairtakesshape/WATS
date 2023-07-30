@@ -161,8 +161,10 @@ void RunMotion()
 
       contractionSteppers.moveTo(motion[currentMotionIndex][currentMotionStep]);
       expansionSteppers.moveTo(motion[currentMotionIndex][currentMotionStep]);
-      rotationLeftStepper.moveTo(rotationMotion[currentMotionIndex][currentMotionStep]);
-      rotationRightStepper.moveTo(rotationMotion[currentMotionIndex][currentMotionStep]);
+      #if ROTATION_ENABLE
+        rotationLeftStepper.moveTo(rotationMotion[currentMotionIndex][currentMotionStep]);
+        rotationRightStepper.moveTo(rotationMotion[currentMotionIndex][currentMotionStep]);
+      #endif
   }
 
   #if TESTACCELERATION
@@ -177,8 +179,6 @@ void RunMotion()
       expansionSteppers.setAcceleration(accelerationMotion[currentMotionIndex][currentAccelStep]);
     }
   #endif
-  contractionSteppers.run();
-  expansionSteppers.run();
 
   contractionSteppers.run();
   contractionSteppers.setSpeed(direction * motion[currentMotionIndex][currentMotionStep + 1]);
