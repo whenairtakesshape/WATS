@@ -2,7 +2,7 @@ import { createContext, Dispatch, SetStateAction } from "react";
 import { WindowSize } from "../model/interfaces";
 
 
-export interface WindoSizeInterace {
+export interface WindowSizeInterface {
   windowObject: WindowSize,
   setWindowObject: Dispatch<SetStateAction<WindowSize>>;
 };
@@ -13,6 +13,6 @@ const defaultState = {
     height: 0
   },
   setWindowObject: (windowObject: WindowSize) => { }
-} as WindoSizeInterace;
+} as WindowSizeInterface;
 
-export const WindowContext = createContext<WindoSizeInterace>(defaultState);
+export const WindowContext = createContext<WindowSizeInterface>(defaultState);
