@@ -2,7 +2,8 @@
 #include <Wire.h>
 #include <AccelStepper.h>
 
-#define TESTMODE 0  // 1 for test mode, 0 for normal mode
+#define TESTMODE 1  // 1 for test mode, 0 for normal mode
+#define TESTACCELERATION 0 // 1 for testing acceleration configuration, 0 for normal mode
 #define ROTATION_ENABLE 0
 
 // Expansion steppers
@@ -30,6 +31,7 @@
 const int stepsPerRevolution = 200;
 const int minSpeed = 200;
 const int maxSpeed = 2000;
+const int maxAcceleration = 100; // Conservative arbitrary Value requires testing
 int analogSpeed, speed;
 bool interrupt = false;
 
@@ -63,8 +65,22 @@ int rotationMotion[][MOTIONLENGTH]{
   { 60, maxSpeed/1.4, -60, -maxSpeed/1.4 }
 };
 
+// Acceleration Array for Expansion/Contraction
+// Pairs of integers (Acceleration, Position)
+// First pair is for increasing speed
+// Second pair is for decreasing speed
+int accelerationMotion[][MOTIONLENGTH]{
+  {maxAcceleration / 10, 0, -maxAcceleration / 10, 1},
+  {maxAcceleration / 8, 0, -maxAcceleration / 8, 1},
+  {maxAcceleration / 6, 0, -maxAcceleration / 6, 1},
+  {maxAcceleration / 4, 0, -maxAcceleration / 4, 1},
+  {maxAcceleration / 2, 0, -maxAcceleration / 2, 1},
+  {maxAcceleration / 1.5, 0, -maxAcceleration / 1.5, 1},
+};
+
 int currentMotionIndex = -1;
 int currentMotionStep = 0;
+int currentAccelStep = 0;
 
 void setup() {
   pinMode(dirPin_E, OUTPUT);
@@ -107,6 +123,7 @@ void RunMotion()
     return;
 
   long distance = contractionSteppers.distanceToGo();
+  long position = contractionSteppers.currentPosition();
   
   int direction = 1;
   if (distance < 0)
@@ -116,12 +133,15 @@ void RunMotion()
 
 #if TESTMODE
   Serial.print("Current Position: ");
-  Serial.print(contractionSteppers.currentPosition());
+  Serial.print(position);
   Serial.print(" Distance:");
   Serial.print(distance);
   Serial.print(" Speed: ");
   Serial.println(direction * motion[currentMotionIndex][currentMotionStep + 1]);
-  
+  #if TESTACCELERATION
+      Serial.print("Acceleration: ");
+      Serial.println(contractionSteppers.acceleration());
+  #endif
 #endif 
 
   if (direction * distance * motion[currentMotionIndex][currentMotionStep + 1] <= 0)
@@ -134,31 +154,43 @@ void RunMotion()
       }
 
       // Set the new move to loction
-#if TESTMODE
+  #if TESTMODE
       Serial.print("Moving to ");
       Serial.println(motion[currentMotionIndex][currentMotionStep]);
-#endif 
+  #endif 
 
       contractionSteppers.moveTo(motion[currentMotionIndex][currentMotionStep]);
       expansionSteppers.moveTo(motion[currentMotionIndex][currentMotionStep]);
-      rotationLeftStepper.moveTo(rotationMotion[currentMotionIndex][currentMotionStep]);
-      rotationRightStepper.moveTo(rotationMotion[currentMotionIndex][currentMotionStep]);
+      #if ROTATION_ENABLE
+        rotationLeftStepper.moveTo(rotationMotion[currentMotionIndex][currentMotionStep]);
+        rotationRightStepper.moveTo(rotationMotion[currentMotionIndex][currentMotionStep]);
+      #endif
   }
 
+  #if TESTACCELERATION
 
-
+    if(position <= motion[currentMotionIndex][currentMotionStep]/2){
+      currentAccelStep = 1;
+      contractionSteppers.setAcceleration(accelerationMotion[currentMotionIndex][currentAccelStep]);
+      expansionSteppers.setAcceleration(accelerationMotion[currentMotionIndex][currentAccelStep]);
+    }else{
+      currentAccelStep = 3;
+      contractionSteppers.setAcceleration(accelerationMotion[currentMotionIndex][currentAccelStep]);
+      expansionSteppers.setAcceleration(accelerationMotion[currentMotionIndex][currentAccelStep]);
+    }
+  #endif
 
   contractionSteppers.run();
   contractionSteppers.setSpeed(direction * motion[currentMotionIndex][currentMotionStep + 1]);
   expansionSteppers.run();
   expansionSteppers.setSpeed(direction * motion[currentMotionIndex][currentMotionStep + 1]);
-#if ROTATION_ENABLE
-  rotationLeftStepper.run();
-  rotationLeftStepper.setSpeed(rotationMotion[currentMotionIndex][currentMotionStep + 1]);
-  rotationRightStepper.run();
-  rotationRightStepper.setSpeed(rotationMotion[currentMotionIndex][currentMotionStep + 1]);
-#endif //ROTATION_ENABLE
 
+  #if ROTATION_ENABLE
+      rotationLeftStepper.run();
+      rotationLeftStepper.setSpeed(rotationMotion[currentMotionIndex][currentMotionStep + 1]);
+      rotationRightStepper.run();
+      rotationRightStepper.setSpeed(rotationMotion[currentMotionIndex][currentMotionStep + 1]);
+  #endif //ROTATION_ENABLE
 }
 
 
@@ -166,14 +198,15 @@ void RunMotion()
 void PerformHome() {
   currentMotionIndex = -1;
   currentMotionStep = 0;
- // TODO: Move the steppers to home position
- 
+  currentAccelStep = 0;
+  // TODO: Move the steppers to home position
 }
 
 // Set which motion index to run
 void PerformMotion(int index) {
   currentMotionIndex = index;
   currentMotionStep = 0;
+  currentAccelStep = 0;
 }
 
 void PerformStop() {
@@ -181,6 +214,7 @@ void PerformStop() {
   interrupt = true;
   currentMotionIndex = -1;
   currentMotionStep = 0;
+  currentAccelStep = 0;
 }
 
 // Hard Reset for tesing purposes
@@ -190,11 +224,67 @@ void PerformReset() {
   interrupt = true;
   currentMotionIndex = -1;
   currentMotionStep = 0;
+  currentAccelStep = 0;
 
   expansionSteppers.setCurrentPosition(0);
   contractionSteppers.setCurrentPosition(0);
   rotationLeftStepper.setCurrentPosition(0);
   rotationRightStepper.setCurrentPosition(0);
+}
+
+void PerformExpansion() {
+  speed = maxSpeed;
+  contractionSteppers.moveTo(-1000);
+  expansionSteppers.moveTo(-1000);
+  rotationLeftStepper.moveTo(-1000);
+  rotationRightStepper.moveTo(-1000);
+
+  while (!interrupt) {
+    Serial.print("Performing Contraction: ");
+    Serial.println(contractionSteppers.currentPosition());
+    contractionSteppers.run();
+    contractionSteppers.setSpeed(-speed);
+    expansionSteppers.run();
+    expansionSteppers.setSpeed(-speed);
+    
+    rotationLeftStepper.run();
+    rotationLeftStepper.setSpeed(-speed);
+    rotationRightStepper.run();
+    rotationRightStepper.setSpeed(-speed);
+    if(Serial.available() > 0 && Serial.read() == 's'){
+      Serial.println("Stopping contractions...");
+      interrupt = true;
+    }
+  }
+  interrupt = false;
+}
+
+void PerformContraction(){
+  speed = 1000;
+
+  contractionSteppers.moveTo(1000);
+  expansionSteppers.moveTo(1000);
+  rotationLeftStepper.moveTo(1000);
+  rotationRightStepper.moveTo(1000);
+
+  while (!interrupt) {
+    Serial.print("Performing Expansion: ");
+    Serial.println(contractionSteppers.currentPosition());
+    contractionSteppers.run();
+    contractionSteppers.setSpeed(speed);
+    expansionSteppers.run();
+    expansionSteppers.setSpeed(speed);
+
+    rotationLeftStepper.run();
+    rotationLeftStepper.setSpeed(speed);
+    rotationRightStepper.run();
+    rotationRightStepper.setSpeed(speed);
+    if(Serial.available() > 0 && Serial.read() == 's'){
+      Serial.println("Stopping contractions...");
+      interrupt = true;
+    }
+  }
+  interrupt = false;
 }
 
 // Check for any new commands
@@ -212,6 +302,12 @@ void PollSerial() {
         break;
       case 'r':
         PerformReset();
+        break;
+      case 'c':
+        PerformContraction();
+        break;
+      case 'e':
+        PerformExpansion();
         break;
       default:
         // Test to see if the command is a number
