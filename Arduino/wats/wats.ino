@@ -11,7 +11,7 @@
 #define stepPin_E A1
 
 // Contraction steppers
-#define dirPin_C A3
+#define dirPin_C A2
 #define stepPin_C A3
 
 // Rotation Left
@@ -124,7 +124,7 @@ void RunMotion()
 
   long distance = contractionSteppers.distanceToGo();
   long position = contractionSteppers.currentPosition();
-  
+  // Serial.println(distance);
   int direction = 1;
   if (distance < 0)
   {
@@ -308,7 +308,7 @@ void HandleSwitches() {
     rotationLeftStepper.moveTo(-1000);
     rotationRightStepper.moveTo(-1000);
 
-    while ((contractionSteppers.isRunning() || expansionSteppers.isRunning()) && digitalRead(microSwitchUnWinding) == LOW) {
+    while ((expansionSteppers.isRunning()) && digitalRead(microSwitchUnWinding) == LOW) {
       contractionSteppers.run();
       contractionSteppers.setSpeed(-speed);
       expansionSteppers.run();
@@ -330,7 +330,7 @@ void HandleSwitches() {
     rotationLeftStepper.moveTo(1000);
     rotationRightStepper.moveTo(1000);
 
-    while ((contractionSteppers.isRunning() || expansionSteppers.isRunning()) && digitalRead(microSwitchWinding) == LOW) {
+    while (( expansionSteppers.isRunning()) && digitalRead(microSwitchWinding) == LOW) {
       contractionSteppers.run();
       contractionSteppers.setSpeed(speed);
       expansionSteppers.run();
