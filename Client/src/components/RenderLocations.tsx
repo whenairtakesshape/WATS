@@ -27,7 +27,7 @@ export function RenderLocations(props: RenderLocationsProps) {
       {props.locations.map((datapoint, index) => {
         return (
           <div key={index} className="location-container" onClick={() => { clickHandler(datapoint); }}>
-            <p>{datapoint.city_country}</p>
+            <p>{datapoint.cityCountry}</p>
           </div>
         );
       })}

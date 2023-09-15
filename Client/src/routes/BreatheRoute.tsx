@@ -1,35 +1,48 @@
-import "./css/breatheroute.scss";
-import warning_amber from "../assets/warning_amber.svg";
+// styles
+import "./css/breatheRoute.scss";
+
+// assets
+import warning_amber from "../assets/warningAmber.svg";
 import breathe_gif from "../assets/breathe.gif";
+
+// libraries
 import { useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
-import { SearchInfoContext } from "../contexts/SearchInfoContext";
 import axios from "axios";
 
+
+// components
+import { SearchInfoContext } from "../contexts/SearchInfoContext";
+
 export const BreatheRoute = () => {
-  //navigation hook
+  // navigation hook used to navigae to other routes.
   const navigate = useNavigate();
-  //STATES
+
+  // searchInfo global state becomes available by the use of SearchInfoContext.
   const { searchInfo, setSearchInfo } = useContext(SearchInfoContext);
 
-  /** on first render LOGIC */
+  /**
+   * on first render of this component the following logic will execute. 
+   * if the datapoint point property of searchInfo is null, app will navigate to mapRoute.
+   */
   useEffect(() => {
     if (searchInfo.datapoint == null) {
       alert("no location selected");
-      navigate("/map-route");
+      navigate("/mapRoute");
     }
   }, []);
 
   /**
-   * makes post request to server API, sends query to stop installation,
-   * alerts error otherwise
+   * makes post request to the server API and sends query to stop the physical installation. 
+   * alerts for error otherwise. 
    */
   const makeApiRequest = async () => {
     try {
       const res = await axios.post(`http://localhost:3000/command?value=s`);
-      console.log(res)
-      alert(`request succesful: ` + res.status)
-      navigate("/map-route");
+      console.log(res);
+      //alert(`request succesful: ` + res.status);
+      // app navigates to mapRoute after request to halt the physical installation executes correctly.
+      navigate("/mapRoute");
     }
     catch (error: any) {
       alert(error.message);

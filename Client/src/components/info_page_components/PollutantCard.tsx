@@ -1,5 +1,5 @@
 import "./css/pollutantcard.scss";
-import info_icon from "../assets/info_icon.svg";
+import info_icon from "../../assets/infoIcon.svg";
 
 export interface PollutantCardProps {
   name: string;
@@ -20,16 +20,16 @@ export const PollutantCard = (props: PollutantCardProps) => {
       </div>
 
       {props.concentration ?
-        <div className="pollutant-card-middle">3.4</div>
+        <div className="pollutant-card-middle">{props.concentration}</div>
         :
         <p className="pollutant-card-name-na">Not Available</p>}
 
       <div style={{ opacity: props.concentration ? 1 : 0 }} className="pollutant-card-classification">{props.category}</div>
-      <div style={{
-        opacity: props.concentration ? 1 : 0,
-        background: props.indicator
-      }}
-        className="pollutant-card-bottom"></div>
+      <div
+        className="pollutant-card-bottom" style={{
+          opacity: props.concentration ? 1 : 0,
+          background: props.indicator
+        }}></div>
     </div>
   );
 };

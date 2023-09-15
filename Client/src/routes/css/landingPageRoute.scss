@@ -1,4 +1,4 @@
-@import "../../styling/breakpoints.scss";
+@import "../../css/breakpoints.scss";
 @import "../../components/css/swipe.scss";
 
 .landing-route-container {
@@ -8,9 +8,7 @@
   // background-color: var(--temp-tertiary-background, #F5FAFF);
   position: relative;
 
-  img {
-    
-  }
+  img {}
 
   @include media('>1024px') {}
 
