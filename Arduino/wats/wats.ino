@@ -4,7 +4,7 @@
 
 #define TESTMODE 0  // 1 for test mode, 0 for normal mode
 #define TESTACCELERATION 0 // 1 for testing acceleration configuration, 0 for normal mode
-#define ROTATION_ENABLE 0
+#define ROTATION_ENABLE 1
 
 // Expansion steppers
 #define dirPin_E A0
@@ -15,12 +15,12 @@
 #define stepPin_C A3
 
 // Rotation Left
-#define dirPin_RotL A3
-#define stepPin_RotL A3
+#define dirPin_RotL 10
+#define stepPin_RotL 11
 
 // Rotation Right
-#define dirPin_RotR A3
-#define stepPin_RotR A3
+#define dirPin_RotR 12
+#define stepPin_RotR 13
 
 // Switches
 #define microSwitchWinding 4
@@ -30,7 +30,7 @@
 
 const int stepsPerRevolution = 200;
 const int minSpeed = 200;
-const int maxSpeed = 2000;
+const int maxSpeed = 70;
 const int maxAcceleration = 100; // Conservative arbitrary Value requires testing
 int analogSpeed, speed;
 bool interrupt = false;
