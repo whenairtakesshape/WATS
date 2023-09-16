@@ -9,7 +9,7 @@ app.listen(port, () => {
 );
 
 
-const serialPath = "1a86";
+const serialPath = "2341";
 const baudRate = 19200;
 
 const device = new Device(serialPath, baudRate);
