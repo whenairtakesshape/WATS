@@ -1,6 +1,6 @@
-import "./css/didyouknow.scss";
+import "./css/didYouKnowSection.scss";
 
-export const DidYouKnow = () => {
+export const DidYouKnowSection = () => {
   return (
     <div className="did-you-know-container">
       <p className="did-you-know-top">Did you know?</p>

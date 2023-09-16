@@ -19,9 +19,9 @@ import axios from 'axios';
 // components 
 import { SearchInfoContext } from "../contexts/SearchInfoContext";
 import { Scale } from "../components/info_page_components/Scale";
-import { PollutantSection } from "../components/info_page_components/PollutantSection";
+import { PollutantAndContributingFactorSection } from "../components/info_page_components/PollutantAndContributingFactorSection";
 import { HealthSection } from "../components/HealthSection";
-import { DidYouKnow } from "../components/info_page_components/DidYouKnow";
+import { DidYouKnowSection } from "../components/info_page_components/DidYouKnowSection";
 import { BreathSection } from "../components/BreathSection";
 
 
@@ -140,11 +140,11 @@ export function InfoPage() {
             </div>
           </div>
           {/** PollutantSection component is info-page-block-03 */}
-          <PollutantSection />
+          <PollutantAndContributingFactorSection />
           {/** HealthSection component is info-page-block-04 */}
           <HealthSection />
           {/** DidYouKnow component is info-page-block-05 */}
-          <DidYouKnow />
+          <DidYouKnowSection />
           {/** BreathSection component is info-page-block-06.
            * setModal state is passed as props to BreatheSection,
            * this component sets isModalActive state to active when prompt by user.

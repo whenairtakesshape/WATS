@@ -1,0 +1,22 @@
+.contributing-factor-section-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.contributing-factor-section-block {
+  display: flex;
+  justify-content: space-around;
+}
+
+.not-available-message {
+  //styleName: Body 1280+ Surface pro;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

@@ -33,10 +33,10 @@ class DataHandler {
   /**
    * fields
    */
-  private allData: Array<Datapoint> = [];
+  private readonly allData: Array<Datapoint> = [];
   private cityCountries: Array<CityCountry> = [];
 
-  private priorityData: Array<Datapoint> = [];
+  private readonly priorityData: Array<Datapoint> = [];
   private priorityCityCountries: Array<CityCountry> = [];
 
   /**

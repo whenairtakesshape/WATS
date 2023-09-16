@@ -1,127 +1,58 @@
-// styles
-import "./css/pollutantsection.scss";
-
-// assets
-import coal_mining from "../../assets/contributingFactors/coalMining.png";
-
-// libraries
-import { useContext, useEffect, useState } from "react";
-import axios from 'axios';
+// css styles
+import "./css/pollutantSection.scss";
 
 // components
-import { ContributingFactor } from "./ContributingFactor";
 import { PollutantCard } from "./PollutantCard";
-import { SearchInfoContext } from "../../contexts/SearchInfoContext";
+import { PollutantLogic } from "./PollutantLogic";
 
-export const PollutantSection = () => {
-  // constants
-  const goodRange = 51;
-  const moderateRange = 101;
-  const unhealthyForSensitiveGroupsRange = 151;
-  const unhealthyRange = 201;
-  const veryUnhealtyRange = 301;
+export interface PollutantSectionProps {
+  pm25: number | null;
+  pm10: number | null;
+  o3: number | null;
+  cO: number | null;
+  no2: number | null;
+  so2: number | null;
+}
 
-  // pollutant bool used for logic render below
-  const [pollutantBool, setPollutantBool] = useState<boolean>(true);
+export const PollutantSection = (props: PollutantSectionProps) => {
 
-  // global searchInfo state
-  const { searchInfo } = useContext(SearchInfoContext);
-
-  //pollutant states
-  const [PM25, setPM25] = useState(null);
-  const [PM10, setPM10] = useState(null);
-  const [O3, setO3] = useState(null);
-  const [CO, setCO2] = useState(null);
-  const [NO2, setNO2] = useState(null);
-  const [SO2, setSO2] = useState(null);
-
-  // category and indicator states
-  const [category, setCategory] = useState(null);
-  const [indicator, setIndicator] = useState(null);
-
-  // token needed to make a request to pollutant API
-  const POLLUTANT_API_TOKEN = process.env.REACT_APP_POLLUTANT_TOKEN;
-  // pollutant api url will be used to fecth data on PM2.5, PM10, O3, CO, NO2, and SO2 for chosen location
-  const pollutantApiUrl =
-    `https://api.waqi.info/feed/geo:${searchInfo.datapoint?.lat};${searchInfo.datapoint?.lon}/?token=${POLLUTANT_API_TOKEN}`;
-
-  // async function that fetches pollutant data and sets the pollutant states accordingly
-  const getPollutantData = async () => {
-    try {
-      const res = await axios.get(pollutantApiUrl);
-      const data = res.data.data.iaqi;
-      setPM25(data.pm25?.v);
-      setPM10(data.pm10?.v);
-      setO3(data.o3?.v);
-      setCO2(data.co?.v);
-      setNO2(data.no2?.v);
-      setSO2(data.so2?.v);
-      console.log(data);
-    }
-    catch (error: any) {
-      console.log(error.message);
-    }
-  };
-
-  useEffect(() => {
-    getPollutantData();
-  }, []);
-
-  // sets the category and indicator state according to the pollutant
-  const categoryAndIndicatorSetter = () => {
-    if (searchInfo.datapoint) {
-      // good range: [0,50]
-      if (searchInfo.datapoint.aqi < goodRange) {
-        // moderate range: [51, 100]
-      } else if (searchInfo.datapoint.aqi < moderateRange) {
-        // unhealthy for sensitive groups range: [101, 150]
-      } else if (searchInfo.datapoint.aqi < unhealthyForSensitiveGroupsRange) {
-        // unhealthy range: [151, 200]
-      } else if (searchInfo.datapoint.aqi < unhealthyRange) {
-        // very unhealthy range: [201, 300]
-      } else if (searchInfo.datapoint.aqi < veryUnhealtyRange) {
-      } else {
-        // hazardous range: [301-500]
-      }
-    }
-  };
+  // pollutant Logic class
+  const pollutantLogic = new PollutantLogic();
 
   return (
-    <div className="pollutant-container">
-      <div className="pollutant-section-top">
-        <button
-          style={{ borderBottom: pollutantBool ? "2px solid black" : "2px solid transparent" }}
-          onClick={() => setPollutantBool(true)}>
-          Pollutants
-        </button>
-        <button
-          style={{ borderBottom: pollutantBool ? "2px solid transparent" : "2px solid black" }}
-          onClick={() => setPollutantBool(false)}>
-          Contributing Factors
-        </button>
+    <div className="pollutant-section-container">
+      {/** pollutant section top */}
+      <div className="pollutant-section-container-top">
+        <PollutantCard name={"PM2.5"}
+          concentration={props.pm25}
+          category={pollutantLogic.getPM25Category(props.pm25)}
+          indicator={pollutantLogic.getPM25Indicator(props.pm25)} />
+        <PollutantCard name={"PM10"}
+          concentration={props.pm10}
+          category={pollutantLogic.getPM10Category(props.pm10)}
+          indicator={pollutantLogic.getPM10Indicator(props.pm10)} />
+        <PollutantCard name={"O3"}
+          concentration={props.o3}
+          category={pollutantLogic.getO3Category(props.o3)}
+          indicator={pollutantLogic.getO3Indicator(props.o3)} />
       </div>
-      {pollutantBool ?
-        <div className="pollutant-section-middle">
-          <PollutantCard name={"PM2.5"} concentration={PM25} category="good" indicator="green" />
-          <PollutantCard name={"PM10"} concentration={PM10} category="good" indicator="green" />
-          <PollutantCard name={"O3"} concentration={O3} category="good" indicator="green" />
-        </div> :
-        <div className="contributing-factor-middle">
-          <ContributingFactor name="Coal Mining" img={coal_mining} />
-          <ContributingFactor name="Coal Mining" img={coal_mining} />
-          <ContributingFactor name="Coal Mining" img={coal_mining} />
-        </div>}
-      {pollutantBool ?
-        <div className="pollutant-section-bottom">
-          <PollutantCard name={"CO"} concentration={CO} category="good" indicator="green" />
-          <PollutantCard name={"NO2"} concentration={NO2} category="good" indicator="green" />
-          <PollutantCard name={"SO2"} concentration={SO2} category="Good" indicator="#A8E05F" />
-        </div> :
-        <div className="contributing-factor-bottom">
-          <ContributingFactor name="Open Burning of Garbage Waste" img={coal_mining} />
-          <ContributingFactor name="Coal Mining" img={coal_mining} />
-          <ContributingFactor name="Coal Mining" img={coal_mining} />
-        </div>}
+
+      {/** pollutant section bottom */}
+      <div className="pollutant-section-container-bottom">
+        <PollutantCard name={"CO"}
+          concentration={props.cO}
+          category={pollutantLogic.getCoCategory(props.cO)}
+          indicator={pollutantLogic.getCoIndicator(props.cO)} />
+        <PollutantCard name={"NO2"}
+          concentration={props.no2}
+          category={pollutantLogic.getNO2Category(props.no2)}
+          indicator={pollutantLogic.getNO2Indicator(props.no2)} />
+        <PollutantCard name={"SO2"}
+          concentration={props.so2}
+          category={pollutantLogic.getSO2Category(props.so2)}
+          indicator={pollutantLogic.getSO2Indicator(props.so2)} />
+      </div>
+
     </div>
   );
-};
+};;
