@@ -67,6 +67,8 @@ export default class Device {
 
         SerialPort.list().then((ports: any[]) => {
             ports.forEach((port) => {
+                // Debug print ports
+                console.log(port.vendorId);
                 if (port.vendorId && port.vendorId.includes(this.deviceName)) {
                     console.log(port.path);
                     this.serialPort = new SerialPort({path: port.path,  baudRate: this.baudrate });
