@@ -30,7 +30,8 @@
 
 const int stepsPerRevolution = 200;
 const int minSpeed = 200;
-const int maxSpeed = 70;
+const int maxSpeed = 2000; //70
+const int rotationMaxSpeed = 100;
 const int maxAcceleration = 100; // Conservative arbitrary Value requires testing
 int analogSpeed, speed;
 bool interrupt = false;
@@ -57,12 +58,12 @@ int motion[][MOTIONLENGTH]{
 // Motion array for Rotation
 // Pairs of integers ( Position, Speed)
 int rotationMotion[][MOTIONLENGTH]{
-  { 10, maxSpeed/1.9, -10, -maxSpeed/1.9 },
-  { 50, maxSpeed/1.8, -50, -maxSpeed/1.8 },
-  { 30, maxSpeed/1.7, -30, -maxSpeed/1.7 },
-  { 40, maxSpeed/1.6, -40, -maxSpeed/1.6 },
-  { 50, maxSpeed/1.5, -50, -maxSpeed/1.5 },
-  { 60, maxSpeed/1.4, -60, -maxSpeed/1.4 }
+  { 10, rotationMaxSpeed/1.9, -10, -rotationMaxSpeed/1.9 },
+  { 50, rotationMaxSpeed/1.8, -50, -rotationMaxSpeed/1.8 },
+  { 30, rotationMaxSpeed/1.7, -30, -rotationMaxSpeed/1.7 },
+  { 40, rotationMaxSpeed/1.6, -40, -rotationMaxSpeed/1.6 },
+  { 50, rotationMaxSpeed/1.5, -50, -rotationMaxSpeed/1.5 },
+  { 100, rotationMaxSpeed/1.4, -100, -rotationMaxSpeed/1.4 }
 };
 
 // Acceleration Array for Expansion/Contraction
