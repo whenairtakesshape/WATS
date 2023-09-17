@@ -15,20 +15,18 @@ import { SearchInfoContext } from "../../contexts/SearchInfoContext";
 import { PollutantLogic } from "./PollutantLogic";
 import { PollutantSection } from "./PollutantSection";
 import { ContributingFactorSection } from "./ContributingFactorSection";
+import { DominantPollutantContext } from "../../contexts/DominantPollutantContext";
 
 export const PollutantAndContributingFactorSection = () => {
-
-  // pollutant Logic class
-  const pollutantLogic = new PollutantLogic();
 
   // pollutant bool used for logic render below
   const [pollutantBool, setPollutantBool] = useState<boolean>(true);
 
-  // dominant pollutant 
-  const [dominantPollutant, setDominantPollutant] = useState<string | null>(null);
-
   // global searchInfo state
   const { searchInfo } = useContext(SearchInfoContext);
+
+  // dominant pollutant state
+  const { dominantPollutant, setDominantPollutant } = useContext(DominantPollutantContext);
 
   //pollutant states
   const [PM25, setPM25] = useState(null);
@@ -70,6 +68,7 @@ export const PollutantAndContributingFactorSection = () => {
     getPollutantData();
   }, []);
 
+  //<DataContext.Provider value={{ data, setData }}>
   return (
     <div className="pollutant-and-contributing-factor-section-container">
       <div className="pollutant-and-contributing-factor-section-top">
@@ -84,55 +83,10 @@ export const PollutantAndContributingFactorSection = () => {
           Contributing Factors
         </button>
       </div>
-
-      {/** if pollutan bool is active, PollutantSection component renders*/}
+      {/** if pollutant bool is active, PollutantSection component renders*/}
       {pollutantBool ? <PollutantSection pm25={PM25} pm10={PM10} o3={O3} cO={CO} no2={NO2} so2={SO2} /> :
-        <ContributingFactorSection dominantPollutant={dominantPollutant} />
+        <ContributingFactorSection />
       }
-
-      {/** pollutantBool ?
-        <div className="pollutant-section-middle">
-          <PollutantCard name={"PM2.5"}
-            concentration={PM25}
-            category={pollutantLogic.getPM25Category(PM25)}
-            indicator={pollutantLogic.getPM25Indicator(PM25)} />
-          <PollutantCard name={"PM10"}
-            concentration={PM10}
-            category={pollutantLogic.getPM10Category(PM10)}
-            indicator={pollutantLogic.getPM10Indicator(PM10)} />
-          <PollutantCard name={"O3"}
-            concentration={O3}
-            category={pollutantLogic.getO3Category(O3)}
-            indicator={pollutantLogic.getO3Indicator(O3)} />
-        </div> :
-        <div className="contributing-factor-middle">
-          <ContributingFactorCard name="Coal Mining" img={coal_mining} />
-          <ContributingFactorCard name="Coal Mining" img={coal_mining} />
-          <ContributingFactorCard name="Coal Mining" img={coal_mining} />
-        </div>}
-
-      {pollutantBool ?
-        <div className="pollutant-section-bottom">
-          <PollutantCard name={"CO"}
-            concentration={CO}
-            category={pollutantLogic.getCoCategory(CO)}
-            indicator={pollutantLogic.getCoIndicator(CO)} />
-          <PollutantCard name={"NO2"}
-            concentration={NO2}
-            category={pollutantLogic.getNO2Category(NO2)}
-            indicator={pollutantLogic.getNO2Indicator(NO2)} />
-          <PollutantCard name={"SO2"}
-            concentration={SO2}
-            category={pollutantLogic.getSO2Category(SO2)}
-            indicator={pollutantLogic.getSO2Indicator(SO2)} />
-        </div> :
-
-        <div className="contributing-factor-bottom">
-          <ContributingFactorCard name="Open Burning of Garbage Waste" img={coal_mining} />
-          <ContributingFactorCard name="Coal Mining" img={coal_mining} />
-          <ContributingFactorCard name="Coal Mining" img={coal_mining} />
-      </div> */}
-
     </div>
   );
 };;

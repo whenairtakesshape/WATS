@@ -23,7 +23,7 @@ import { PollutantAndContributingFactorSection } from "../components/infoPageCom
 import { DidYouKnowSection } from "../components/infoPageComponents/DidYouKnowSection";
 import { BreathSection } from "../components/BreathSection";
 import { ImpactOnHealthAndHealthRecommendationSection } from "../components/infoPageComponents/ImpactOnHealthAndHealthRecommendationSection";
-
+import { DominantPollutantContext } from "../contexts/DominantPollutantContext";
 
 export function InfoPage() {
   // constants
@@ -38,6 +38,11 @@ export function InfoPage() {
 
   // searchInfo global state that becomes available via the SearchInfoContext
   const { searchInfo, setSearchInfo } = useContext(SearchInfoContext);
+
+  // dominant pollutant. 
+  // used for render logic in PollutantAndContributingFactorSection.tsx, 
+  // ContributingFactorSection.tsx, ImpactOnHealthSection.tsx
+  const [dominantPollutant, setDominantPollutant] = useState<string | null>(null);
 
   // state used to determine if the modal that pops up over the infoPageRoute is active or not
   const [modalIsActive, setModal] = useState<boolean>(false);
@@ -106,78 +111,80 @@ export function InfoPage() {
    */
   if (searchInfo.datapoint) {
     return (
-      <div className="info-page-outer-container">
-        {/** InfoPage header */}
-        <div className="info-page-header">
-          <div className="info-page-logo">
-            <img src={logo} />
+      <DominantPollutantContext.Provider value={{ dominantPollutant, setDominantPollutant }} >
+        <div className="info-page-outer-container">
+          {/** InfoPage header */}
+          <div className="info-page-header">
+            <div className="info-page-logo">
+              <img src={logo} />
+            </div>
+            <p>When Air Takes Shape</p>
           </div>
-          <p>When Air Takes Shape</p>
-        </div>
-        {/** InfoPage blocks begin.
+          {/** InfoPage blocks begin.
          * if modalIsActive is set to true, the opacity of all elements inside info-page-blocks div
          * will be set to 0.5 in order to allow the popup modal to stand out over these elements. 
          */}
-        <div className="info-page-blocks" style={{ opacity: modalIsActive ? 0.5 : 1 }}>
-          <div className="info-page-block-01">{searchInfo.datapoint?.cityCountry}</div>
-          <div className="info-page-block-02">
-            <div className="info-page-block-02-section-01">{renderEmoji()}</div>
-            <div className="into-page-block-02-section-02">
-              <div className="info-page-block-02-section-02-us-aqi">
-                <p>US AQI</p>
-                <img src={infoIcon} />
+          <div className="info-page-blocks" style={{ opacity: modalIsActive ? 0.5 : 1 }}>
+            <div className="info-page-block-01">{searchInfo.datapoint?.cityCountry}</div>
+            <div className="info-page-block-02">
+              <div className="info-page-block-02-section-01">{renderEmoji()}</div>
+              <div className="into-page-block-02-section-02">
+                <div className="info-page-block-02-section-02-us-aqi">
+                  <p>US AQI</p>
+                  <img src={infoIcon} />
+                </div>
+                <p className="aqi-number">{searchInfo.datapoint?.aqi}</p>
               </div>
-              <p className="aqi-number">{searchInfo.datapoint?.aqi}</p>
+              {/** Scale component is info-page-block-02-section-03 */}
+              <Scale />
+              <div className="info-page-block-02-section-04">
+                <p className="first">Income Group</p>
+                {searchInfo.datapoint.incomeGroup ?
+                  <p className="second">{searchInfo.datapoint.incomeGroup}</p> :
+                  <p className="second">N/A</p>
+                }
+              </div>
             </div>
-            {/** Scale component is info-page-block-02-section-03 */}
-            <Scale />
-            <div className="info-page-block-02-section-04">
-              <p className="first">Income Group</p>
-              {searchInfo.datapoint.incomeGroup ?
-                <p className="second">{searchInfo.datapoint.incomeGroup}</p> :
-                <p className="second">N/A</p>
-              }
-            </div>
-          </div>
-          {/** PollutantSection component is info-page-block-03 */}
-          <PollutantAndContributingFactorSection />
-          {/** ImpactOnHealthAndHealthRecommendationSection component is info-page-block-04 */}
-          <ImpactOnHealthAndHealthRecommendationSection />
-          {/** DidYouKnow component is info-page-block-05 */}
-          <DidYouKnowSection />
-          {/** BreathSection component is info-page-block-06.
+            {/** PollutantSection component is info-page-block-03 */}
+            <PollutantAndContributingFactorSection />
+            {/** ImpactOnHealthAndHealthRecommendationSection component is info-page-block-04 */}
+            <ImpactOnHealthAndHealthRecommendationSection />
+            {/** DidYouKnow component is info-page-block-05 */}
+            <DidYouKnowSection />
+            {/** BreathSection component is info-page-block-06.
            * setModal state is passed as props to BreatheSection,
            * this component sets isModalActive state to active when prompt by user.
            */}
-          <BreathSection modal={modalIsActive} setModal={setModal} />
-        </div>
-        {/** info-page-modal div only renders when modalIsActive is set to true, 
+            <BreathSection modal={modalIsActive} setModal={setModal} />
+          </div>
+          {/** info-page-modal div only renders when modalIsActive is set to true, 
          * second part of ternary operator executes and renders null */}
-        {modalIsActive ?
-          <div className="info-page-modal">
-            {/** opacity of modal is set to 1 so that it overlays the elements in info-page-blocks  div */}
-            <div className="info-page-modal-top" style={{ opacity: 1 }}>
-              <img src={warning} />
-            </div>
-            <div className="info-page-modal-middle">
-              <p className="p-01">You have selected</p>
-              <p className="p-02">{searchInfo.datapoint.cityCountry}</p>
-              <p className="p-03">for the structure to simulate breathing</p>
-              <p className="p-04">
-                Warning: By  continuing with your current selection, <br />
-                you will be unable to change it while the structure is <br />
-                in motion for approximately 1 minute
-              </p>
-            </div>
-            <div className="info-page-modal-bottom">
-              {/** button sets isModalActive to false */}
-              <button className="modal-cancel-button" onClick={() => setModal(false)}>Cancel</button>
-              <button className="modal-continue-button" onClick={() => {
-                makeApiRequest();
-              }}>Continue</button>
-            </div>
-          </div> : null}
-      </div>
+          {modalIsActive ?
+            <div className="info-page-modal">
+              {/** opacity of modal is set to 1 so that it overlays the elements in info-page-blocks  div */}
+              <div className="info-page-modal-top" style={{ opacity: 1 }}>
+                <img src={warning} />
+              </div>
+              <div className="info-page-modal-middle">
+                <p className="p-01">You have selected</p>
+                <p className="p-02">{searchInfo.datapoint.cityCountry}</p>
+                <p className="p-03">for the structure to simulate breathing</p>
+                <p className="p-04">
+                  Warning: By  continuing with your current selection, <br />
+                  you will be unable to change it while the structure is <br />
+                  in motion for approximately 1 minute
+                </p>
+              </div>
+              <div className="info-page-modal-bottom">
+                {/** button sets isModalActive to false */}
+                <button className="modal-cancel-button" onClick={() => setModal(false)}>Cancel</button>
+                <button className="modal-continue-button" onClick={() => {
+                  makeApiRequest();
+                }}>Continue</button>
+              </div>
+            </div> : null}
+        </div>
+      </DominantPollutantContext.Provider >
     );
   } else {
     /** if searchPoint.datapoint is null, a loading div is returned since 

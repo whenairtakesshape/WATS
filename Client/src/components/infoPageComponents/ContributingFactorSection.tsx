@@ -2,18 +2,16 @@
 import "./css/contributingFactorSection.scss";
 
 //libraries
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 // components
 import { ContributingFactor, ContributingFactorLogic } from "./ContributingFactorLogic";
 import { ContributingFactorCard } from "./ContributingFactorCard";
+import { DominantPollutantContext } from "../../contexts/DominantPollutantContext";
 
-// prop interface for ContributingFactorSection
-interface ContributingFactorSectionProps {
-  dominantPollutant: string | null;
-}
-
-export const ContributingFactorSection = ({ dominantPollutant }: ContributingFactorSectionProps) => {
+export const ContributingFactorSection = () => {
+  // dominant pollutant state
+  const { dominantPollutant, setDominantPollutant } = useContext(DominantPollutantContext);
 
   // contributing factor logic class
   const contributingFactorLogic: ContributingFactorLogic = new ContributingFactorLogic();
@@ -41,11 +39,17 @@ export const ContributingFactorSection = ({ dominantPollutant }: ContributingFac
   const contributingFactorRender = () => {
     // checks if contributingFactorsArray is null
     if (!contributingFactorsArray) {
-      return <div className="not-available-message">{notAvailableMessage}</div>;
+      return (
+        <div className="contributing-factor-not-available-message">
+          {notAvailableMessage}
+        </div>);
     }
     // checks if contributingFactorsArray is empty
     if (!contributingFactorsArray.length) {
-      return <div className="not-available-message">{notAvailableMessage}</div>;
+      return (
+        <div className="contributing-factor-not-available-message">
+          {notAvailableMessage}
+        </div>);
     }
 
     // length of array
