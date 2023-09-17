@@ -246,8 +246,7 @@ void PerformContraction(){
 
   contractionSteppers.moveTo(1000);
   expansionSteppers.moveTo(1000);
-  rotationLeftStepper.moveTo(1000);
-  rotationRightStepper.moveTo(1000);
+  
   Serial.print("Performing contraction: ");
 
   while (!interrupt) {
@@ -255,13 +254,92 @@ void PerformContraction(){
     contractionSteppers.setSpeed(speed);
     expansionSteppers.run();
     expansionSteppers.setSpeed(speed);
-
-    rotationLeftStepper.run();
-    rotationLeftStepper.setSpeed(speed);
-    rotationRightStepper.run();
-    rotationRightStepper.setSpeed(speed);
+    
     if(Serial.available() > 0 && Serial.read() == 's'){
       Serial.println("Stopping contractions...");
+      interrupt = true;
+    }
+  }
+  interrupt = false;
+}
+
+void PerformStepExpansion() {
+  speed = maxSpeed;
+  contractionSteppers.move(-10);
+  expansionSteppers.move(-10);
+  
+  Serial.print("Performing step expansion: ");
+
+  while (!interrupt) {
+    contractionSteppers.run();
+    contractionSteppers.setSpeed(-speed);
+    expansionSteppers.run();
+    expansionSteppers.setSpeed(-speed);
+    
+    if(Serial.available() > 0 && Serial.read() == 's'){
+      Serial.println("Stopping expansions...");
+      interrupt = true;
+    }
+  }
+  interrupt = false;
+}
+
+void PerformStepContraction(){
+  speed = 1000;
+
+  contractionSteppers.move(10);
+  expansionSteppers.move(10);
+  
+  Serial.print("Performing step contraction: ");
+
+  while (!interrupt) {
+    contractionSteppers.run();
+    contractionSteppers.setSpeed(speed);
+    expansionSteppers.run();
+    expansionSteppers.setSpeed(speed);
+    
+    if(Serial.available() > 0 && Serial.read() == 's'){
+      Serial.println("Stopping step contractions...");
+      interrupt = true;
+    }
+  }
+  interrupt = false;
+}
+
+void PerformClockwise(){
+  rotationLeftStepper.move(10);
+  rotationRightStepper.move(10);
+
+  Serial.print("Performing clockwise rotation: ");
+
+  while (!interrupt) {
+    rotationLeftStepper.run();
+    rotationLeftStepper.setSpeed(rotationMaxSpeed);
+    rotationRightStepper.run();
+    rotationRightStepper.setSpeed(rotationMaxSpeed);
+
+    if(Serial.available() > 0 && Serial.read() == 's'){
+      Serial.println("Stopping clockwise rotations...");
+      interrupt = true;
+    }
+  }
+  interrupt = false;
+}
+
+void PerformCounterClockwise(){
+  rotationLeftStepper.move(-10);
+  rotationRightStepper.move(-10);
+
+  Serial.print("Performing counterclockwise rotation: ");
+
+  while (!interrupt) {
+    rotationLeftStepper.run();
+    rotationLeftStepper.setSpeed(rotationMaxSpeed);
+    rotationRightStepper.run();
+    rotationRightStepper.setSpeed(rotationMaxSpeed);
+
+    if(Serial.available() > 0 && Serial.read() == 's'){
+      Serial.println("Stopping counterclockwise rotations...");
       interrupt = true;
     }
   }
@@ -289,6 +367,18 @@ void PollSerial() {
         break;
       case 'e':
         PerformExpansion();
+        break;
+      case 'q':
+        PerformClockwise();
+        break;
+      case 'w':
+        PerformCounterClockwise();
+        break;
+      case 'n':
+        PerformStepExpansion();
+        break;
+      case 'm':
+        PerformStepContraction();
         break;
       default:
         // Test to see if the command is a number
