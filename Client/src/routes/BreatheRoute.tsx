@@ -38,7 +38,7 @@ export const BreatheRoute = () => {
    */
   const makeApiRequest = async () => {
     try {
-      const res = await axios.post(`http://localhost:3001/command?value=s`);
+      const res = await axios.post(`http://localhost:3001/command?command=s`);
       console.log(res);
       //alert(`request succesful: ` + res.status);
       // app navigates to mapRoute after request to halt the physical installation executes correctly.
