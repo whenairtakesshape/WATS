@@ -1,15 +1,14 @@
 /**
- *  ContributingFactorLogic class holds logic functions used in PollutantSection to determine which contributing
- *  factors should render in the InfoPageRoute.
+ *  ContributingFactorLogic class holds arrays of contributing factors 
  */
 
 // import assets
-import vehicleEmissions from "../../assets/contributingFactors/vehicleEmissions.png";
-import industrialProcesses from "../../assets/contributingFactors/industrialEmissions.png";
-import wildfires from "../../assets/contributingFactors/wildfires.png";
-import homeHeating from "../../assets/contributingFactors/residentialFireplace.png";
-import dust from "../../assets/contributingFactors/dustTwo.png";
-import powerPlant from "../../assets/contributingFactors/powerPlant.png";
+import vehicleEmissions from "../../assets/contributingFactorsAssets/vehicleEmissions.png";
+import industrialProcesses from "../../assets/contributingFactorsAssets/industrialEmissions.png";
+import wildfires from "../../assets/contributingFactorsAssets/wildfires.png";
+import homeHeating from "../../assets/contributingFactorsAssets/residentialFireplace.png";
+import dust from "../../assets/contributingFactorsAssets/dustTwo.png";
+import powerPlant from "../../assets/contributingFactorsAssets/powerPlant.png";
 
 export interface ContributingFactor {
   name: string;
@@ -18,6 +17,7 @@ export interface ContributingFactor {
 
 class ContributingFactorLogic {
 
+  // contributing factors with a name and a png string
   private readonly vehicleEmmission: ContributingFactor;
   private readonly industrialProcesses: ContributingFactor;
   private readonly wildfires: ContributingFactor;
@@ -29,8 +29,8 @@ class ContributingFactorLogic {
   private readonly pm10DominantPollutant: Array<ContributingFactor>;
   private readonly o3DominantPollutant: Array<ContributingFactor>;
   private readonly coDominantPollutant: Array<ContributingFactor>;
-  private readonly so2DominantPollutant: Array<ContributingFactor> = [];
-  private readonly no2DominantPollutant: Array<ContributingFactor> = [];
+  private readonly so2DominantPollutant: Array<ContributingFactor>;
+  private readonly no2DominantPollutant: Array<ContributingFactor>;
 
   constructor() {
 

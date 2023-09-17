@@ -18,11 +18,11 @@ import axios from 'axios';
 
 // components 
 import { SearchInfoContext } from "../contexts/SearchInfoContext";
-import { Scale } from "../components/info_page_components/Scale";
-import { PollutantAndContributingFactorSection } from "../components/info_page_components/PollutantAndContributingFactorSection";
-import { HealthSection } from "../components/HealthSection";
-import { DidYouKnowSection } from "../components/info_page_components/DidYouKnowSection";
+import { Scale } from "../components/infoPageComponents/Scale";
+import { PollutantAndContributingFactorSection } from "../components/infoPageComponents/PollutantAndContributingFactorSection";
+import { DidYouKnowSection } from "../components/infoPageComponents/DidYouKnowSection";
 import { BreathSection } from "../components/BreathSection";
+import { ImpactOnHealthAndHealthRecommendationSection } from "../components/infoPageComponents/ImpactOnHealthAndHealthRecommendationSection";
 
 
 export function InfoPage() {
@@ -141,8 +141,8 @@ export function InfoPage() {
           </div>
           {/** PollutantSection component is info-page-block-03 */}
           <PollutantAndContributingFactorSection />
-          {/** HealthSection component is info-page-block-04 */}
-          <HealthSection />
+          {/** ImpactOnHealthAndHealthRecommendationSection component is info-page-block-04 */}
+          <ImpactOnHealthAndHealthRecommendationSection />
           {/** DidYouKnow component is info-page-block-05 */}
           <DidYouKnowSection />
           {/** BreathSection component is info-page-block-06.

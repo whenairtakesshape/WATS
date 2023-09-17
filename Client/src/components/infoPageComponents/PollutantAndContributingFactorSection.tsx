@@ -85,6 +85,7 @@ export const PollutantAndContributingFactorSection = () => {
         </button>
       </div>
 
+      {/** if pollutan bool is active, PollutantSection component renders*/}
       {pollutantBool ? <PollutantSection pm25={PM25} pm10={PM10} o3={O3} cO={CO} no2={NO2} so2={SO2} /> :
         <ContributingFactorSection dominantPollutant={dominantPollutant} />
       }
@@ -131,7 +132,6 @@ export const PollutantAndContributingFactorSection = () => {
           <ContributingFactorCard name="Coal Mining" img={coal_mining} />
           <ContributingFactorCard name="Coal Mining" img={coal_mining} />
       </div> */}
-
 
     </div>
   );
