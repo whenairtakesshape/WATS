@@ -18,6 +18,7 @@ import { PollutantSection } from "../components/PollutantSection";
 import { HealthSection } from "../components/HealthSection";
 import { DidYouKnow } from "../components/DidYouKnow";
 import { BreathSection } from "../components/BreathSection";
+import { Debugger } from "../components/Debugger";
 import axios from 'axios';
 
 
@@ -111,7 +112,7 @@ export function InfoPage() {
           <HealthSection />
           <DidYouKnow />
           <BreathSection modal={modalIsActive} setModal={setModal} />
-
+          <Debugger />
         </div>
 
         {modalIsActive ?
