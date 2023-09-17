@@ -164,8 +164,8 @@ function Map() {
               <InfoWindowF
                 position={{ lat: datapoint.lat, lng: datapoint.lon }}
                 onCloseClick={() => setSearchInfo({ ...searchInfo, activeMarker: null })} >
-                <div>
-                  <p>{datapoint.cityCountry}</p>
+                <div className="map-route-container-info-window">
+                  <p>{datapoint.city},<br /><b>{datapoint.country}</b></p>
                   <button onClick={() => {
                     setSearchInfo({
                       term: "", zoom: 3,

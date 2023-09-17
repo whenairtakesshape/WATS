@@ -19,7 +19,6 @@ $swipe-breakpoint-four: ">630px";
   display: inline-flex;
   left: 500px;
   top: 100px;
-  position: absolute;
 
   @include media(">1439px") {
     left: 550px;

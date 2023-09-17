@@ -25,7 +25,7 @@ export const BreathSection = (props: BreatheSectionProps) => {
           setSearchInfo({
             ...searchInfo, datapoint: null
           });
-          navigate("/map-route");
+          navigate("/mapRoute");
         }}>
         Select another city</p>
     </div>
