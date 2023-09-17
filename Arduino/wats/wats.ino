@@ -3,7 +3,6 @@
 #include <AccelStepper.h>
 
 #define TESTMODE 0  // 1 for test mode, 0 for normal mode
-#define TESTMODE 0    // 1 for test mode, 0 for normal mode
 #define TESTACCELERATION 0 // 1 for testing acceleration configuration, 0 for normal mode
 #define ROTATION_ENABLE 0
 
