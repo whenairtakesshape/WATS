@@ -1,5 +1,5 @@
-@import "../../styling/breakpoints.scss";
-@import "../../styling/App.scss";
+@import "../../css/breakpoints.scss";
+@import "../../css/App.scss";
 
 //variables
 $margin-size: 7px;
@@ -67,7 +67,7 @@ $margin-size: 7px;
   @include media('>1000px') {}
 
   @include media('>1200px') {
-    left: 60%;
+    left: 65%;
   }
 
 }

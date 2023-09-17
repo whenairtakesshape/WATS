@@ -1,4 +1,4 @@
-.pollutant-container {
+.pollutant-and-contributing-factor-section-container {
   display: flex;
   flex-direction: column;
   border-radius: 28px;
@@ -8,7 +8,7 @@
   margin-top: 20px;
 }
 
-.pollutant-section-top {
+.pollutant-and-contributing-factor-section-top {
   display: flex;
   justify-content: space-around;
   padding-top: 10px;
@@ -30,15 +30,6 @@
   }
 }
 
-.pollutant-section-middle {
-  display: flex;
-  justify-content: space-around;
-}
-
-.pollutant-section-bottom {
-  display: flex;
-  justify-content: space-around;
-}
 
 .contributing-factor-middle {
   display: flex;

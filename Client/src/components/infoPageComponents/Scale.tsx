@@ -1,17 +1,17 @@
 //styles and assets
 import "./css/scale.scss";
-import unhealthy_for_sensitive from "../assets/scale_assets/unhealthy_for_sensitive.svg";
-import good from "../assets/scale_assets/good.svg";
-import unhealthy from "../assets/scale_assets/unhealthy.svg";
-import hazardous from "../assets/scale_assets/hazardous.svg";
-import very_unhealthy from "../assets/scale_assets/very_unhealthy.svg";
-import moderate from "../assets/scale_assets/moderate.svg";
+import unhealthy_for_sensitive from "../../assets/scaleAssets/unhealthyForSensitive.svg";
+import good from "../../assets/scaleAssets/good.svg";
+import unhealthy from "../../assets/scaleAssets/unhealthy.svg";
+import hazardous from "../../assets/scaleAssets/hazardous.svg";
+import very_unhealthy from "../../assets/scaleAssets/veryUnhealthy.svg";
+import moderate from "../../assets/scaleAssets/moderate.svg";
 
 //library imports
 import { useContext, useMemo, useState, useEffect } from "react";
-import { SearchInfoContext } from "../contexts/SearchInfoContext";
+import { SearchInfoContext } from "../../contexts/SearchInfoContext";
 import { Popup } from "react-map-gl";
-import { PopUp } from "./PopUp";
+import { PopUp } from "../PopUp";
 
 
 export function Scale() {

@@ -3,14 +3,15 @@ import "./css/introduction.scss";
 
 // libraries import
 import React from "react";
-import select from "../assets/Select icon.png";
-import breathe from "../assets/Breathe icon.png";
+import select from "../assets/selectIcon.png";
+import breathe from "../assets/breatheIcon.png";
 import { useNavigate } from "react-router-dom";
 
-export interface takeActionPropsInterface {}
+export function Introduction() {
 
-export function Introduction(props: takeActionPropsInterface) {
+  // navigation hook used to navigate to other routes
   const navigate = useNavigate();
+  
   return (
     <div className="introduction-container">
       <div className="head-title">
@@ -60,7 +61,7 @@ export function Introduction(props: takeActionPropsInterface) {
             </div>
           </div>
         </div>
-        <button onClick={() => navigate("/map-route")}>
+        <button onClick={() => navigate("/mapRoute")}>
           <p>Begin my journey</p>
         </button>
       </div>

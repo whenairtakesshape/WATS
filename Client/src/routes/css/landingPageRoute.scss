@@ -1,0 +1,36 @@
+@import "../../css/breakpoints.scss";
+@import "../../components/css/swipe.scss";
+
+.landing-route-container {
+  display: flex;
+  // background-color: var(--temp-tertiary-background, #F5FAFF);
+  height: 100vh;
+  width: 100vw;
+
+  background-color: red($color: #000000);
+  background-image: url('../../assets/landingPageBackground.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  align-items: center;
+  justify-content: center;
+
+
+  img {}
+
+  @include media('>1024px') {}
+
+}
+
+.outer-container-on-swipe {
+  width: 100vw;
+
+
+  @include media('>900px') {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: yellow
+  }
+}
