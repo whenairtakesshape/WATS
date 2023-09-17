@@ -28,3 +28,38 @@ $map-height: 700px;
   margin: 12px;
   border-radius: 4px;
 }
+
+.map-route-container-info-window {
+  padding: 8px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    color: #000;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  button {
+    border: none;
+    color: #FFFFFF;
+    display: inline-flex;
+    width: 110px;
+    padding: 10px 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background: var(--atta-color-scheme-temp-primary-color, #1E4359);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-top: 7px;
+  }
+
+  button:focus {
+    outline: none;
+  }
+}

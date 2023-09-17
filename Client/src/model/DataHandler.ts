@@ -3,8 +3,8 @@
  * Represents a data handler where all methods and fields related to data handling of data.json should
  * be created. 
  */
-import { data } from "../data/ATTA";
-import { data_priority } from "../data/ATTA_priority";
+import { data } from "../data/ATTA.js";
+import { data_priority } from "../data/atta_priority_1.js";
 
 interface Station {
   name: string;
@@ -23,8 +23,9 @@ export interface Datapoint {
   station: string,
   city: City,
   country: Country,
-  city_country: string,
-  image_filepath: string,
+  cityCountry: string,
+  imageFilePath: string,
+  incomeGroup: string | null;
 };
 
 
@@ -32,11 +33,11 @@ class DataHandler {
   /**
    * fields
    */
-  private all_data: Array<Datapoint> = [];
-  private city_countries: Array<CityCountry> = [];
+  private readonly allData: Array<Datapoint> = [];
+  private cityCountries: Array<CityCountry> = [];
 
-  private priority_data: Array<Datapoint> = [];
-  private priority_city_countries: Array<CityCountry> = [];
+  private readonly priorityData: Array<Datapoint> = [];
+  private priorityCityCountries: Array<CityCountry> = [];
 
   /**
    * initializes data, countries, cities
@@ -52,11 +53,12 @@ class DataHandler {
         station: datapoint.station_name,
         city: datapoint.city,
         country: datapoint.country,
-        city_country: city_country,
-        image_filepath: datapoint.image_filepath,
+        cityCountry: city_country,
+        imageFilePath: datapoint.image_filepath,
+        incomeGroup: datapoint.income_group
       };
-      this.all_data.push(newDataPoint);
-      this.city_countries.push(city_country);
+      this.allData.push(newDataPoint);
+      this.cityCountries.push(city_country);
     });
 
     //priority data
@@ -70,11 +72,12 @@ class DataHandler {
         station: datapoint.station_name,
         city: datapoint.city,
         country: datapoint.country,
-        city_country: city_country,
-        image_filepath: datapoint.image_filepath,
+        cityCountry: city_country,
+        imageFilePath: datapoint.image_filepath,
+        incomeGroup: datapoint.income_group,
       };
-      this.priority_data.push(newDataPoint);
-      this.priority_city_countries.push(city_country);
+      this.priorityData.push(newDataPoint);
+      this.priorityCityCountries.push(city_country);
     });
   }
 
@@ -99,7 +102,7 @@ class DataHandler {
    * @returns 
    */
   public getData(): Array<Datapoint> {
-    return this.all_data;
+    return this.allData;
   }
 
   /**
@@ -107,7 +110,7 @@ class DataHandler {
    * @returns array of strings, a city name with its country name
    */
   public getCityCountries(): Array<CityCountry> {
-    return this.city_countries;
+    return this.cityCountries;
   }
 
   /**
@@ -116,11 +119,11 @@ class DataHandler {
    * Priority cities is a shortlisted array of cities that the app will display on default
    */
   public getPriorityData(): Array<Datapoint> {
-    return this.priority_data;
+    return this.priorityData;
   }
 
   public getPriorityCityCountries(): Array<CityCountry> {
-    return this.priority_city_countries;
+    return this.priorityCityCountries;
   }
 
   // /**

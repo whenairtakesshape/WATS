@@ -1,5 +1,5 @@
-@import "../../styling/App.scss";
-@import "../../styling/breakpoints.scss";
+@import "../../css/App.scss";
+@import "../../css/breakpoints.scss";
 
 .location-container {
   border-radius: 6px;
@@ -21,7 +21,8 @@
   line-height: 1.5;
 
   &:hover {
-    background-color: var(--temp-secondary-color, rgba(98, 180, 212, 0.6));;
+    background-color: var(--temp-secondary-color, rgba(98, 180, 212, 0.6));
+    ;
   }
 
   @include media('>600px') {

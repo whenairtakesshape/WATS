@@ -1,0 +1,35 @@
+.impact-on-health-card-container {
+  display: flex;
+
+  padding: 30px;
+
+  img {
+    height: 60px
+  }
+}
+
+.impact-on-health-card-right-side {
+  width: 400px;
+  margin-left: 30px;
+}
+
+.impact-on-health-card-right-side-title {
+  color: #000;
+  font-family: Montserrat;
+  font-size: 18x;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 33px;
+  letter-spacing: 0.5px;
+}
+
+.impact-on-health-card-right-side-p {
+  color: #000;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.5px;
+  margin-top: 20px;
+}

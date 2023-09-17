@@ -1,0 +1,21 @@
+.impact-on-health-section-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.impact-on-health-section-not-available-message {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.impact-on-health-section-block {
+  display: flex;
+  justify-content: space-around;
+}

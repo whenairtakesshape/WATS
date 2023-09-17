@@ -1,17 +1,20 @@
 // css styles import
-import "./css/landing.scss";
+import "./css/landingPageRoute.scss";
 
 // libraries import
 import unsplash from "../assets/unsplash.png";
+import landingPageBackground from "../assets/landingPageBackground.png";
 import React from "react";
+
+// components
 import { SwipeCard } from "../components/SwipeCard";
 
-export interface LandingPageInterface {}
 
-export function LandingPage(props: LandingPageInterface) {
+
+export function LandingPage() {
   return (
     <div className="landing-route-container">
-      <img src={unsplash} />
+      {/* <img src={landingPageBackground} /> */}
       <SwipeCard />
     </div>
   );
