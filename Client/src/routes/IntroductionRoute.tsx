@@ -1,6 +1,9 @@
 // css styles import
 import "./css/introduction.scss";
 
+// assets
+import attaLogo from "../assets/attaLogo.png";
+
 // libraries import
 import React from "react";
 import select from "../assets/selectIcon.png";
@@ -11,70 +14,44 @@ export function Introduction() {
 
   // navigation hook used to navigate to other routes
   const navigate = useNavigate();
-  
+
   return (
     <div className="introduction-container">
-      <div className="head-title">
-        <div className="logo">
-          <div className="row1">
-            <div className="A">A</div>
-            <div className="A">T</div>
-          </div>
-          <div className="row2">
-            <div className="A">T</div>
-            <div className="A">A</div>
-          </div>
-        </div>
-        <div className="title-text">When Air Takes Shape</div>
+
+      <div className="introduction-container-header">
+        <img src={attaLogo} />
+        <p>When Air Takes Shape</p>
       </div>
 
-      <div className="how-it-works-section">
-        <h1>How it works</h1>
-        <div className="details">
-          <div className="left">
-            <img src={select} alt="select icon" />
-            <div className="details-title">
-              <h2>
-                <span>01</span>
-                <span className="middle"> Select</span>
-                <span> a city</span>
-              </h2>
-              <p>
-                Our structure will simulate the breathing experience of someone
-                from that region.
-              </p>
+      <div className="introduction-container-body" >
+        <div className="introduction-container-box">
+          <div className="introduction-container-section-01">
+            <p>About</p>
+          </div>
+          <div className="introduction-container-section-02">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+              sed eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim</p>
+          </div>
+          <div className="introduction-container-section-03">
+            <p>How it Works</p>
+          </div>
+          <div className="introduction-container-section-04">
+            <div className="introduction-container-section-04-left">
+              <img src={select} />
+              <p>01 Select a City</p>
+            </div>
+            <div className="introduction-container-section-04-right">
+              <img src={breathe} />
+              <p>02 Breathe with the structure</p>
             </div>
           </div>
-
-          <div className="right">
-            <img src={breathe} alt="breathe icon" />
-            <div className="details-title">
-              <h2>
-                <span>02</span>
-                <span className="middle"> Breathe</span>
-                <span> with the structure</span>
-              </h2>
-              <p>
-                Inhale as it expands, exhale as it contracts, connecting you to
-                their breathing experience.
-              </p>
-            </div>
+          <div className="introduction-container-section-05">
+            <button onClick={() => navigate("/mapRoute")}>Begin my journey</button>
           </div>
-        </div>
-        <button onClick={() => navigate("/mapRoute")}>
-          <p>Begin my journey</p>
-        </button>
+        </div >
       </div>
 
-      <div className="about-section">
-        <h1>About</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-          <br /> do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim
-        </p>
-      </div>
-    </div>
+    </div >
   );
 }
