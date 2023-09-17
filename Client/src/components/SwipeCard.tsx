@@ -22,7 +22,7 @@ export function SwipeCard(props: SwipeCardProps) {
     variableWidth: true,
     onSwipe: () => {
       setTimeout(() => {
-        navigate("/mapRoute");
+        navigate("/intro");
       }, 500);
     },
   };
