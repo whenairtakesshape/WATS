@@ -35,7 +35,7 @@ $margin-size: 7px;
 
   @include media('>500px') {
     // left: 280px;
-    top: 10%;
+    top: 40%;
     left: 60%;
   }
 
@@ -43,32 +43,26 @@ $margin-size: 7px;
     // left: 350px;
     width: 200px;
     height: 300px;
-    left: 60%;
   }
 
   @include media('>700px') {
     // left: 450px;
-    left: 60%
   }
 
   @include media('>800px') {
     // left: 500px;
-    left: 60%;
     width: 250px;
     height: 320px;
   }
 
   @include media('>900px') {
     // left: 600px;
-    left: 60%;
     height: 360px
   }
 
   @include media('>1000px') {}
 
-  @include media('>1200px') {
-    left: 65%;
-  }
+  @include media('>1200px') {}
 
 }
 
