@@ -9,7 +9,7 @@ git pull
 cd "Server" || exit 1
 npm install
 npm install -g ts-node
-//ts-node server.ts &> server.log &
+#ts-node server.ts &> server.log &
 ts-node server.ts  &
 
 cd "../Client" || exit 1
