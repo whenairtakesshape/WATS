@@ -25,6 +25,7 @@ import { BreathSection } from "../components/BreathSection";
 import { ImpactOnHealthAndHealthRecommendationSection } from "../components/infoPageComponents/ImpactOnHealthAndHealthRecommendationSection";
 import { DominantPollutantContext } from "../contexts/DominantPollutantContext";
 import { Debugger } from "../components/Debugger";
+import { WindowContext } from "../contexts/WindowSizeContext";
 
 export function InfoPage() {
   // constants
@@ -39,6 +40,9 @@ export function InfoPage() {
 
   // searchInfo global state that becomes available via the SearchInfoContext
   const { searchInfo, setSearchInfo } = useContext(SearchInfoContext);
+
+  // window size state
+  const { windowObject } = useContext(WindowContext);
 
   // dominant pollutant. 
   // used for render logic in PollutantAndContributingFactorSection.tsx, 
@@ -125,7 +129,14 @@ export function InfoPage() {
          * if modalIsActive is set to true, the opacity of all elements inside info-page-blocks div
          * will be set to 0.5 in order to allow the popup modal to stand out over these elements. 
          */}
-          <div className="info-page-blocks" style={{ opacity: modalIsActive ? 0.5 : 1 }}>
+          <div
+            className="info-page-blocks"
+            style={
+              {
+                opacity: modalIsActive ? 0.5 : 1,
+                height: windowObject.height > windowObject.width ? "100%" : ""
+              }
+            }>
             <div className="info-page-block-01">{searchInfo.datapoint?.cityCountry}</div>
             <div className="info-page-block-02">
               <div className="info-page-block-02-section-01">{renderEmoji()}</div>
@@ -150,14 +161,16 @@ export function InfoPage() {
             <PollutantAndContributingFactorSection />
             {/** ImpactOnHealthAndHealthRecommendationSection component is info-page-block-04 */}
             <ImpactOnHealthAndHealthRecommendationSection />
+
             {/** DidYouKnow component is info-page-block-05 */}
-            <DidYouKnowSection />
+            {/** <DidYouKnowSection />}
+             * 
             {/** BreathSection component is info-page-block-06.
            * setModal state is passed as props to BreatheSection,
            * this component sets isModalActive state to active when prompt by user.
            */}
             <BreathSection modal={modalIsActive} setModal={setModal} />
-            <Debugger />
+            {/**<Debugger >*/}
           </div>
           {/** info-page-modal div only renders when modalIsActive is set to true, 
          * second part of ternary operator executes and renders null */}

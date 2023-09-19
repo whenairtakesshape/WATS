@@ -5,8 +5,8 @@ import "./css/impactOnHealthAndHealthRecommendation.scss";
 import { useState } from 'react';
 
 // components
-import { ImpactOnHealthSection } from "./ImpactOnHealthSection";
-import { HealthRecommendationSection } from "./HealthRecommendationSection";
+import { ImpactOnHealthSection } from "./impactOnHealthComponents/ImpactOnHealthSection";
+import { HealthRecommendationSection } from "./healthRecommendationComponents/HealthRecommendationSection";
 
 
 export const ImpactOnHealthAndHealthRecommendationSection = () => {
@@ -22,10 +22,16 @@ export const ImpactOnHealthAndHealthRecommendationSection = () => {
        */}
       <div className="impact-on-health-and-health-recommendation-section-top">
         <button
-          style={{ borderBottom: impactOnHealthActive ? "2px solid black" : "2px solid transparent" }}
+          style={{
+            borderBottom: impactOnHealthActive ? "2px solid black" : "2px solid transparent",
+            fontWeight: impactOnHealthActive ? "bold" : "normal"
+          }}
           onClick={() => { setImpactOnHealthActive(true); }}>Impact on Your Health</button>
         <button
-          style={{ borderBottom: impactOnHealthActive ? "2px solid transparent" : "2px solid black" }}
+          style={{
+            borderBottom: impactOnHealthActive ? "2px solid transparent" : "2px solid black",
+            fontWeight: impactOnHealthActive ? "normal" : "bold"
+          }}
           onClick={() => { setImpactOnHealthActive(false); }}>Health Recommendations</button>
       </div>
       {/** second section.

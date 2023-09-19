@@ -9,12 +9,12 @@ import { useContext, useEffect, useState, useMemo } from "react";
 import axios from 'axios';
 
 // components
-import { ContributingFactorCard } from "./ContributingFactorCard";
-import { PollutantCard } from "./PollutantCard";
+import { ContributingFactorCard } from "./contributingFactorComponents/ContributingFactorCard";
+import { PollutantCard } from "./pollutantComponents/PollutantCard";
 import { SearchInfoContext } from "../../contexts/SearchInfoContext";
-import { PollutantLogic } from "./PollutantLogic";
-import { PollutantSection } from "./PollutantSection";
-import { ContributingFactorSection } from "./ContributingFactorSection";
+import { PollutantLogic } from "./pollutantComponents/PollutantLogic";
+import { PollutantSection } from "./pollutantComponents/PollutantSection";
+import { ContributingFactorSection } from "./contributingFactorComponents/ContributingFactorSection";
 import { DominantPollutantContext } from "../../contexts/DominantPollutantContext";
 
 export const PollutantAndContributingFactorSection = () => {

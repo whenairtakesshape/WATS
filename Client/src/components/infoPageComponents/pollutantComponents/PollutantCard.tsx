@@ -1,5 +1,5 @@
 import "./css/pollutantCard.scss";
-import info_icon from "../../assets/infoIcon.svg";
+import info_icon from "../../../assets/infoIcon.svg";
 
 interface PollutantCardProps {
   name: string;

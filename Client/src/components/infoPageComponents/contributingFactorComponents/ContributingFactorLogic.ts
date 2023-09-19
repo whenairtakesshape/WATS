@@ -3,12 +3,12 @@
  */
 
 // import assets
-import vehicleEmissions from "../../assets/contributingFactorsAssets/vehicleEmissions.png";
-import industrialProcesses from "../../assets/contributingFactorsAssets/industrialEmissions.png";
-import wildfires from "../../assets/contributingFactorsAssets/wildfires.png";
-import homeHeating from "../../assets/contributingFactorsAssets/residentialFireplace.png";
-import dust from "../../assets/contributingFactorsAssets/dustTwo.png";
-import powerPlant from "../../assets/contributingFactorsAssets/powerPlant.png";
+import vehicleEmissions from "../../../assets/contributingFactorsAssets/vehicleEmissions.png";
+import industrialProcesses from "../../../assets/contributingFactorsAssets/industrialEmissions.png";
+import wildfires from "../../../assets/contributingFactorsAssets/wildfires.png";
+import homeHeating from "../../../assets/contributingFactorsAssets/residentialFireplace.png";
+import dust from "../../../assets/contributingFactorsAssets/dustTwo.png";
+import powerPlant from "../../../assets/contributingFactorsAssets/powerPlant.png";
 
 export interface ContributingFactor {
   name: string;

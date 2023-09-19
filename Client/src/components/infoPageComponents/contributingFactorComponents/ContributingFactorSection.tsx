@@ -7,7 +7,7 @@ import { useState, useContext } from 'react';
 // components
 import { ContributingFactor, ContributingFactorLogic } from "./ContributingFactorLogic";
 import { ContributingFactorCard } from "./ContributingFactorCard";
-import { DominantPollutantContext } from "../../contexts/DominantPollutantContext";
+import { DominantPollutantContext } from "../../../contexts/DominantPollutantContext";
 
 export const ContributingFactorSection = () => {
   // dominant pollutant state

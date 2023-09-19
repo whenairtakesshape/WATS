@@ -6,7 +6,7 @@ import { useContext } from "react";
 
 // components
 import { ImpactOnHealth, ImpactOnHealthLogic } from "./ImpactOnHealthLogic";
-import { DominantPollutantContext } from "../../contexts/DominantPollutantContext";
+import { DominantPollutantContext } from "../../../contexts/DominantPollutantContext";
 import { ImpactOnHealthCard } from "./ImpactOnHealthCard";
 
 

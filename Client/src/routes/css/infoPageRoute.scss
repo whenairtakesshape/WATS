@@ -41,9 +41,10 @@
 .info-page-blocks {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   padding-left: 80px;
   padding-right: 80px;
+
 
   div {
     // border: 1px solid red;
@@ -58,7 +59,6 @@
   font-weight: 600;
   line-height: 30px;
   letter-spacing: 0.5px;
-  margin: 10px 0px;
 }
 
 .info-page-block-02 {
@@ -68,7 +68,6 @@
   border-radius: 28px;
   background: var(--atta-color-scheme-temp-text-background, #F9F9F9);
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.30);
-  margin: 10px 0px;
   padding: 20px 0px;
 
   .info-page-block-02-section-01 {

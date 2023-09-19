@@ -1,12 +1,12 @@
 // asset imports
-import brain from "../../assets/impactOnHealthAssets/brain.png";
-import heart from "../../assets/impactOnHealthAssets/heart.png";
-import lungs from "../../assets/impactOnHealthAssets/lungs.png";
-import pregnancy from "../../assets/impactOnHealthAssets/pregnancy.png";
-import throat from "../../assets/impactOnHealthAssets/throat.png";
+import brain from "../../../assets/impactOnHealthAssets/brain.png";
+import heart from "../../../assets/impactOnHealthAssets/heart.png";
+import lungs from "../../../assets/impactOnHealthAssets/lungs.png";
+import pregnancy from "../../../assets/impactOnHealthAssets/pregnancy.png";
+import throat from "../../../assets/impactOnHealthAssets/throat.png";
 
 /**
- *  ImpactHealthLogic class holds logic arrays of impacts on health
+ *  ImpactHealthLogic class holds logic & arrays of impacts on health
  */
 
 // impacts on health have description and png string
@@ -92,8 +92,7 @@ class ImpactOnHealthLogic {
       description: [
         "Short-term exposure to high levels of particulate matter " +
         "(PM2.5) can cause several lung diseases like acute and " +
-        "chronic bronchitis and asthma attacks.",
-        "Long-term exposure is linked to reduced lung function growth in children."
+        "chronic bronchitis and asthma attacks."
       ],
       png: lungs
     };
@@ -138,9 +137,7 @@ class ImpactOnHealthLogic {
       name: "Lungs",
       description: [
         "Short-term exposure to high levels of O3 can cause wheezing, " +
-        "coughing, and increased risk of asthma attacks and respiratory infections.",
-        "Long-term exposure to high levels of O3 can cause premature death " +
-        "linked to respiratory diseases, especially in vulnerable groups like children and seniors."
+        "coughing, and increased risk of asthma attacks and respiratory infections."
       ],
       png: lungs
     };
@@ -206,9 +203,7 @@ class ImpactOnHealthLogic {
       name: "Lungs",
       description: [
         "Short-term exposure to high levels of NO2 can cause wheezing, " +
-        "coughing, and difficulty breathing, especially for people with asthma. " +
-        "Long-term exposure can lead to the development of asthma, especially in children. " +
-        "It can also shorten the lifespan of individuals with lung cancer."
+        "coughing, and difficulty breathing, especially for people with asthma."
       ],
       png: lungs
     };
