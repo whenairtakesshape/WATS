@@ -1,1 +1,10 @@
-.health-recommendation-section-container {}
+.health-recommendation-section-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.health-recommendation-section-block {
+  display: flex;
+  justify-content: space-around;
+}

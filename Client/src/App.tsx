@@ -19,6 +19,7 @@ import { WindowSize } from "./model/interfaces";
 import { WindowContext } from "./contexts/WindowSizeContext";
 import { Data, DataContext } from "./contexts/DataContext";
 import { BreatheRoute } from "./routes/BreatheRoute";
+import { Admin } from "./components/Admin";
 
 /* 
 Project Structure...

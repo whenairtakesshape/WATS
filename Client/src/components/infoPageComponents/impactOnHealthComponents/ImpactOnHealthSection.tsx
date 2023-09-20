@@ -42,7 +42,7 @@ export const ImpactOnHealthSection = () => {
         </div>);
     }
     // checks if healthImpacts is empty
-    if (!healthImpacts.length) {
+    if (healthImpacts.length == 0) {
       return (
         <div className="impact-on-health-section-not-available-message">
           {notAvailableMessage}

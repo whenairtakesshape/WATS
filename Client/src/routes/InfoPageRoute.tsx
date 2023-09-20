@@ -26,6 +26,7 @@ import { ImpactOnHealthAndHealthRecommendationSection } from "../components/info
 import { DominantPollutantContext } from "../contexts/DominantPollutantContext";
 import { Debugger } from "../components/Debugger";
 import { WindowContext } from "../contexts/WindowSizeContext";
+import { Admin } from "../components/Admin";
 
 export function InfoPage() {
   // constants

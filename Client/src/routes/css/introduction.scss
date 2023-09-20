@@ -32,71 +32,149 @@
 
 }
 
-.introduction-container-body {
-  height: 100vh;
-}
+.introduction-container-body {}
 
 .introduction-container-box {
-  margin: 30px 120px;
   background: #f9f9f9;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
   border-radius: 28px;
   flex-direction: column;
+  padding: 30px 40px;
+  margin: 60px 60px 0px;
 }
 
 .introduction-container-section-01 {
-  border: 1px solid red;
+
+  p {
+    color: #000;
+    font-family: Montserrat;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 52px;
+    letter-spacing: 0.5px;
+  }
 }
 
 .introduction-container-section-02 {
-  border: 1px solid red;
+
+  p {
+    color: #000;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0.5px;
+  }
 }
 
 .introduction-container-section-03 {
-  border: 1px solid green;
+  margin-top: 15px;
+
+  p {
+    color: #000;
+    font-family: Montserrat;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 52px;
+    letter-spacing: 0.5px;
+  }
 }
 
 .introduction-container-section-04 {
-  border: 1px solid green;
   display: flex;
-  justify-content: space-around;
+  margin-top: 20px;
+  justify-content: space-evenly;
+  align-items: center;
 
+  img {
+    height: 70px;
+  }
 
   .introduction-container-section-04-right {
-    border: 1px solid red;
     display: flex;
-    align-items: center;
+    height: 180px;
 
-    p {
-      color: #000;
-      font-family: Montserrat;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 41px;
-      letter-spacing: 0.5px;
+
+    .introduction-container-section-04-right-text-container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 20px;
+
+      p {
+        font-family: Montserrat;
+        font-size: 15px;
+        font-style: normal;
+        line-height: 28px;
+        letter-spacing: 0.5px;
+      }
+
+      .introduction-container-section-04-right-text-container-title {
+        color: #000;
+        font-family: Montserrat;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 41px;
+        letter-spacing: 0.5px;
+      }
+
     }
+
   }
 
   .introduction-container-section-04-left {
-    border: 1px solid red;
     display: flex;
-    align-items: center;
+    height: 180px;
 
-    p {
-      color: #000;
-      font-family: Montserrat;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 41px;
-      letter-spacing: 0.5px;
+
+    .introduction-container-section-04-left-text-container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 20px;
+
+      p {
+        font-family: Montserrat;
+        font-size: 15px;
+        font-style: normal;
+        line-height: 28px;
+        letter-spacing: 0.5px;
+      }
+
+      .introduction-container-section-04-left-text-container-title {
+        color: #000;
+        font-family: Montserrat;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 41px;
+        letter-spacing: 0.5px;
+      }
     }
+
   }
 }
 
 .introduction-container-section-05 {
-  border: 1px solid green;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+
+  button {
+    border-radius: 16px;
+    background: var(--TempPrimaryColor, #1E4359);
+    color: white;
+    padding: 18px 26px;
+    border: none;
+    outline: none;
+    color: var(--material-theme-white, #FFF);
+
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+  }
 }

@@ -11,16 +11,16 @@ import moderate from "../../assets/scaleAssets/moderate.svg";
 import { useContext, useMemo, useState, useEffect } from "react";
 import { SearchInfoContext } from "../../contexts/SearchInfoContext";
 import { Popup } from "react-map-gl";
-import { PopUp } from "../PopUp";
+import { ScalePopUp } from "./ScalePopUp";
 
 
 export function Scale() {
   /** constants */
-  const goodRange = useMemo(() => 50, []);
-  const moderateRange = useMemo(() => 101, []);
-  const unhealthyForSensitiveGroupsRange = useMemo(() => 151, []);
-  const unhealthyRange = useMemo(() => 201, []);
-  const veryUnhealtyRange = useMemo(() => 300, []);
+  const goodRange = 51;
+  const moderateRange = 101;
+  const unhealthyForSensitiveGroupsRange = 151;
+  const unhealthyRange = 201;
+  const veryUnhealtyRange = 301;
 
   /** STATES */
   const { searchInfo, setSearchInfo } = useContext(SearchInfoContext);
@@ -34,15 +34,15 @@ export function Scale() {
    */
   const renderScale = (): (JSX.Element | undefined) => {
     if (searchInfo.datapoint) {
-      if (searchInfo.datapoint.aqi <= goodRange) {
+      if (searchInfo.datapoint.aqi < goodRange) {
         return <img src={good} />;
-      } else if (searchInfo.datapoint.aqi > goodRange && searchInfo.datapoint.aqi < moderateRange) {
+      } else if (searchInfo.datapoint.aqi < moderateRange) {
         return <img src={moderate} />;
-      } else if (searchInfo.datapoint.aqi >= moderateRange && searchInfo.datapoint.aqi < unhealthyForSensitiveGroupsRange) {
+      } else if (searchInfo.datapoint.aqi < unhealthyForSensitiveGroupsRange) {
         return <img src={unhealthy_for_sensitive} />;
-      } else if (searchInfo.datapoint.aqi >= unhealthyForSensitiveGroupsRange && searchInfo.datapoint.aqi < unhealthyRange) {
+      } else if (searchInfo.datapoint.aqi < unhealthyRange) {
         return <img src={unhealthy} />;
-      } else if (searchInfo.datapoint.aqi >= unhealthyRange && searchInfo.datapoint.aqi < veryUnhealtyRange) {
+      } else if (searchInfo.datapoint.aqi < veryUnhealtyRange) {
         return <img src={very_unhealthy} />;
       } else {
         return <img src={hazardous} />;
@@ -55,19 +55,19 @@ export function Scale() {
    */
   const chooseStatusColor = () => {
     if (searchInfo.datapoint) {
-      if (searchInfo.datapoint.aqi <= goodRange) {
+      if (searchInfo.datapoint.aqi < goodRange) {
         setStatus("Good");
         setColor("#A8E05F");
-      } else if (searchInfo.datapoint.aqi > goodRange && searchInfo.datapoint.aqi < moderateRange) {
+      } else if (searchInfo.datapoint.aqi < moderateRange) {
         setStatus("Moderate");
         setColor("#FDD64B");
-      } else if (searchInfo.datapoint.aqi >= moderateRange && searchInfo.datapoint.aqi < unhealthyForSensitiveGroupsRange) {
+      } else if (searchInfo.datapoint.aqi < unhealthyForSensitiveGroupsRange) {
         setStatus("Unhealthy For Sensitive Groups");
         setColor("#FE9B57");
-      } else if (searchInfo.datapoint.aqi >= unhealthyForSensitiveGroupsRange && searchInfo.datapoint.aqi < unhealthyRange) {
+      } else if (searchInfo.datapoint.aqi < unhealthyRange) {
         setColor("#F55E5F");
         setStatus("Unhealthy");
-      } else if (searchInfo.datapoint.aqi >= unhealthyRange && searchInfo.datapoint.aqi < veryUnhealtyRange) {
+      } else if (searchInfo.datapoint.aqi < veryUnhealtyRange) {
         setColor("#A070B6");
         setStatus("Very Unhealthy");
       } else {
@@ -86,7 +86,7 @@ export function Scale() {
 
   return (
     <div className="scale-outer-container">
-      <PopUp status={status} color={color} />
+      <ScalePopUp status={status} color={color} />
       {renderScale()}
       <div className="scale-numbers">
         <p>0</p>
