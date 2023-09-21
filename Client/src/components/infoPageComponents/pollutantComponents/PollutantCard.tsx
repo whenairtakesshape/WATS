@@ -1,5 +1,13 @@
+// css styles
 import "./css/pollutantCard.scss";
+
+// assets
 import info_icon from "../../../assets/infoIcon.svg";
+
+// libraries
+import { useState } from "react";
+import { PollutantCardPopUpData } from "./PollutantCardPopUpData";
+
 
 interface PollutantCardProps {
   name: string;
@@ -8,7 +16,68 @@ interface PollutantCardProps {
   indicator: string | null;
 }
 
+
 export const PollutantCard = (props: PollutantCardProps) => {
+
+  // state used to render modal conditionally
+  const [openModal, setOpenModal] = useState(false);
+
+  // pollutant data for modal class
+  const pollutantData: PollutantCardPopUpData = new PollutantCardPopUpData();
+
+  function getTextForCard(pollutant: string): Array<string> {
+    switch (pollutant) {
+      case "PM2.5":
+        return pollutantData.getpm25();
+      case "PM10":
+        return pollutantData.getpm10();
+      case "O3":
+        return pollutantData.geto3();
+      case "CO":
+        return pollutantData.getcO();
+      case "NO2":
+        return pollutantData.getno2();
+      default:
+        return pollutantData.getso2();
+    }
+  };
+
+  const renderModal = (pollutant: string, category: string | null, indicator: string | null) => {
+    const data = getTextForCard(pollutant);
+    return (
+      <div className="pollutant-card-container-modal">
+        <div className="pollutant-card-container-modal-x">
+          <button onClick={() => setOpenModal(false)}>x</button>
+        </div>
+        <div className="pollutant-card-container-modal-header">
+          <div className="pollutant-card-container-modal-header-left">
+            <p className="pollutant-card-container-modal-header-pollutant-name">{pollutant}</p>
+            <p className="pollutant-card-container-modal-header-pollutant-units">(ug/m3)</p>
+          </div>
+          {category ?
+            <div
+              className="pollutant-card-container-modal-header-right"
+              style={{ background: indicator ? indicator : "#F9F9F" }}>
+              {category == "Unhealthy For Sensitive Groups" ? "Unhealthy Sensitive" : category}
+            </div>
+            :
+            <div className="pollutant-card-container-modal-header-na"></div>}
+        </div>
+        <div className="pollutant-card-container-modal-upper-text">
+          <p><b>What is {pollutant}?</b></p>
+          {/* <p>{data[0]}</p> */}
+        </div>
+        <div className="pollutant-card-container-modal-middle-text">
+          <p><b>Where does it come from?</b></p>
+          {/* <p>{data[1]}</p> */}
+        </div>
+        <div className="pollutant-card-container-modal-lower-text">
+          <p><b>What are the health impacts?</b></p>
+          {/* <p>{data[2]}</p> */}
+        </div>
+      </div>
+    );
+  };
   return (
     <div className="pollutant-card-container">
       {/** top section of pollutant card */}
@@ -17,7 +86,10 @@ export const PollutantCard = (props: PollutantCardProps) => {
           <p className="pollutant-card-name">{props.name}</p>
           <p className="pollutant-card-unit">(ug/m3)</p>
         </div>
-        <img src={info_icon} />
+        <img
+          src={info_icon}
+          onClick={() => { openModal ? setOpenModal(false) : setOpenModal(true); }}
+        />
       </div>
 
       {/** Middle section of pollutant card.
@@ -42,7 +114,9 @@ export const PollutantCard = (props: PollutantCardProps) => {
         className="pollutant-card-bottom" style={{
           opacity: props.indicator ? 1 : 0,
           background: props.indicator ? props.indicator : "transparent"
-        }}></div>
+        }}>
+      </div>
+      {openModal && renderModal(props.name, props.category, props.indicator)}
     </div>
   );
 };
