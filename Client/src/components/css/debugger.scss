@@ -55,7 +55,7 @@
         width: 150px;
         border-radius: 10px;
         background: var(--TempPrimaryColor, #1E4359);
-        border: none;
+        border: 2px solid var(--TempPrimaryColor, #1E4359);
         color: #FFF;
         font-family: Montserrat;
         font-size: 12px;
@@ -64,5 +64,11 @@
         line-height: 33px;
         padding: 2px;
         margin: 5px 15px;
+    }
+
+    button:active {
+        border: 2px solid var(--TempPrimaryColor, #1E4359);
+        color: var(--TempPrimaryColor, #1E4359);
+        background-color: #FFF;
     }
 }

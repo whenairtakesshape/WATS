@@ -5,7 +5,7 @@ import "./css/debugger.scss";
 import logout from "../assets/logout.svg";
 
 // libraries import 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
 import axios from "axios";
 
@@ -15,18 +15,28 @@ export function Debugger() {
   // adminAuthWindow global state
   const { adminAuthWindow, setAdminAuthWindow } = useContext(AuthenticationContext);
 
+  const [serverResponse, setServerResponse] = useState("");
+  const [request, setRequest] = useState("");
+
   async function sendCommand(command: string) {
+    setRequest(command);
+    setServerResponse("Contacting server...");
     try {
       const res = await axios.post(`http://localhost:3001/command?command=` + command);
+      setTimeout(() => {
+        setServerResponse(res.statusText);
+      }, 1000);
       console.log(res);
-      alert(res.statusText);
+      //alert(res.statusText);
     }
     catch (error: any) {
-      alert(error.message);
+      setTimeout(() => {
+        setServerResponse(error.message);
+      }, 1000);
+      //alert(error.message);
       console.error(error);
     }
   }
-
 
   // function sendCommand(command: string) {
   //     fetch('http://localhost:3001/command?command=' + command, {
@@ -72,6 +82,14 @@ export function Debugger() {
           <button onClick={() => sendCommand("w")}>CCW Rotation</button>
           <button onClick={() => sendCommand("s")}>Stop</button>
         </div>
+      </div>
+      <div
+        className="debugger-container-server-response"
+        style={{ color: serverResponse == "Network Error" ? "red" : "black" }}>
+        Server Response: {serverResponse}
+      </div>
+      <div className="debugger-container-server-response">
+        Command Sent: <b>{request}</b>
       </div>
     </div>
   );
