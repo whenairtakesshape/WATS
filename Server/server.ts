@@ -83,13 +83,10 @@ app.post("/aqi", (req: any, res: any) => {
 app.post("/admin", (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (username == "Admin" && password == process.env.ADMIN_PASSWORD) {
-        console.log("eros");
         res.send(true);
         res.end();
     } else {
         res.send(false);
-        console.log("sasha");
-
         res.end();
     }
 });
