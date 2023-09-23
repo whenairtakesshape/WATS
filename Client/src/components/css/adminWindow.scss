@@ -1,0 +1,108 @@
+.admin-window-container {
+  display: flex;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  justify-content: center;
+
+  width: 600px;
+  height: 400px;
+  z-index: 10;
+  border-radius: 28px;
+  background: var(--temp-text-background, #F9F9F9);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.30);
+}
+
+.admin-window-container-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  input {
+    width: 500px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 6px;
+    background: var(--atta-color-scheme-temp-secondary-color, rgba(154, 199, 217, 0.60));
+    outline: none;
+    border: none;
+    color: #000;
+
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 33px;
+    letter-spacing: 0.5px;
+  }
+
+
+  .admin-window-container-login-username {
+    display: flex;
+    flex-direction: column;
+
+    p {
+      text-align: start;
+      color: #000;
+      font-family: Montserrat;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 33px;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .admin-window-container-login-password {
+    display: flex;
+    flex-direction: column;
+
+    p {
+      text-align: start;
+      color: #000;
+      font-family: Montserrat;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 33px;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  button {
+    border-radius: 12px;
+    background: var(--TempPrimaryColor, #1E4359);
+    border: none;
+    color: white;
+    padding: 14px 70px
+  }
+}
+
+.admin-window-container-login-header {
+  p {
+    color: #000;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 52px;
+    letter-spacing: 0.5px;
+  }
+}
+
+.admin-window-container-login-x {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 4px 6px;
+  background-color: lightgrey;
+  position: absolute;
+  left: 93%;
+  top: 3%
+}

@@ -70,10 +70,12 @@ export const ImpactOnHealthSection = () => {
     }
 
     // render each row of ImpactOnHealth objects in rows
-    return (rows.map((row) => {
+    return (rows.map((row: Array<number>, idx: number) => {
       if (row.length == 2) {
         return (
-          <div className="impact-on-health-section-block">
+          <div
+            className="impact-on-health-section-block"
+            key={idx}>
             <ImpactOnHealthCard
               name={healthImpacts[row[0]].name}
               description={healthImpacts[row[0]].description}
@@ -88,7 +90,9 @@ export const ImpactOnHealthSection = () => {
         );
       } else {
         return (
-          <div className="impact-on-health-section-block">
+          <div
+            className="impact-on-health-section-block"
+            key={idx}>
             <ImpactOnHealthCard
               name={healthImpacts[row[0]].name}
               description={healthImpacts[row[0]].description}

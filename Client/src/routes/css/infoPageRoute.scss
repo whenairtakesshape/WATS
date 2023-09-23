@@ -12,28 +12,61 @@
 .info-page-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+}
+
+.info-page-header-back-button {
+  padding: 0px 5px;
+
+  #back-arrow {
+    height: 35px;
+  }
+}
+
+
+
+.info-page-logo {
+  display: flex;
+  align-items: center;
 
   p {
     color: #000;
     font-family: Montserrat;
     font-size: 20px;
-    font-style: bold;
+    font-style: normal;
     font-weight: 600;
-    line-height: 64px;
-    letter-spacing: 0.5px;
-    // border: 1px solid red;
-    width: 100vw;
+    line-height: 52px;
+    letter-spacing: 2px;
+    padding: 0px 5px;
+  }
+
+  img {
+    padding: 0px 5px;
+    height: 60px;
   }
 }
 
-.info-page-logo {
+.info-page-header-admin {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px 5px;
+  padding: 0px 10px;
+  margin-right: 15px;
+
+  p {
+    color: var(--atta-color-scheme-temp-primary-color, #1E4359);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+  }
 
   img {
-    height: 60px;
+    height: 40px;
   }
 }
 

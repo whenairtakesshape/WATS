@@ -1,0 +1,68 @@
+.debugger-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.debugger-container-header {
+    display: flex;
+    justify-content: center;
+
+    p {
+        color: #000;
+        text-align: center;
+        font-family: Montserrat;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 52px;
+        letter-spacing: 0.5px;
+        width: 100%;
+    }
+
+    .debugger-container-header-logout {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+
+        img {
+            height: 20px;
+        }
+
+        p {
+            color: var(--atta-color-scheme-temp-primary-color, #1E4359);
+            font-family: Montserrat;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 10px;
+        }
+    }
+}
+
+.debugger-container-sections {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.debugger-container-section {
+    display: flex;
+
+    button {
+        width: 150px;
+        border-radius: 10px;
+        background: var(--TempPrimaryColor, #1E4359);
+        border: none;
+        color: #FFF;
+        font-family: Montserrat;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 33px;
+        padding: 2px;
+        margin: 5px 15px;
+    }
+}

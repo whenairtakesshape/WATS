@@ -3,7 +3,6 @@
   background: var(--temp-text-background, #F9F9F9);
   padding: 20px 20px;
   margin: 15px;
-  position: relative;
 }
 
 .pollutant-card-top {
@@ -89,8 +88,8 @@
 // styles for modal
 .pollutant-card-container-modal {
   border-radius: 16px;
-  width: 250px;
-  height: 400px;
+  width: 400px;
+  height: 500px;
   position: absolute;
   background: var(--atta-color-scheme-temp-text-background, #F9F9F9);
   border: 2px solid black;
@@ -98,7 +97,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
-  padding: 10px
+  padding: 10px 20px
 }
 
 .pollutant-card-container-modal-x {
@@ -152,23 +151,16 @@
   font-style: normal;
   font-weight: 600;
   line-height: 20px;
-  padding: 10px 20px;
+  padding: 12px 40px;
   text-align: center;
 }
 
-.pollutant-card-container-modal-upper-text {
+.pollutant-card-container-modal-text {
   margin-top: 10px;
-  border: 1px solid red;
-}
-
-.pollutant-card-container-modal-middle-text {
-  margin-top: 10px;
-  border: 1px solid red;
-
-}
-
-.pollutant-card-container-modal-lower-text {
-  margin-top: 10px;
-  border: 1px solid red;
-
+  color: #000;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
 }

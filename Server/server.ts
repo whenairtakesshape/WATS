@@ -1,8 +1,11 @@
 import Device from "./device";
+import { Request, Response } from "express";
+import 'dotenv/config';
 const express = require("express");
 const app = express();
 const port = 3001;
 
+app.use(express.json());
 app.listen(port, () => {
     console.log(`WATS listening at http://localhost:${port}`);
 }
@@ -34,7 +37,7 @@ device.on("disconnected", () => {
 }
 );
 
-app.use((req:any, res: any, next:any) => {
+app.use((req: any, res: any, next: any) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
     // Set custom headers for CORS
@@ -44,7 +47,7 @@ app.use((req:any, res: any, next:any) => {
         return res.status(200).end();
     }
     next();
-  });
+});
 
 app.post("/command", (req: any, res: any) => {
     const command = req.query.command;
@@ -73,4 +76,22 @@ app.post("/aqi", (req: any, res: any) => {
     res.end();
 });
 
-export {};
+
+/**
+ * route used to authenticate admin for client user
+ */
+app.post("/admin", (req: Request, res: Response) => {
+    const { username, password } = req.body;
+    if (username == "Admin" && password == process.env.ADMIN_PASSWORD) {
+        console.log("eros");
+        res.send(true);
+        res.end();
+    } else {
+        res.send(false);
+        console.log("sasha");
+
+        res.end();
+    }
+});
+
+export { };

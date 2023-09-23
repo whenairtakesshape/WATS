@@ -28,6 +28,7 @@ export const BreatheRoute = () => {
   useEffect(() => {
     if (searchInfo.datapoint == null) {
       alert("no location selected");
+      makeApiRequest();
       navigate("/mapRoute");
     }
   }, []);

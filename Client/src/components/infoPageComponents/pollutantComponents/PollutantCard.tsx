@@ -22,9 +22,14 @@ export const PollutantCard = (props: PollutantCardProps) => {
   // state used to render modal conditionally
   const [openModal, setOpenModal] = useState(false);
 
-  // pollutant data for modal class
+  // pollutant data class container.
   const pollutantData: PollutantCardPopUpData = new PollutantCardPopUpData();
 
+  /**
+   * returns an array of facts related to the given pollutant
+   * @param pollutant name
+   * @returns array of strings. each string is a fact about the given pollutant
+   */
   function getTextForCard(pollutant: string): Array<string> {
     switch (pollutant) {
       case "PM2.5":
@@ -42,13 +47,23 @@ export const PollutantCard = (props: PollutantCardProps) => {
     }
   };
 
+  /**
+   * 
+   * @param pollutant name
+   * @param category of pollutant [good, moderate, unhealthy for sensitive groups, unhealthy,
+   *                               veru unhealthy, hazardous]
+   * @param indicator a hex color in string format
+   * @returns pollutant-card-container-modal html element
+   */
   const renderModal = (pollutant: string, category: string | null, indicator: string | null) => {
     const data = getTextForCard(pollutant);
     return (
       <div className="pollutant-card-container-modal">
+        {/** */}
         <div className="pollutant-card-container-modal-x">
           <button onClick={() => setOpenModal(false)}>x</button>
         </div>
+        {/** */}
         <div className="pollutant-card-container-modal-header">
           <div className="pollutant-card-container-modal-header-left">
             <p className="pollutant-card-container-modal-header-pollutant-name">{pollutant}</p>
@@ -61,20 +76,22 @@ export const PollutantCard = (props: PollutantCardProps) => {
               {category == "Unhealthy For Sensitive Groups" ? "Unhealthy Sensitive" : category}
             </div>
             :
-            <div className="pollutant-card-container-modal-header-na"></div>}
+            null}
         </div>
-        <div className="pollutant-card-container-modal-upper-text">
+        {/** rendering of data */}
+        <div className="pollutant-card-container-modal-text">
           <p><b>What is {pollutant}?</b></p>
-          {/* <p>{data[0]}</p> */}
+          <p>{data[0]}</p>
         </div>
-        <div className="pollutant-card-container-modal-middle-text">
+        <div className="pollutant-card-container-modal-text">
           <p><b>Where does it come from?</b></p>
-          {/* <p>{data[1]}</p> */}
+          <p>{data[1]}</p>
         </div>
-        <div className="pollutant-card-container-modal-lower-text">
+        <div className="pollutant-card-container-modal-text">
           <p><b>What are the health impacts?</b></p>
-          {/* <p>{data[2]}</p> */}
+          <p>{data[2]}</p>
         </div>
+        {/** */}
       </div>
     );
   };
@@ -116,6 +133,7 @@ export const PollutantCard = (props: PollutantCardProps) => {
           background: props.indicator ? props.indicator : "transparent"
         }}>
       </div>
+      {/** conditional rendering of modal */}
       {openModal && renderModal(props.name, props.category, props.indicator)}
     </div>
   );

@@ -1,5 +1,4 @@
-// holds data related to a specific pollutant.
-// data is used for pop up modal in PollutantCard
+// holds data (facts) related to a specific pollutant.
 class PollutantCardPopUpData {
   private pm25: Array<string> = [
     "Particulate matter refers to tiny particles or droplets in the air that " +
@@ -51,7 +50,7 @@ class PollutantCardPopUpData {
   ];
 
   constructor() { }
-  
+
   getpm25() {
     return this.pm25;
   }
