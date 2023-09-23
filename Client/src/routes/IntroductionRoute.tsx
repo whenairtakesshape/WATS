@@ -32,8 +32,10 @@ export function Introduction() {
             Air plays a vital role in our health from birth,
             and this structure visually adapts to real-time, location-specific data,
             representing the diverse impact of air quality on us all.
-            <p></p>
-            <br />Ready to embark on a thought-provoking journey?
+          </p>
+          <br />
+          <p>
+            Ready to embark on a thought-provoking journey?
           </p>
         </div>
         <div className="introduction-container-section-03">
