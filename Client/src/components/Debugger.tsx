@@ -7,12 +7,38 @@ import logout from "../assets/logout.svg";
 // libraries import 
 import { useContext } from 'react';
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
+import axios from "axios";
 
 export function Debugger() {
   // authenticated global state
   const { authenticated, setAuthenticated } = useContext(AuthenticationContext);
   // adminAuthWindow global state
   const { adminAuthWindow, setAdminAuthWindow } = useContext(AuthenticationContext);
+
+  async function sendCommand(command: string) {
+    try {
+      const res = await axios.post(`http://localhost:3001/command?command=` + command);
+      console.log(res);
+      alert(res.statusText);
+    }
+    catch (error: any) {
+      alert(error.message);
+      console.error(error);
+    }
+  }
+
+
+  // function sendCommand(command: string) {
+  //     fetch('http://localhost:3001/command?command=' + command, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json',
+
+  //       },
+  //     })
+  //       .then(res => res.json());
+  //   }
 
   return (
     <div className="debugger-container">
@@ -51,15 +77,4 @@ export function Debugger() {
   );
 }
 
-function sendCommand(command: string) {
-  fetch('http://localhost:3001/command?command=' + command, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-
-    },
-  })
-    .then(res => res.json());
-}
 
