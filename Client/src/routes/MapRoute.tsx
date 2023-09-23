@@ -1,6 +1,9 @@
 // styles
 import "./css/map.scss";
 
+// assets
+import backArrow from "../assets/backArrow.svg";
+
 // libraries
 import { useRef, useContext, useEffect } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
@@ -121,6 +124,12 @@ function Map() {
 
   return (
     <div className='map-route-container'>
+      <div
+        className='map-route-container-back-button'
+        onClick={() => navigate("/intro")}
+      >
+        <img src={backArrow} />
+      </div>
       {/* <p>{windowObject.width}</p> */}
       {/**MapFilter is the overlay component that hoves over the google map */}
       <MapFilter />

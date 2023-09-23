@@ -13,6 +13,7 @@ import axios from "axios";
 
 // components
 import { SearchInfoContext } from "../contexts/SearchInfoContext";
+import CountDown from "../components/CountDown";
 
 export const BreatheRoute = () => {
   // navigation hook used to navigae to other routes.
@@ -29,7 +30,7 @@ export const BreatheRoute = () => {
     if (searchInfo.datapoint == null) {
       alert("no location selected");
       makeApiRequest();
-      navigate("/mapRoute");
+      navigate("/intro");
     }
   }, []);
 
@@ -43,7 +44,7 @@ export const BreatheRoute = () => {
       console.log(res);
       //alert(`request succesful: ` + res.status);
       // app navigates to mapRoute after request to halt the physical installation executes correctly.
-      navigate("/mapRoute");
+      navigate("/intro");
     }
     catch (error: any) {
       alert(error.message);
@@ -53,7 +54,10 @@ export const BreatheRoute = () => {
 
   return (
     <div className="breathe-route-container">
-      <p className="breathe-route-title">Breathe with the sculpture</p>
+      <div className="breathe-route-container-header">
+        <p className="breathe-route-title">Breathe with the sculpture</p>
+        <CountDown seconds={60} />
+      </div>
       <p className="breathe-route-subtitle">Inhale as it expands, exhale as it contracts...</p>
       <img className="breathe-gif" src={breathe_gif} />
       <div className="breathe-route-bottom">
