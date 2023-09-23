@@ -4,7 +4,9 @@ import 'dotenv/config';
 const express = require("express");
 const app = express();
 const port = 3001;
+const cors = require("cors")
 
+app.use(cors());
 app.use(express.json());
 app.listen(port, () => {
     console.log(`WATS listening at http://localhost:${port}`);

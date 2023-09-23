@@ -74,6 +74,7 @@ export const AdminWindow = () => {
         }, 1000);
       }
     } catch (error: any) {
+      console.log(error)
       // if contacting server produces error, display error message in passwordLabelState
       if (passwordInputElement && passwordInputElement.current) {
         passwordLabel.current.style.color = "red";
