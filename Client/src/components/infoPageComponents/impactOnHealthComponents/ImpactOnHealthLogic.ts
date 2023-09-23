@@ -84,21 +84,20 @@ class ImpactOnHealthLogic {
   private pm25ImpactsInit() {
     this.heartPM25 = {
       name: "Heart",
-      description: ["Linked to irregular heartbeats and non-fatal heart-attacks"],
+      description: ["Exposure to PM2.5 is linked to irregular heartbeats and non-fatal heart-attacks. "],
       png: heart
     };
     this.lungsPM25 = {
       name: "Lungs",
       description: [
-        "Short-term exposure to high levels of particulate matter " +
-        "(PM2.5) can cause several lung diseases like acute and " +
-        "chronic bronchitis and asthma attacks."
+        "Brief exposure to particulate matter (PM2.5) causes acute " +
+        "and chronic bronchitis and asthma attacks while prolonged exposure hinders children’s lung growth."
       ],
       png: lungs
     };
     this.throatPM25 = {
       name: "Throat, skin, eyes",
-      description: ["Exposure to particulate matter can cause irritation in the throat, skin and eyes."],
+      description: ["Exposure to particulate matter (PM2.5) can cause irritation in the throat, skin and eyes."],
       png: throat
     };
   }
@@ -110,21 +109,19 @@ class ImpactOnHealthLogic {
   private pm10ImpactsInit() {
     this.heartPM10 = {
       name: "Heart",
-      description: ["Linked to irregular heartbeats and non-fatal heart-attacks."],
+      description: ["Exposure to particulate matter (PM10) is linked to irregular heartbeats and non-fatal heart-attacks."],
       png: heart
     };
     this.lungsPM10 = {
       name: "Lungs",
       description: [
-        "Short-term exposure to particulate matter (PM10) " +
-        "can lead to respiratory diseases, including asthma " +
-        "and chronic obstructive pulmonary disease."
+        "Brief exposure to particulate matter (PM10) causes asthma and chronic obstructive pulmonary disease."
       ],
       png: lungs
     };
     this.throatPM10 = {
       name: "Throat, skin, eyes",
-      description: ["Exposure to particulate matter can cause irritation in the throat, skin and eyes."],
+      description: ["Exposure to particulate matter (PM10) can cause irritation in the throat, skin and eyes."],
       png: throat
     };
   }
@@ -136,16 +133,16 @@ class ImpactOnHealthLogic {
     this.lungsO3 = {
       name: "Lungs",
       description: [
-        "Short-term exposure to high levels of O3 can cause wheezing, " +
-        "coughing, and increased risk of asthma attacks and respiratory infections."
+        "Brief exposure to high levels of O3 causes wheezing, coughing, " +
+        "asthma risk while prolonged exposure causes premature death, " +
+        "especially in vulnerable groups like children and seniors."
       ],
       png: lungs
     };
     this.pregnancyO3 = {
       name: "Pregnancy",
       description: [
-        "Long-term exposure to high levels of O3 is linked to lower birth " +
-        "weight and decreased lung function in newborns."
+        "Prolonged exposure to O3 is linked to lower birth weight and decreased lung function in newborns."
       ],
       png: pregnancy
     };
@@ -178,8 +175,7 @@ class ImpactOnHealthLogic {
     this.lungsNO2 = {
       name: "Lungs",
       description: [
-        "Short-term exposures to SO2 can make breathing difficult and affect " +
-        "the respiratory system, especially in children and people with asthma."
+        "Brief exposure to SO2 causes breathing difficult, especially in children and people with asthma."
       ],
       png: lungs
     };
@@ -202,8 +198,8 @@ class ImpactOnHealthLogic {
     this.lungsNO2 = {
       name: "Lungs",
       description: [
-        "Short-term exposure to high levels of NO2 can cause wheezing, " +
-        "coughing, and difficulty breathing, especially for people with asthma."
+        "Brieg exposure to NO2 causes difficulty breathing for people with asthma. " +
+        "Prolonged exposure induces asthma, especially in children and reduces lifespan of lung cancer patients."
       ],
       png: lungs
     };
