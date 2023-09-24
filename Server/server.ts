@@ -73,7 +73,7 @@ app.post("/aqi", (req: any, res: any) => {
     } else if (aqi < 301) {
         device.emit("4");
     } else {
-        device.emit("4");
+        device.emit("5");
     }
     res.end();
 });

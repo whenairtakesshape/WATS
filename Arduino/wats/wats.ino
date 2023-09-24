@@ -51,8 +51,9 @@ const int MinExpansionLength = -100;
 int motion[][MOTIONLENGTH]{
   {  MinExpansionLength*10, maxSpeed/1.8,  MaxExpansionLength,     maxSpeed/1.8 },
   {  MinExpansionLength*6, maxSpeed/1.6,  MaxExpansionLength*0.8, maxSpeed/1.6 },
-  {  MinExpansionLength*4, maxSpeed/1.3,  MaxExpansionLength*0.5, maxSpeed/1.3 },
-  {  MinExpansionLength, maxSpeed/1.15,  MaxExpansionLength*0.2, maxSpeed/1.15 },
+  {  MinExpansionLength*4, maxSpeed/1.3,  MaxExpansionLength*0.6, maxSpeed/1.3 },
+  {  MinExpansionLength*2 , maxSpeed/1.2,  MaxExpansionLength*0.3, maxSpeed/1.2 },
+  {  MinExpansionLength, maxSpeed/1.1,  MaxExpansionLength*0.2, maxSpeed/1.1},
   {  MinExpansionLength, maxSpeed,  MaxExpansionLength*0.1, maxSpeed}
 };
 
@@ -364,7 +365,7 @@ void PollSerial() {
         break;
       default:
         // Test to see if the command is a number
-        if (command >= '0' && command <= '4') {
+        if (command >= '0' && command <= '5') {
           PerformMotion(command - '0');
         }
     }
