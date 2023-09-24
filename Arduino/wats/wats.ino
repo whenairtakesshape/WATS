@@ -220,18 +220,16 @@ void PerformReset() {
 }
 
 void PerformExpansion() {
-
-  contractionSteppers.moveTo(0);
-  expansionSteppers.moveTo(0);
-  rotationLeftStepper.moveTo(0);
-  rotationRightStepper.moveTo(0);
+  speed = maxSpeed;
+  contractionSteppers.moveTo(-1000);
+  expansionSteppers.moveTo(-1000);
   Serial.print("Performing expansion: ");
 
   while (!interrupt) {
     contractionSteppers.run();
-    contractionSteppers.setSpeed(-maxSpeed);
+    contractionSteppers.setSpeed(-speed);
     expansionSteppers.run();
-    expansionSteppers.setSpeed(-maxSpeed);
+    expansionSteppers.setSpeed(-speed);
 
     if(Serial.available() > 0 && Serial.read() == 's'){
       Serial.println("Stopping expansions...");
@@ -242,18 +240,18 @@ void PerformExpansion() {
 }
 
 void PerformContraction(){
+  speed = 1000;
 
   contractionSteppers.moveTo(1000);
   expansionSteppers.moveTo(1000);
-  
-  Serial.println("Performing contraction: ");
+  Serial.print("Performing contraction: ");
 
   while (!interrupt) {
     contractionSteppers.run();
-    contractionSteppers.setSpeed(maxSpeed);
+    contractionSteppers.setSpeed(speed);
     expansionSteppers.run();
-    expansionSteppers.setSpeed(maxSpeed);
-    
+    expansionSteppers.setSpeed(speed);
+
     if(Serial.available() > 0 && Serial.read() == 's'){
       Serial.println("Stopping contractions...");
       interrupt = true;
