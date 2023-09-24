@@ -61,6 +61,9 @@ export function InfoPage() {
   // state used to determine if user has been authenticated
   const [authenticated, setAuthenticated] = useState<boolean>(false);
 
+  // state used to render US AQI pop up
+  const [usAqiPopUpState, setUsAqiPopUpState] = useState(false);
+
   // following logic will execute upon first render of InfoPage component 
   useEffect(() => {
     /**
@@ -167,12 +170,15 @@ export function InfoPage() {
                 }
               }>
               <div className="info-page-block-01">{searchInfo.datapoint?.cityCountry}</div>
+
               <div className="info-page-block-02">
                 <div className="info-page-block-02-section-01">{renderEmoji()}</div>
                 <div className="into-page-block-02-section-02">
                   <div className="info-page-block-02-section-02-us-aqi">
                     <p>US AQI</p>
-                    <img src={infoIcon} />
+                    <img src={infoIcon}
+                      style={{ opacity: 0 }}
+                    />
                   </div>
                   <p className="aqi-number">{searchInfo.datapoint?.aqi}</p>
                 </div>
@@ -186,6 +192,7 @@ export function InfoPage() {
                   }
                 </div>
               </div>
+
               {/** PollutantSection component is info-page-block-03 */}
               <PollutantAndContributingFactorSection />
               {/** ImpactOnHealthAndHealthRecommendationSection component is info-page-block-04 */}

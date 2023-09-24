@@ -4,7 +4,7 @@ import 'dotenv/config';
 const express = require("express");
 const app = express();
 const port = 3001;
-const cors = require("cors")
+const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
@@ -73,7 +73,7 @@ app.post("/aqi", (req: any, res: any) => {
     } else if (aqi < 301) {
         device.emit("4");
     } else {
-        device.emit("5");
+        device.emit("4");
     }
     res.end();
 });
