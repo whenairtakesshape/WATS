@@ -30,7 +30,7 @@
 
 const int stepsPerRevolution = 200;
 const int minSpeed = 200;
-const int maxSpeed = 2000; //70
+const int maxSpeed = 1000; //70
 const int rotationMaxSpeed = 100;
 const int maxAcceleration = 100; // Conservative arbitrary Value requires testing
 int analogSpeed, speed;
@@ -41,7 +41,7 @@ AccelStepper contractionSteppers(AccelStepper::DRIVER, stepPin_C, dirPin_C);
 AccelStepper rotationLeftStepper(AccelStepper::DRIVER, stepPin_RotL, dirPin_RotL);
 AccelStepper rotationRightStepper(AccelStepper::DRIVER, stepPin_RotR, dirPin_RotR);
 
-const int MaxExpansionLength = -4200;
+const int MaxExpansionLength = -4000;
 const int MinExpansionLength = -100;
 
 #define MOTIONLENGTH 4
@@ -52,7 +52,7 @@ int motion[][MOTIONLENGTH]{
   {  MinExpansionLength*8, maxSpeed/1.9,  MaxExpansionLength,     maxSpeed/1.9 },
   {  MinExpansionLength*6, maxSpeed/1.8,  MaxExpansionLength*0.8, maxSpeed/1.8 },
   {  MinExpansionLength*4, maxSpeed/1.6,  MaxExpansionLength*0.5, maxSpeed/1.6 },
-  {  MinExpansionLength*2, maxSpeed/1.4,  MaxExpansionLength*0.3, maxSpeed/1.4 },
+  {  MinExpansionLength*1, maxSpeed/1.2,  MaxExpansionLength*0.2, maxSpeed/1.2 },
   {  MinExpansionLength*1, maxSpeed/1.2,  MaxExpansionLength*0.1, maxSpeed/1.2 }
 };
 
