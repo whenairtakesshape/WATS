@@ -52,8 +52,8 @@ int motion[][MOTIONLENGTH]{
   {  MinExpansionLength*10, maxSpeed/1.8,  MaxExpansionLength,     maxSpeed/1.8 },
   {  MinExpansionLength*6, maxSpeed/1.6,  MaxExpansionLength*0.8, maxSpeed/1.6 },
   {  MinExpansionLength*4, maxSpeed/1.3,  MaxExpansionLength*0.5, maxSpeed/1.3 },
-  {  MinExpansionLength*1, maxSpeed/1.2,  MaxExpansionLength*0.2, maxSpeed/1.2 },
-  {  MinExpansionLength*1, maxSpeed/1.2,  MaxExpansionLength*0.1, maxSpeed/1.2 }
+  {  MinExpansionLength, maxSpeed/1.15,  MaxExpansionLength*0.2, maxSpeed/1.15 },
+  {  MinExpansionLength, maxSpeed,  MaxExpansionLength*0.1, maxSpeed}
 };
 
 // Motion array for Rotation
