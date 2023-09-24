@@ -48,7 +48,8 @@ export const ImpactOnHealthSection = () => {
           {notAvailableMessage}
         </div>);
     }
-
+    console.log(dominantPollutant);
+    console.log(healthImpacts);
     // length of healthImpacts array
     const N = healthImpacts.length;
     // number of items to be rendered per row

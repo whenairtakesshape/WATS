@@ -172,7 +172,7 @@ class ImpactOnHealthLogic {
    * initiliazes health impacts related to SO2
    */
   private so2HealthImpactsInit() {
-    this.lungsNO2 = {
+    this.lungsSO2 = {
       name: "Lungs",
       description: [
         "Brief exposure to SO2 causes breathing difficult, especially in children and people with asthma."
