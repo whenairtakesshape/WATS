@@ -224,7 +224,7 @@ void PerformExpansion() {
   contractionSteppers.moveTo(-1000);
   expansionSteppers.moveTo(-1000);
   Serial.print("Performing expansion: ");
-
+  interrupt = false;
   while (!interrupt) {
     contractionSteppers.run();
     contractionSteppers.setSpeed(-speed);
@@ -245,7 +245,7 @@ void PerformContraction(){
   contractionSteppers.moveTo(1000);
   expansionSteppers.moveTo(1000);
   Serial.print("Performing contraction: ");
-
+  interrupt = false;
   while (!interrupt) {
     contractionSteppers.run();
     contractionSteppers.setSpeed(speed);
@@ -265,7 +265,7 @@ void PerformStepExpansion() {
   expansionSteppers.move(-10);
   
   Serial.println("Performing step expansion: ");
-
+ 
   contractionSteppers.run();
   contractionSteppers.setSpeed(-maxSpeed);
   expansionSteppers.run();
@@ -293,7 +293,7 @@ void PerformClockwise(){
   rotationRightStepper.move(1);
 
   Serial.println("Performing clockwise rotation: ");
-
+  interrupt = false;
   while (!interrupt) {
     rotationLeftStepper.run();
     rotationLeftStepper.setSpeed(rotationMaxSpeed);
@@ -313,7 +313,7 @@ void PerformCounterClockwise(){
   rotationRightStepper.move(-1);
 
   Serial.print("Performing counterclockwise rotation: ");
-
+  interrupt = false;
   while (!interrupt) {
     rotationLeftStepper.run();
     rotationLeftStepper.setSpeed(-rotationMaxSpeed);
