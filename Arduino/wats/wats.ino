@@ -41,7 +41,7 @@ AccelStepper contractionSteppers(AccelStepper::DRIVER, stepPin_C, dirPin_C);
 AccelStepper rotationLeftStepper(AccelStepper::DRIVER, stepPin_RotL, dirPin_RotL);
 AccelStepper rotationRightStepper(AccelStepper::DRIVER, stepPin_RotR, dirPin_RotR);
 
-const int MaxExpansionLength = -4000;
+const int MaxExpansionLength = -4200;
 const int MinExpansionLength = -100;
 
 #define MOTIONLENGTH 4
@@ -49,12 +49,12 @@ const int MinExpansionLength = -100;
 // Pairs of integers ( Position, Speed)
 // First index is the best motion
 int motion[][MOTIONLENGTH]{
-  {  MinExpansionLength*10, maxSpeed/1.8,  MaxExpansionLength,     maxSpeed/1.8 },
-  {  MinExpansionLength*6, maxSpeed/1.6,  MaxExpansionLength*0.8, maxSpeed/1.6 },
-  {  MinExpansionLength*4, maxSpeed/1.3,  MaxExpansionLength*0.6, maxSpeed/1.3 },
-  {  MinExpansionLength*2 , maxSpeed/1.2,  MaxExpansionLength*0.3, maxSpeed/1.2 },
-  {  MinExpansionLength, maxSpeed/1.1,  MaxExpansionLength*0.2, maxSpeed/1.1},
-  {  MinExpansionLength, maxSpeed,  MaxExpansionLength*0.1, maxSpeed}
+  {  MinExpansionLength*20, maxSpeed/1.8,  MaxExpansionLength,     maxSpeed/1.8 },
+  {  MinExpansionLength*20, maxSpeed/1.6,  MaxExpansionLength*0.8, maxSpeed/1.6 },
+  {  MinExpansionLength*13, maxSpeed/1.3,  MaxExpansionLength*0.7, maxSpeed/1.3 },
+  {  MinExpansionLength*4 , maxSpeed/1.2,  MaxExpansionLength*0.55, maxSpeed/1.2 },
+  {  MinExpansionLength*3, maxSpeed/1.1,  MaxExpansionLength*0.3, maxSpeed/1.1},
+  {  MinExpansionLength*2, maxSpeed,  MaxExpansionLength*0.2, maxSpeed}
 };
 
 // Motion array for Rotation
@@ -160,13 +160,16 @@ void RunMotion()
     contractionSteppers.setAcceleration(accelerationMotion[currentMotionIndex][currentAccelStep]);
     expansionSteppers.setAcceleration(accelerationMotion[currentMotionIndex][currentAccelStep]);
   }
-#endif
+  contractionSteppers.run();
+  expansionSteppers.run();
 
+#endif
+# if !TESTACCELERATION
   contractionSteppers.run();
   contractionSteppers.setSpeed(direction * motion[currentMotionIndex][currentMotionStep + 1]);
   expansionSteppers.run();
   expansionSteppers.setSpeed(direction * motion[currentMotionIndex][currentMotionStep + 1]);
-
+#endif
 #if ROTATION_ENABLE
   rotationLeftStepper.run();
   rotationLeftStepper.setSpeed(rotationMotion[currentMotionIndex][currentMotionStep + 1]);
@@ -184,10 +187,27 @@ void RunMotion()
 
 // Reset the structure positions
 void PerformHome() {
+  speed = maxSpeed;
   currentMotionIndex = -1;
   currentMotionStep = 0;
   currentAccelStep = 0;
   // TODO: Move the steppers to home position
+
+  Serial.println("Performing Home");
+  long position = contractionSteppers.currentPosition();
+  while(position < 0){
+    expansionSteppers.moveTo(0);
+    contractionSteppers.moveTo(0);
+    contractionSteppers.run();
+    contractionSteppers.setSpeed(speed);
+    expansionSteppers.run();
+    expansionSteppers.setSpeed(speed);
+    position = contractionSteppers.currentPosition();
+    if(Serial.available() > 0 && Serial.read() == 's'){
+      Serial.println("Stopping Home...");
+      break;
+    }
+  }
 }
 
 // Set which motion index to run
@@ -222,8 +242,7 @@ void PerformReset() {
 
 void PerformExpansion() {
   speed = maxSpeed;
-  contractionSteppers.moveTo(-1000);
-  expansionSteppers.moveTo(-1000);
+
   Serial.print("Performing expansion: ");
   interrupt = false;
   while (!interrupt) {
@@ -241,10 +260,8 @@ void PerformExpansion() {
 }
 
 void PerformContraction(){
-  speed = 1000;
+  speed = maxSpeed;
 
-  contractionSteppers.moveTo(1000);
-  expansionSteppers.moveTo(1000);
   Serial.print("Performing contraction: ");
   interrupt = false;
   while (!interrupt) {
@@ -370,6 +387,10 @@ void PollSerial() {
         }
     }
   }
+}
+
+void goHome(){
+
 }
 
 void HandleSwitches() {
