@@ -1,5 +1,5 @@
 // styles
-import "./css/breatheRoute.scss";
+import "./css/breatheroute.scss";
 
 // assets
 import warning_amber from "../assets/warningAmber.svg";
@@ -28,9 +28,9 @@ export const BreatheRoute = () => {
    */
   useEffect(() => {
     if (searchInfo.datapoint == null) {
-      alert("no location selected");
-      makeApiRequest();
-      navigate("/intro");
+      //alert("no location selected");
+      //makeApiRequest();
+      //navigate("/intro");
     }
   }, []);
 
@@ -72,7 +72,8 @@ export const BreatheRoute = () => {
       <button
         className="breathe-route-return-home"
         onClick={() => {
-          makeApiRequest();
+          //makeApiRequest();
+          navigate("/intro");
         }}
       >Return Home</button>
     </div>
