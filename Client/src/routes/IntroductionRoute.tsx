@@ -39,7 +39,7 @@ export function Introduction() {
           </p>
         </div>
         <div className="introduction-container-section-03">
-          <p>How it Works</p>
+          <p>Get Started:</p>
         </div>
         <div className="introduction-container-section-04">
           <div className="introduction-container-section-04-left">
