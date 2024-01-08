@@ -46,7 +46,7 @@ export function Introduction() {
             <img src={select} />
             <div className="introduction-container-section-04-left-text-container">
               <p className="introduction-container-section-04-left-text-container-title">
-                01{" "}
+                1.{" "}
                 <i>
                   <b>Choose</b>
                 </i>{" "}
@@ -59,7 +59,7 @@ export function Introduction() {
             <img src={learn} />
             <div className="introduction-container-section-04-center-text-container">
               <p className="introduction-container-section-04-center-text-container-title">
-                02{" "}
+                2.{" "}
                 <i>
                   <b>Learn</b>
                 </i>{" "}
@@ -74,7 +74,7 @@ export function Introduction() {
             <img src={breathe} />
             <div className="introduction-container-section-04-right-text-container">
               <p className="introduction-container-section-04-right-text-container-title">
-                03{" "}
+                3.{" "}
                 <i>
                   <b>Breathe</b>
                 </i>{" "}
@@ -85,7 +85,7 @@ export function Introduction() {
           </div>
         </div>
         <div className="introduction-container-section-05">
-          <button onClick={() => navigate("/mapRoute")}>Select a city</button>
+          <button onClick={() => navigate("/mapRoute")}>Choose a city</button>
         </div>
       </div>
     </div>
