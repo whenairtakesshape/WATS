@@ -50,7 +50,7 @@ export function Introduction() {
                 <i>
                   <b>Choose</b>
                 </i>{" "}
-                a City
+                a city
               </p>
               <p>Find a city from the map or use the search bar.</p>
             </div>
