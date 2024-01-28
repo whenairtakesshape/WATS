@@ -16,71 +16,45 @@ POTENTIOMETER_1_PIN = 28
 POTENTIOMETER_2_PIN = 27
 POTENTIOMETER_3_PIN = 26
 
-
-
-# Functions
-def init():
-    # Initialize Servos
-    global servo_1 
-    servo_1 = PWM(Pin(SERVO_1_PIN, Pin.OUT), freq=50)
-    global servo_2 
-    servo_2 = PWM(Pin(SERVO_2_PIN))
-    global servo_3
-    servo_3 = PWM(Pin(SERVO_3_PIN), freq=50)
-    # Initialize Potentiometers
-    global potentiometer_1
-    potentiometer_1 = ADC(Pin(POTENTIOMETER_1_PIN))
-    global potentiometer_2
-    potentiometer_2 = ADC(Pin(POTENTIOMETER_2_PIN))
-    global potentiometer_3
-    potentiometer_3 = ADC(Pin(POTENTIOMETER_3_PIN))
-    # Initialize Servo Values
-    global servo_1_value
-    servo_1_value = 0
-    global servo_2_value
-    servo_2_value = 0
-    global servo_3_value
-    servo_3_value = 0
-    # Initialize Potentiometer Values
-    global potentiometer_1_value
-    potentiometer_1_value = 0
-    global potentiometer_2_value
-    potentiometer_2_value = 0
-    global potentiometer_3_value
-    potentiometer_3_value = 0
-
-
-def set_servo_position(angle):
-    # Map the angle (0 to 180 degrees) to the pulse width (500 to 2500 microseconds)
-    pulse_width = int((angle / 270.0) * (2500 - 500) + 500)
+class ServoMotor:
+    def __init__(self, servo_pin_num, potentiometer_pin_num, frequency=50):
+        self.servo = PWM(Pin(servo_pin_num), freq=frequency)
+        self.potentiometer = ADC(Pin(potentiometer_pin_num))
+        self.servo_val = 0
+        self.potentiometer_val = 0
+        
+    def set_potentiometer_servo_values(self):
+        self.potentiometer_val = self.potentiometer.read_u16()
+        self.servo_val = int((self.potentiometer_val / 65535) * 180)
+        self.set_servo_position(self.servo_val)
     
-    # Set the duty cycle based on the pulse width
-    servo_1.duty_u16(pulse_width * 65535 // 20000)  # Convert microseconds to duty cycle
-
+    def set_servo_position(self, angle):
+        # Map the angle (0 to 180 degrees) to the pulse width (500 to 2500 microseconds)
+        if angle < 0:
+            angle = 0
+        elif angle > 180:
+            angle = 180
+        servo_cycle = int((angle/180) * 10000)
+        self.servo.duty_u16(servo_cycle)
 
 # Main 
 def main():
     #call init function
-    init()
+    servo_1 = ServoMotor(SERVO_1_PIN, POTENTIOMETER_1_PIN)
+    servo_2 = ServoMotor(SERVO_2_PIN, POTENTIOMETER_2_PIN)
     #while loop
     while True:
-        #read potentiometer values
-        potentiometer_1_value = potentiometer_1.read_u16()
-        potentiometer_2_value = potentiometer_2.read_u16()
-        potentiometer_3_value = potentiometer_3.read_u16()
-        #map potentiometer values to servo values
-        servo_1_value = int((potentiometer_1_value / 65535) * 10000)
-        servo_2_value = int((potentiometer_2_value / 65535) * 180)
-        servo_3_value = int((potentiometer_3_value / 65535) * 180)
-        #print servo values
-        print(servo_1_value)
-        #write servo values
-        servo_1.duty_u16(servo_1_value)
-        servo_2.duty_u16(servo_2_value)
-        #servo_3.duty_u16(servo_3_value)
-        #set_servo_position(servo_1_value)
-        #sleep
-        sleep(0.1)
+        servo_1.set_potentiometer_servo_values()
+        servo_2.set_potentiometer_servo_values()
+#         for angle in range(20, 120, 1):
+#             servo_1.set_servo_position(angle)
+#             print(angle)
+#             sleep(0.15)
+#         for angle in range(120, 20, -1):
+#             servo_1.set_servo_position(angle)
+#             print(angle)
+#             sleep(0.15)
         
-main()
+if __name__ == "__main__":
+    main()
 
