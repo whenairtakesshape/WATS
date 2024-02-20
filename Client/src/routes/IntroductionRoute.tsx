@@ -42,45 +42,53 @@ export function Introduction() {
           <p>Get Started:</p>
         </div>
         <div className="introduction-container-section-04">
-          <div className="introduction-container-section-04-left">
-            <img src={select} />
-            <div className="introduction-container-section-04-left-text-container">
-              <p className="introduction-container-section-04-left-text-container-title">
-                1.{" "}
-                <i>
-                  <b>Choose</b>
-                </i>{" "}
-                a city
-              </p>
-              <p>Find a city from the map or use the search bar.</p>
+          <div className="introduction-container-section-04-grid">
+            <div className="introduction-container-section-04-grid-item">
+              <div className="introduction-container-section-04-grid-item-img">
+                <img src={select} />
+              </div>
+              <div className="introduction-container-section-04-grid-item-text">
+                <p className="introduction-container-section-04-grid-item-text-title">
+                  1.{" "}
+                  <i>
+                    <b>Choose</b>
+                  </i>{" "}
+                  a city
+                </p>
+                <p>Find a city from the map or use the search bar.</p>
+              </div>
             </div>
-          </div>
-          <div className="introduction-container-section-04-center">
-            <img src={learn} />
-            <div className="introduction-container-section-04-center-text-container">
-              <p className="introduction-container-section-04-center-text-container-title">
-                2.{" "}
-                <i>
-                  <b>Learn</b>
-                </i>{" "}
-                about air quality
-              </p>
-              <p>
-                Get real-time air quality data and information about the city.
-              </p>
+            <div className="introduction-container-section-04-grid-item">
+              <div className="introduction-container-section-04-grid-item-img">
+                <img src={learn} />
+              </div>
+              <div className="introduction-container-section-04-grid-item-text">
+                <p className="introduction-container-section-04-grid-item-text-title">
+                  2.{" "}
+                  <i>
+                    <b>Learn</b>
+                  </i>{" "}
+                  about air quality
+                </p>
+                <p>
+                  Get real-time air quality data and information about the city.
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="introduction-container-section-04-right">
-            <img src={breathe} />
-            <div className="introduction-container-section-04-right-text-container">
-              <p className="introduction-container-section-04-right-text-container-title">
-                3.{" "}
-                <i>
-                  <b>Breathe</b>
-                </i>{" "}
-                with the structure
-              </p>
-              <p>Inhale as the structure expands, exhale as it contracts.</p>
+            <div className="introduction-container-section-04-grid-item">
+              <div className="introduction-container-section-04-grid-item-img">
+                <img src={breathe} />
+              </div>
+              <div className="introduction-container-section-04-grid-item-text">
+                <p className="introduction-container-section-04-grid-item-text-title">
+                  3.{" "}
+                  <i>
+                    <b>Breathe</b>
+                  </i>{" "}
+                  with the structure
+                </p>
+                <p>Inhale as the structure expands, exhale as it contracts.</p>
+              </div>
             </div>
           </div>
         </div>
