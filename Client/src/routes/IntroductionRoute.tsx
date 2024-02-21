@@ -18,7 +18,7 @@ export function Introduction() {
   return (
     <div className="introduction-container">
       <div className="introduction-container-header">
-        <img src={attaLogo} />
+        <img src={attaLogo} alt='ATTA' />
         <p>When Air Takes Shape</p>
       </div>
 
@@ -45,7 +45,7 @@ export function Introduction() {
           <div className="introduction-container-section-04-grid">
             <div className="introduction-container-section-04-grid-item">
               <div className="introduction-container-section-04-grid-item-img">
-                <img src={select} />
+                <img src={select} alt="select" />
               </div>
               <div className="introduction-container-section-04-grid-item-text">
                 <p className="introduction-container-section-04-grid-item-text-title">
@@ -60,7 +60,7 @@ export function Introduction() {
             </div>
             <div className="introduction-container-section-04-grid-item">
               <div className="introduction-container-section-04-grid-item-img">
-                <img src={learn} />
+                <img src={learn} alt="learn" />
               </div>
               <div className="introduction-container-section-04-grid-item-text">
                 <p className="introduction-container-section-04-grid-item-text-title">
@@ -77,7 +77,7 @@ export function Introduction() {
             </div>
             <div className="introduction-container-section-04-grid-item">
               <div className="introduction-container-section-04-grid-item-img">
-                <img src={breathe} />
+                <img src={breathe} alt="breath" />
               </div>
               <div className="introduction-container-section-04-grid-item-text">
                 <p className="introduction-container-section-04-grid-item-text-title">
