@@ -173,6 +173,7 @@
   margin-top: 2em;
 
   button {
+    cursor: pointer;
     border-radius: 16px;
     background: var(--TempPrimaryColor, #1e4359);
     color: white;
@@ -186,5 +187,9 @@
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
+  }
+
+  button:hover {
+    opacity: 0.9;
   }
 }

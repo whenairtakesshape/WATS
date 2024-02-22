@@ -20,9 +20,13 @@ $swipe-breakpoint-four: ">630px";
   display: inline-flex;
   left: 500px;
   top: 100px;
+  cursor: pointer;
 
   @include media(">1439px") {}
+}
 
+.swipe:hover {
+  opacity: 0.9;
 }
 
 .swipe-upper {
