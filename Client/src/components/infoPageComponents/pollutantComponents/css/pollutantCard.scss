@@ -1,17 +1,22 @@
 .pollutant-card-container {
+  display: flex;
+  flex-direction: column;
   border-radius: 20px;
   background: var(--temp-text-background, #F9F9F9);
   padding: 20px 20px;
-  margin: 15px;
+  width: 100%;
+  height: 100%;
 }
 
 .pollutant-card-top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 
   img {
     height: 28px;
-    margin-left: 40px;
+    margin-right: 5px;
   }
 }
 
