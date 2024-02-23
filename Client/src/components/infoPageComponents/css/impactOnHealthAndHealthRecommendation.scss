@@ -21,4 +21,10 @@
     font-weight: 500;
     letter-spacing: 0.5px;
   }
+
+  @media (max-width: 550px) {
+    button {
+      font-size: 13px;
+    }
+  }
 }
