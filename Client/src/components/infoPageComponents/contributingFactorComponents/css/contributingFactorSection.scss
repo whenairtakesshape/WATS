@@ -6,6 +6,12 @@
 .contributing-factor-section-block {
   display: flex;
   justify-content: space-around;
+
+  @media (max-width: 1000px) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 
 .contributing-factor-not-available-message {
