@@ -7,4 +7,9 @@
 .health-recommendation-section-block {
   display: flex;
   justify-content: space-around;
+
+  @media (max-width: 860px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
