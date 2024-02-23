@@ -83,10 +83,13 @@ export const PollutantAndContributingFactorSection = () => {
           Contributing Factors
         </button>
       </div>
-      {/** if pollutant bool is active, PollutantSection component renders*/}
-      {pollutantBool ? <PollutantSection pm25={PM25} pm10={PM10} o3={O3} cO={CO} no2={NO2} so2={SO2} /> :
-        <ContributingFactorSection />
-      }
+
+      <div className="pollutant-and-contributing-factor-section-bottom">
+        {/** if pollutant bool is active, PollutantSection component renders*/}
+        {pollutantBool ? <PollutantSection pm25={PM25} pm10={PM10} o3={O3} cO={CO} no2={NO2} so2={SO2} /> :
+          <ContributingFactorSection />
+        }
+      </div>
     </div>
   );
 };;
