@@ -26,8 +26,12 @@ SMOOTH_MOVEMENT_FLIPPED = (60, 40, 20, 70)
 
 
 class ServoMotor:
+    min_pulse = 0.0005
+    max_pulse = 0.0025
+
     def __init__(self, servo_pin_num, potentiometer_pin_num, frequency=50):
         self.servo = PWM(Pin(servo_pin_num), freq=frequency)
+        self.freq = frequency
         self.potentiometer = ADC(Pin(potentiometer_pin_num))
         self.servo_val = 0
         self.potentiometer_val = 0
@@ -41,11 +45,16 @@ class ServoMotor:
         # Map the angle (0 to 180 degrees) to the pulse width (500 to 2500 microseconds)
         if angle < 0:
             angle = 0
-        elif angle > 180:
-            angle = 180
+        elif angle > 270:
+            angle = 270
         print(f"Current angle {angle}")
             
-        servo_cycle = int((angle/180) * 10000)
+        servo_cycle = int(65535 * (angle * (self.max_pulse - self.min_pulse) * self.freq / 270 + self.freq * self.min_pulse))
+
+        if servo_cycle < self.min_pulse / (1 /  self.freq) * 65535:
+          servo_cycle = int(self.min_pulse / (1 /  self.freq) * 65535) + 1
+        if servo_cycle > self.max_pulse / (1 /  self.freq) * 65535:
+          servo_cycle =  int(self.min_pulse / (1 /  self.freq) * 65535) - 1
         self.servo.duty_u16(servo_cycle)
         
         return angle
@@ -206,9 +215,16 @@ def core0_thread():
 def main():
     servo_1 = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
     servo_2 = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
+
+    servo_1.set_servo_position(0)
+    servo_2.set_servo_position(180)
+
+
+    # while True:
+    #     servo_1.set_servo_position(30)
     #call init function
     # threadythread = _thread.start_new_thread(core1_thread, ())
-    core0_thread()
+    # core0_thread()
         
 if __name__ == "__main__":
     main()
