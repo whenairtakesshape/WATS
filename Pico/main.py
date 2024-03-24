@@ -24,6 +24,8 @@ POTENTIOMETER_3_PIN = 26
 SMOOTH_MOVEMENT = (40, 60, 20, 70)
 SMOOTH_MOVEMENT_FLIPPED = (60, 40, 20, 70)
 
+FLOATING_POINT_ERR = -1e-3
+
 
 class ServoMotor:
     min_pulse = 0.0005
@@ -42,7 +44,7 @@ class ServoMotor:
         return self.set_servo_position(self.servo_val)
     
     def set_servo_position(self, angle):
-        # Map the angle (0 to 180 degrees) to the pulse width (500 to 2500 microseconds)
+        # Map the angle (0 to 270 degrees) to the pulse width (500 to 2500 microseconds)
         if angle < 0:
             angle = 0
         elif angle > 270:
@@ -54,7 +56,7 @@ class ServoMotor:
         if servo_cycle < self.min_pulse / (1 /  self.freq) * 65535:
           servo_cycle = int(self.min_pulse / (1 /  self.freq) * 65535) + 1
         if servo_cycle > self.max_pulse / (1 /  self.freq) * 65535:
-          servo_cycle =  int(self.min_pulse / (1 /  self.freq) * 65535) - 1
+          servo_cycle =  int(self.max_pulse / (1 /  self.freq) * 65535) - 1
         self.servo.duty_u16(servo_cycle)
         
         return angle
@@ -75,7 +77,7 @@ class StepperMotor:
         self.potentiometer_val = self.potentiometer.read_u16()
         self.set_desired_position(int((self.potentiometer_val / 65535) * 180))
 
-    def set_desired_position(self, angle, time = 3):
+    def set_desired_position(self, angle, time:float = 3):
         if angle < 0:
             angle = 0
         elif angle > 180:
@@ -83,7 +85,7 @@ class StepperMotor:
         self.desired_angle = angle
         self.run_stepper(time = time)
 
-    def run_stepper(self, time = 3):
+    def run_stepper(self, time:float = 3):
         # Rotate the stepper motor until the desired angle is reached
         time_step = time / abs(self.desired_angle - self.stepper_angle) * self.degree_per_pulse
         print(f"TIME STEP {time_step}")
@@ -117,23 +119,46 @@ class StepperMotor:
         sleep(0.01)
 
 def move_servos(start_base_angle: int, end_base_angle: int, start_elbow_angle: int, end_elbow_angle: int, 
-                elbow_servo = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN), 
                 base_servo = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN),
+                elbow_servo = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN), 
                 time = 10):
     """
+      start_base_angle, end_base_angle, start_elbow_angle, end_elbow_angle : 0 <= angle <= 270
       time: the amount of time in seconds to produce the full contraction and extension motion
     """
-    maxSteps = max(abs(end_base_angle - start_base_angle), abs(end_elbow_angle - start_elbow_angle))
-    if maxSteps == 0:
+    move_servos_set_timestep(start_base_angle,
+                             end_base_angle, 
+                             start_elbow_angle, 
+                             end_elbow_angle, 
+                             base_servo = base_servo, 
+                             elbow_servo = elbow_servo, 
+                             time = time, 
+                             timestep = 1)
 
+def move_servos_set_timestep(start_base_angle: int, 
+                             end_base_angle: int, 
+                             start_elbow_angle: int, 
+                             end_elbow_angle: int,
+                             base_servo = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN), 
+                             elbow_servo = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN), 
+                             time = 10,
+                             timestep = 0.1):
+    """
+      start_base_angle, end_base_angle, start_elbow_angle, end_elbow_angle : 0 <= angle <= 270
+      time: the amount of time in seconds to produce the full contraction and extension motion
+      timestep: Time between two steps
+    """
+    if time == 0 or timestep == 0:
         base_servo.set_servo_position(start_base_angle)
         elbow_servo.set_servo_position(start_elbow_angle)
-
         return
-    else:
-        timestep = time / maxSteps / 2
-    print(maxSteps)
-    print(timestep)
+    elif start_base_angle == end_base_angle and start_elbow_angle == end_elbow_angle:
+        base_servo.set_servo_position(start_base_angle)
+        elbow_servo.set_servo_position(start_elbow_angle)
+        return
+    elif timestep > time / 2:
+        print("Timestep parameter too large")
+        return
 
     curr_base = start_base_angle
     curr_elbow = start_elbow_angle
@@ -141,44 +166,30 @@ def move_servos(start_base_angle: int, end_base_angle: int, start_elbow_angle: i
     max_base_move = abs(end_base_angle - start_base_angle)
     max_elbow_move = abs(end_elbow_angle - start_elbow_angle)
 
-    base_servo.set_servo_position(curr_base)
-    elbow_servo.set_servo_position(curr_elbow)
+    base_step_size = max_base_move / (time / 2 / timestep)
+    elbow_step_size = max_elbow_move / (time / 2 / timestep)
 
     while(True):
+        # Reset angles to prevent build-up of error
+        curr_base = start_base_angle
+        curr_elbow = start_elbow_angle
+        base_servo.set_servo_position(curr_base)
+        elbow_servo.set_servo_position(curr_elbow)
         currtime = 0
 
-        # Calculated sign of movement
-        move_base = (end_base_angle - start_base_angle) / max_base_move
-        move_elbow = (end_elbow_angle - start_elbow_angle) / max_elbow_move
+        # Calculate sign of movement
+        move_base = (end_base_angle - start_base_angle) / max_base_move * base_step_size if max_base_move != 0 else 0
+        move_elbow = (end_elbow_angle - start_elbow_angle) / max_elbow_move * elbow_step_size if max_elbow_move != 0 else 0
 
         # Move until both angles are at end angles
-        while(abs(curr_base - start_base_angle) < max_base_move or abs(curr_elbow - start_elbow_angle) < max_elbow_move):
-            # Check if time is high enough to move enough step AND if end is not reached
-
-            if (currtime / (time / 2)) >= (abs(curr_base - start_base_angle) + 1) / max_base_move and abs(curr_base - start_base_angle) < max_base_move:
+        while(abs(curr_base - start_base_angle) - max_base_move < FLOATING_POINT_ERR or 
+              abs(curr_elbow - start_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR):
+            # Check if reached end as security
+            if abs(curr_base - start_base_angle) - max_base_move < FLOATING_POINT_ERR:
                 curr_base += move_base
                 base_servo.set_servo_position(curr_base)
     
-            if (currtime / (time / 2)) >= (abs(curr_elbow - start_elbow_angle) + 1) / max_elbow_move and abs(curr_elbow - start_elbow_angle) < max_elbow_move:
-                curr_elbow += move_elbow
-                elbow_servo.set_servo_position(curr_elbow)
-            
-            print(f"Current base: {curr_base}")
-            print(f"Current elbow: {curr_elbow}")
-
-            currtime = currtime + timestep
-            sleep(timestep)
-        
-        move_base = (start_base_angle - end_base_angle) / max_base_move
-        move_elbow = (start_elbow_angle - end_elbow_angle) / max_elbow_move
-        
-        while(abs(curr_base - end_base_angle) < max_base_move or abs(curr_elbow - end_elbow_angle) < max_elbow_move):
-            # Check if time is high enough to move enough step AND if end is not reached
-            if ((currtime - time / 2) / (time / 2)) >= (abs(curr_base - end_base_angle) + 1) / max_base_move and abs(curr_base - end_base_angle) < max_base_move:
-                curr_base += move_base
-                base_servo.set_servo_position(curr_base)
-    
-            if ((currtime - time / 2) / (time / 2)) >= (abs(curr_elbow - end_elbow_angle) + 1) / max_elbow_move and abs(curr_elbow - end_elbow_angle) < max_elbow_move:
+            if abs(curr_elbow - start_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR:
                 curr_elbow += move_elbow
                 elbow_servo.set_servo_position(curr_elbow)
             
@@ -188,43 +199,72 @@ def move_servos(start_base_angle: int, end_base_angle: int, start_elbow_angle: i
             currtime = currtime + timestep
             sleep(timestep)
 
-def move_stepper(rotation_angle, stepper = StepperMotor(STEPPER_DIR_PIN, STEPPER_PUL_PIN, POTENTIOMETER_3_PIN)):
+        curr_base = end_base_angle
+        curr_elbow = end_elbow_angle
+        base_servo.set_servo_position(curr_base)
+        elbow_servo.set_servo_position(curr_elbow)
+        
+        move_base = (start_base_angle - end_base_angle) / max_base_move * base_step_size if max_base_move != 0 else 0
+        move_elbow = (start_elbow_angle - end_elbow_angle) / max_elbow_move * elbow_step_size if max_elbow_move != 0 else 0
+        
+        while (abs(curr_base - end_base_angle) - max_base_move < FLOATING_POINT_ERR or 
+               abs(curr_elbow - end_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR):
+            # Check if reached end as security
+            if abs(curr_base - end_base_angle) - max_base_move < FLOATING_POINT_ERR:
+                curr_base += move_base
+                base_servo.set_servo_position(curr_base)
+    
+            if abs(curr_elbow - end_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR:
+                curr_elbow += move_elbow
+                elbow_servo.set_servo_position(curr_elbow)
+            
+            print(f"Current base: {curr_base}")
+            print(f"Current elbow: {curr_elbow}")
+
+            currtime = currtime + timestep
+            sleep(timestep)
+
+def move_stepper(rotation_angle, stepper = StepperMotor(STEPPER_DIR_PIN, STEPPER_PUL_PIN, POTENTIOMETER_3_PIN), time = 5):
     # stepper.set_potentiometer_stepper_values()
     # stepper.rotate_stepper("ccw")
 
     while(True):
         print(rotation_angle)
-        stepper.set_desired_position(rotation_angle, time = 1)
-        stepper.set_desired_position(0, time = 1)
+        stepper.set_desired_position(rotation_angle, time = time / 2)
+        stepper.set_desired_position(0, time = time / 2)
 
 
 def core1_thread():
     servo_1 = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
     servo_2 = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
 
-    servo_2.set_servo_position(35)
-    servo_1.set_servo_position(15)
-
-    # move_servos(*SMOOTH_MOVEMENT_FLIPPED, time = 10, elbow_servo = servo_1, base_servo = servo_2)
+    move_servos_set_timestep(5, 5, 30, 110, base_servo = servo_2, elbow_servo = servo_1, time = 5, timestep = 0.05)
 
 def core0_thread():
     stepper = StepperMotor(STEPPER_DIR_PIN, STEPPER_PUL_PIN, POTENTIOMETER_3_PIN)
-    move_stepper(10, stepper = stepper)
+    move_stepper(180, stepper = stepper, time = 2)
 
 # Main 
 def main():
     servo_1 = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
     servo_2 = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
 
-    servo_1.set_servo_position(0)
-    servo_2.set_servo_position(180)
-
-
-    # while True:
-    #     servo_1.set_servo_position(30)
     #call init function
-    # threadythread = _thread.start_new_thread(core1_thread, ())
-    # core0_thread()
-        
+    try:
+        threadythread = _thread.start_new_thread(core1_thread, ())
+        core0_thread()
+    except (KeyboardInterrupt, SystemExit):
+        print("Proper ending of program has not been implemented yet (sorry) :)")
+    finally:
+        servo_1.set_servo_position(0)
+        servo_2.set_servo_position(0)
+        print("good riddance")
+
 if __name__ == "__main__":
-    main()
+    #call init function
+    try:
+        main()
+    except (KeyboardInterrupt, SystemExit):
+        print("Proper ending of program has not been implemented yet (sorry) :))")
+    finally:
+        print("PLEASE good riddance")
