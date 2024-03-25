@@ -5,6 +5,8 @@
 from time import sleep
 from machine import Pin, PWM, ADC
 import _thread
+import bluetooth
+from ble_peripheral import BLESimplePeripheral
 
 #Servo(2) Base start 48 (vertical)
 Base_offset = 48
@@ -25,6 +27,57 @@ SMOOTH_MOVEMENT = (40, 60, 20, 70)
 SMOOTH_MOVEMENT_FLIPPED = (60, 40, 20, 70)
 
 FLOATING_POINT_ERR = -1e-3
+
+#Bluetooth
+USE_BLUETOOTH = False # Set to True to use Bluetooth
+ble = bluetooth.BLE()
+bt_peripheral = BLESimplePeripheral(ble)
+
+#Blutooth Callback to receive Data
+def on_rx(data):
+    print("Bluetooth Data Recieved: ", data)
+
+    # Act on Data
+    perform_command(data)
+
+
+def perform_command(command):
+    print("Command Recieved: ", command)
+    # Act on Command
+    # Perform the command
+    # match command:
+    #     case 'h':
+    #         PerformHome()
+    #     case 's':
+    #         PerformStop()
+    #     case 'r':
+    #         PerformReset()
+    #     case 'c':
+    #         PerformContraction()
+    #     case 'e':
+    #         PerformExpansion()
+    #     case 'q':
+    #         PerformClockwise()
+    #     case 'w':
+    #         PerformCounterClockwise()
+    #     case 'n':
+    #         PerformStepExpansion()
+    #     case 'm':
+    #         PerformStepContraction()
+    #     case '0':
+    #         PerformMotion(0)
+    #     case '1':
+    #         PerformMotion(1)
+    #     case '2':
+    #         PerformMotion(2)
+    #     case '3':
+    #         PerformMotion(3)
+    #     case '4':
+    #         PerformMotion(4)
+    #     case '5':
+    #         PerformMotion(5)
+    #     case _:
+    #         print("Invalid Command")
 
 
 class ServoMotor:
@@ -115,7 +168,7 @@ class StepperMotor:
         self.stepper_pul.high()
         sleep(0.01)
         self.stepper_pul.low()
-        print(self.stepper_angle)
+        print(f"Stepper Angle:{self.stepper_angle}")
         sleep(0.01)
 
 def move_servos(start_base_angle: int, end_base_angle: int, start_elbow_angle: int, end_elbow_angle: int, 
@@ -246,6 +299,12 @@ def core0_thread():
 
 # Main 
 def main():
+
+    if USE_BLUETOOTH:  # If we're using Bluetooth, run this main loop instead
+        while True:
+            if bt_peripheral.is_connected():
+                bt_peripheral.on_write(on_rx)
+
     servo_1 = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
     servo_2 = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
 
