@@ -29,7 +29,7 @@ SMOOTH_MOVEMENT_FLIPPED = (60, 40, 20, 70)
 FLOATING_POINT_ERR = -1e-3
 
 #Bluetooth
-USE_BLUETOOTH = False # Set to True to use Bluetooth
+USE_BLUETOOTH = True # Set to True to use Bluetooth
 ble = bluetooth.BLE()
 bt_peripheral = BLESimplePeripheral(ble)
 
@@ -43,42 +43,70 @@ def on_rx(data):
 
 def perform_command(command):
     print("Command Recieved: ", command)
-    # Act on Command
     # Perform the command
-    # match command:
-    #     case 'h':
-    #         PerformHome()
-    #     case 's':
-    #         PerformStop()
-    #     case 'r':
-    #         PerformReset()
-    #     case 'c':
-    #         PerformContraction()
-    #     case 'e':
-    #         PerformExpansion()
-    #     case 'q':
-    #         PerformClockwise()
-    #     case 'w':
-    #         PerformCounterClockwise()
-    #     case 'n':
-    #         PerformStepExpansion()
-    #     case 'm':
-    #         PerformStepContraction()
-    #     case '0':
-    #         PerformMotion(0)
-    #     case '1':
-    #         PerformMotion(1)
-    #     case '2':
-    #         PerformMotion(2)
-    #     case '3':
-    #         PerformMotion(3)
-    #     case '4':
-    #         PerformMotion(4)
-    #     case '5':
-    #         PerformMotion(5)
-    #     case _:
-    #         print("Invalid Command")
+    if command == b'h':
+        PerformHome()
+    elif command == b's':
+        PerformStop()
+    elif command == b'r':
+        PerformReset()
+    elif command == b'c':
+        PerformContraction()
+    elif command == b'e':
+        PerformExpansion()
+    elif command == b'q':
+        PerformClockwise()
+    elif command == b'w':
+        PerformCounterClockwise()
+    elif command == b'n':
+        PerformStepExpansion()
+    elif command == b'm':
+        PerformStepContraction()
+    elif command == b'0':
+        PerformMotion(0)
+    elif command == b'1':
+        PerformMotion(1)
+    elif command == b'2':
+        PerformMotion(2)
+    elif command == b'3':
+        PerformMotion(3)
+    elif command == b'4':
+        PerformMotion(4)
+    elif command == b'5':
+        PerformMotion(5)
+    else:
+        print("Invalid Command")
 
+def PerformHome():
+    print("Performing Home")
+
+def PerformStop():
+    print("Performing Stop")
+
+def PerformReset():
+    print("Performing Reset")
+
+def PerformContraction():
+    print("Performing Contraction")
+
+def PerformExpansion():
+    print("Performing Expansion")
+
+def PerformClockwise():
+    print("Performing Clockwise")
+
+def PerformCounterClockwise():
+    print("Performing CounterClockwise")
+
+def PerformStepExpansion():
+    print("Performing Step Expansion")
+
+def PerformStepContraction():
+    print("Performing Step Contraction")
+
+def PerformMotion(motion):
+    print("Performing Motion: ", motion)
+    
 
 class ServoMotor:
     min_pulse = 0.0005
@@ -302,7 +330,7 @@ def main():
 
     if USE_BLUETOOTH:  # If we're using Bluetooth, run this main loop instead
         while True:
-            if bt_peripheral.is_connected():
+            if (bt_peripheral.is_connected()):
                 bt_peripheral.on_write(on_rx)
 
     servo_1 = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)

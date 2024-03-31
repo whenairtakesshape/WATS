@@ -35,7 +35,7 @@ _UART_SERVICE = (
 
 
 class BLESimplePeripheral:
-    def __init__(self, ble, name="atta-s"):
+    def __init__(self, ble, name="WATS"):
         self._ble = ble
         self._ble.active(True)
         self._ble.irq(self._irq)

@@ -1,10 +1,12 @@
-import Device from "./device";
 import { Request, Response } from "express";
 import 'dotenv/config';
 const express = require("express");
 const app = express();
 const port = 3001;
 const cors = require("cors");
+const noble = require('@abandonware/noble');
+const DEVICE_INFORMATION_SERVICE_UUID = '181A';
+const DEVICE_RX_CHARACTERISTIC_UUID = '6e400002b5a3f393e0a9e50e24dcca9e';
 
 app.use(cors());
 app.use(express.json());
@@ -14,30 +16,45 @@ app.listen(port, () => {
 );
 
 
-const serialPath = "2341";
-const baudRate = 19200;
+noble.on('stateChange', (state: string) => {
+    if (state === 'poweredOn') {
+        noble.startScanning();
+    }
+});
 
-const device = new Device(serialPath, baudRate);
+noble.on('discover', (peripheral: any) => {
+    if (peripheral.advertisement.localName === 'WATS') {
+        console.log('Found WATS device');
+        noble.stopScanning();
+        
+        peripheral.on('connect', () => { console.log('Connected'); console.log(peripheral) })
+        peripheral.on('disconnect', () => { console.log('Disconnected');   peripheral.connect();});
 
-device.on("data", (message) => {
-    console.log("data", message);
-}
-);
-
-device.on("error", (message) => {
-    console.log("error", message);
-}
-);
-
-device.on("connected", () => {
-    console.log("connected");
-}
-);
-
-device.on("disconnected", () => {
-    console.log("disconnected");
-}
-);
+        peripheral.connect((error: any) => {
+            peripheral.discoverServices([], (error: any, services: any) => {
+                services.forEach((service: any) => {
+                    console.log('Found service: ', service.uuid);
+                    service.discoverCharacteristics(null, (error: any, characteristics: any) => {
+                        characteristics.forEach((characteristic: any) => {
+                            console.log('Found characteristic: ', characteristic.uuid);
+                            if (characteristic.uuid === DEVICE_RX_CHARACTERISTIC_UUID) {
+                                noble.writeCommand = (command: string) => {
+                                    characteristic.write(Buffer.from(command), false, (error: any) => {
+                                        if (error) {
+                                            console.error('Error writing: ', error);
+                                        } else {
+                                            console.log('Command written: ', command);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    });
+                });
+            });
+        });
+    }
+});
 
 app.use((req: any, res: any, next: any) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -54,7 +71,7 @@ app.use((req: any, res: any, next: any) => {
 app.post("/command", (req: any, res: any) => {
     const command = req.query.command;
     console.log("command", command);
-    device.emit(command);
+    noble.writeCommand(command);
     res.end();
 });
 
@@ -63,17 +80,17 @@ app.post("/aqi", (req: any, res: any) => {
     console.log("aqi", aqi);
 
     if (aqi < 51) {
-        device.emit("0");
+        noble.writeCommand("0");
     } else if (aqi < 101) {
-        device.emit("1");
+        noble.writeCommand("1");
     } else if (aqi < 151) {
-        device.emit("2");
+        noble.writeCommand("2");
     } else if (aqi < 201) {
-        device.emit("3");
+        noble.writeCommand("3");
     } else if (aqi < 301) {
-        device.emit("4");
+        noble.writeCommand("4");
     } else {
-        device.emit("5");
+        noble.writeCommand("5");
     }
     res.end();
 });
