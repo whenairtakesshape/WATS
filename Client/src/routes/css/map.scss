@@ -12,9 +12,18 @@ $map-height: 700px;
 }
 
 .map-route-container-back-button {
+  cursor: pointer;
   position: absolute;
   z-index: 10;
-  left: 5%
+  left: 5%;
+  opacity: 0.8;
+  background-color: white;
+  padding: 0.5em;
+  border-radius: 20%;
+}
+
+.map-route-container-back-button:hover {
+  opacity: 1;
 }
 
 .google-map-container {

@@ -5,6 +5,7 @@
   padding-top: 5px;
   padding-left: 5px;
   padding-right: 5px;
+  align-items: center;
 
   input {
     width: 100%;
@@ -25,4 +26,27 @@
 
 .clear-search-input {
   cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background: var(--TempPrimaryColor, #1e4359);
+  color: white;
+  padding: 5px;
+  border: none;
+  outline: none;
+  color: var(--material-theme-white, #fff);
+
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+button:hover {
+  opacity: 0.9;
 }

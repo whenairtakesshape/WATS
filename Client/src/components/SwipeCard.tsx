@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export interface SwipeCardProps { }
+export interface SwipeCardProps {}
 
 export function SwipeCard(props: SwipeCardProps) {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export function SwipeCard(props: SwipeCardProps) {
     variableWidth: true,
     onSwipe: () => {
       setTimeout(() => {
-        navigate("/intro");
+        navigate("/about-page");
       }, 500);
     },
   };
@@ -60,10 +60,7 @@ export function SwipeCard(props: SwipeCardProps) {
                   d="M15.5 5H11L16 12L11 19H15.5L20.5 12L15.5 5Z"
                   fill="white"
                 />
-                <path
-                  d="M8.5 5H4L9 12L4 19H8.5L13.5 12L8.5 5Z"
-                  fill="white"
-                />
+                <path d="M8.5 5H4L9 12L4 19H8.5L13.5 12L8.5 5Z" fill="white" />
               </g>
             </svg>
           </div>
@@ -81,10 +78,7 @@ export function SwipeCard(props: SwipeCardProps) {
                   d="M15.5 5H11L16 12L11 19H15.5L20.5 12L15.5 5Z"
                   fill="white"
                 />
-                <path
-                  d="M8.5 5H4L9 12L4 19H8.5L13.5 12L8.5 5Z"
-                  fill="white"
-                />
+                <path d="M8.5 5H4L9 12L4 19H8.5L13.5 12L8.5 5Z" fill="white" />
               </g>
             </svg>
           </div>
