@@ -7,6 +7,7 @@ from machine import Pin, PWM, ADC
 import _thread
 import bluetooth
 from ble_peripheral import BLESimplePeripheral
+from stepper import Stepper
 
 #Servo(2) Base start 48 (vertical)
 Base_offset = 48
@@ -322,8 +323,10 @@ def core1_thread():
     move_servos_set_timestep(5, 5, 30, 110, base_servo = servo_2, elbow_servo = servo_1, time = 5, timestep = 0.05)
 
 def core0_thread():
-    stepper = StepperMotor(STEPPER_DIR_PIN, STEPPER_PUL_PIN, POTENTIOMETER_3_PIN)
-    move_stepper(180, stepper = stepper, time = 2)
+    # stepper = StepperMotor(STEPPER_DIR_PIN, STEPPER_PUL_PIN, POTENTIOMETER_3_PIN)
+    # move_stepper(180, stepper = stepper, time = 2)
+    stepper = Stepper(STEPPER_PUL_PIN, STEPPER_DIR_PIN, steps_per_rev=800, speed_sps=50)
+    stepper.target_deg(90)
 
 # Main 
 def main():
