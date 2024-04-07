@@ -4,6 +4,7 @@
 # Imports
 from time import sleep
 from machine import Pin, PWM, ADC
+import machine
 import _thread
 import bluetooth
 from ble_peripheral import BLESimplePeripheral
@@ -24,13 +25,12 @@ POTENTIOMETER_1_PIN = 28
 POTENTIOMETER_2_PIN = 27
 POTENTIOMETER_3_PIN = 26
 
-SMOOTH_MOVEMENT = (40, 60, 20, 70)
-SMOOTH_MOVEMENT_FLIPPED = (60, 40, 20, 70)
+STEPPER_SMOOTH_MOTION = [(20, 70, 30, 90), (70, 70, 90, 115), (70, 50, 115, 115), (50, 50, 115, 90), (50, 20, 90, 30)]
 
 FLOATING_POINT_ERR = -1e-3
 
 #Bluetooth
-USE_BLUETOOTH = True # Set to True to use Bluetooth
+USE_BLUETOOTH = False # Set to True to use Bluetooth
 ble = bluetooth.BLE()
 bt_peripheral = BLESimplePeripheral(ble)
 
@@ -230,11 +230,14 @@ def move_servos_set_timestep(start_base_angle: int,
       time: the amount of time in seconds to produce the full contraction and extension motion
       timestep: Time between two steps
     """
+    print("Hello")
     if time == 0 or timestep == 0:
+        print("Time")
         base_servo.set_servo_position(start_base_angle)
         elbow_servo.set_servo_position(start_elbow_angle)
         return
     elif start_base_angle == end_base_angle and start_elbow_angle == end_elbow_angle:
+        print("angles")
         base_servo.set_servo_position(start_base_angle)
         elbow_servo.set_servo_position(start_elbow_angle)
         return
@@ -251,60 +254,36 @@ def move_servos_set_timestep(start_base_angle: int,
     base_step_size = max_base_move / (time / 2 / timestep)
     elbow_step_size = max_elbow_move / (time / 2 / timestep)
 
-    while(True):
-        # Reset angles to prevent build-up of error
-        curr_base = start_base_angle
-        curr_elbow = start_elbow_angle
-        base_servo.set_servo_position(curr_base)
-        elbow_servo.set_servo_position(curr_elbow)
-        currtime = 0
+    # Reset angles to prevent build-up of error
+    curr_base = start_base_angle
+    curr_elbow = start_elbow_angle
+    base_servo.set_servo_position(curr_base)
+    elbow_servo.set_servo_position(curr_elbow)
+    currtime = 0
 
-        # Calculate sign of movement
-        move_base = (end_base_angle - start_base_angle) / max_base_move * base_step_size if max_base_move != 0 else 0
-        move_elbow = (end_elbow_angle - start_elbow_angle) / max_elbow_move * elbow_step_size if max_elbow_move != 0 else 0
+    # Calculate sign of movement
+    move_base = (end_base_angle - start_base_angle) / max_base_move * base_step_size if max_base_move != 0 else 0
+    move_elbow = (end_elbow_angle - start_elbow_angle) / max_elbow_move * elbow_step_size if max_elbow_move != 0 else 0
 
-        # Move until both angles are at end angles
-        while(abs(curr_base - start_base_angle) - max_base_move < FLOATING_POINT_ERR or 
-              abs(curr_elbow - start_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR):
-            # Check if reached end as security
-            if abs(curr_base - start_base_angle) - max_base_move < FLOATING_POINT_ERR:
-                curr_base += move_base
-                base_servo.set_servo_position(curr_base)
-    
-            if abs(curr_elbow - start_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR:
-                curr_elbow += move_elbow
-                elbow_servo.set_servo_position(curr_elbow)
-            
-            print(f"Current base: {curr_base}")
-            print(f"Current elbow: {curr_elbow}")
+    # Move until both angles are at end angles
+    print(abs(curr_base - start_base_angle))
+    print(max_base_move)
+    while(abs(curr_base - start_base_angle) - max_base_move < FLOATING_POINT_ERR or 
+            abs(curr_elbow - start_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR):
+        # Check if reached end as security
+        if abs(curr_base - start_base_angle) - max_base_move < FLOATING_POINT_ERR:
+            curr_base += move_base
+            base_servo.set_servo_position(curr_base)
 
-            currtime = currtime + timestep
-            sleep(timestep)
-
-        curr_base = end_base_angle
-        curr_elbow = end_elbow_angle
-        base_servo.set_servo_position(curr_base)
-        elbow_servo.set_servo_position(curr_elbow)
+        if abs(curr_elbow - start_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR:
+            curr_elbow += move_elbow
+            elbow_servo.set_servo_position(curr_elbow)
         
-        move_base = (start_base_angle - end_base_angle) / max_base_move * base_step_size if max_base_move != 0 else 0
-        move_elbow = (start_elbow_angle - end_elbow_angle) / max_elbow_move * elbow_step_size if max_elbow_move != 0 else 0
-        
-        while (abs(curr_base - end_base_angle) - max_base_move < FLOATING_POINT_ERR or 
-               abs(curr_elbow - end_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR):
-            # Check if reached end as security
-            if abs(curr_base - end_base_angle) - max_base_move < FLOATING_POINT_ERR:
-                curr_base += move_base
-                base_servo.set_servo_position(curr_base)
-    
-            if abs(curr_elbow - end_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR:
-                curr_elbow += move_elbow
-                elbow_servo.set_servo_position(curr_elbow)
-            
-            print(f"Current base: {curr_base}")
-            print(f"Current elbow: {curr_elbow}")
+        print(f"Current base: {curr_base}")
+        print(f"Current elbow: {curr_elbow}")
 
-            currtime = currtime + timestep
-            sleep(timestep)
+        currtime = currtime + timestep
+        sleep(timestep)
 
 def move_stepper(rotation_angle, stepper = StepperMotor(STEPPER_DIR_PIN, STEPPER_PUL_PIN, POTENTIOMETER_3_PIN), time = 5):
     # stepper.set_potentiometer_stepper_values()
@@ -320,41 +299,38 @@ def core1_thread():
     servo_1 = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
     servo_2 = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
 
-    move_servos_set_timestep(5, 5, 30, 110, base_servo = servo_2, elbow_servo = servo_1, time = 5, timestep = 0.05)
+    while(True):
+        for motion in STEPPER_SMOOTH_MOTION:
+            move_servos_set_timestep(*motion, base_servo = servo_2, elbow_servo = servo_1, time = 5, timestep = 0.05)
+
+    print("Thread 0 stopped!")
 
 def core0_thread():
     # stepper = StepperMotor(STEPPER_DIR_PIN, STEPPER_PUL_PIN, POTENTIOMETER_3_PIN)
     # move_stepper(180, stepper = stepper, time = 2)
     stepper = Stepper(STEPPER_PUL_PIN, STEPPER_DIR_PIN, steps_per_rev=800, speed_sps=50)
-    stepper.target_deg(90)
+    while(True):
+        stepper.target_deg(10)
+        sleep(2.5)
+        stepper.target_deg(-10)
+        sleep(2.5)
+    print("Thread 1 stopped!")
 
 # Main 
 def main():
-
     if USE_BLUETOOTH:  # If we're using Bluetooth, run this main loop instead
         while True:
             if (bt_peripheral.is_connected()):
                 bt_peripheral.on_write(on_rx)
-
-    servo_1 = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
-    servo_2 = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
 
     #call init function
     try:
         threadythread = _thread.start_new_thread(core1_thread, ())
         core0_thread()
     except (KeyboardInterrupt, SystemExit):
+        print("Thead stopped")
         print("Proper ending of program has not been implemented yet (sorry) :)")
-    finally:
-        servo_1.set_servo_position(0)
-        servo_2.set_servo_position(0)
-        print("good riddance")
 
 if __name__ == "__main__":
     #call init function
-    try:
-        main()
-    except (KeyboardInterrupt, SystemExit):
-        print("Proper ending of program has not been implemented yet (sorry) :))")
-    finally:
-        print("PLEASE good riddance")
+    main()
