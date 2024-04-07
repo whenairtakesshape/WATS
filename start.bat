@@ -7,6 +7,8 @@ set "serverPath=%projectPath%\Server"
 set "clientPath=%projectPath%\Client"
 
 cd /d "%projectPath%"
+git fetch origin
+git reset --hard origin/staging-branch
 git checkout staging-branch
 git pull
 
