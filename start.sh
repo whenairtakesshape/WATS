@@ -3,6 +3,8 @@
 TASKKILL //F //IM node.exe
 TASKKILL //F //IM msedge.exe
 
+git fetch origin
+git reset --hard origin/staging-branch
 git checkout staging-branch
 git pull
 
