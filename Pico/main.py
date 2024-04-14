@@ -107,7 +107,17 @@ def PerformStepContraction():
 
 def PerformMotion(motion):
     print("Performing Motion: ", motion)
-    
+    if motion == 1:
+        move_servos(40, 60, 70, 70, time=1);
+    elif motion == 2:
+        move_servos(60, 40, 20, 70);
+    elif motion == 3:
+        move_servos(40, 60, 70, 20);
+    elif motion == 4:
+        move_servos(60, 40, 70, 20);
+    elif motion == 5:
+        move_servos(40, 60, 20, 70);
+        
 
 class ServoMotor:
     min_pulse = 0.0005
