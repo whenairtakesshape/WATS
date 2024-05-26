@@ -280,11 +280,13 @@ def smooth_stepper_thread():
     angle = 90
     rps = 0.25
     stepper.speed_rps(rps)
+    print(angle / 360 / rps * 1.2)
     while(True):
         stepper.target_deg(angle)
-        sleep(angle / 360 * rps * 1.2)
+        print(angle / 360 / rps * 1.2)
+        sleep(angle / 360 / rps * 1.2)
         stepper.target_deg(0)
-        sleep(angle / 360 * rps * 1.2)
+        sleep(angle / 360 / rps * 1.2)
 
 
 def jerky_servos_thread():
@@ -304,9 +306,9 @@ def jerky_stepper_thread():
     stepper.speed_rps(rps)
     while(True):
         stepper.target_deg(angle)
-        sleep(angle / 360 * rps * 1.2)
+        sleep(angle / 360 / rps * 1.2)
         stepper.target_deg(0)
-        sleep(angle / 360 * rps * 1.2)
+        sleep(angle / 360 / rps * 1.2)
 
 # Main 
 def main():
@@ -317,6 +319,7 @@ def main():
 
     #call init function
     try:
+        print("starting thread")
         threadythread = _thread.start_new_thread(smooth_stepper_thread, ())
         # smooth_servos_thread()
     except (KeyboardInterrupt, SystemExit):
