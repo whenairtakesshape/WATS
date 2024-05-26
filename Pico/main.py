@@ -300,7 +300,7 @@ def jerky_servos_thread():
 def jerky_stepper_thread():
     stepper = Stepper(STEPPER_PUL_PIN, STEPPER_DIR_PIN, steps_per_rev=800)
     angle = 90
-    rps = 0.25
+    rps = 0.5
     stepper.speed_rps(rps)
     while(True):
         stepper.target_deg(angle)
