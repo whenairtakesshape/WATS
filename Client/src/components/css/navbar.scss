@@ -1,0 +1,25 @@
+.navbar-container {
+    position: fixed;
+    border: none;
+    width: 83px;
+    height: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+  }
+
+
+.navbar-button {
+    background: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 5px 15px;
+}
+
+
