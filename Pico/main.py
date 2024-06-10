@@ -10,12 +10,6 @@ import bluetooth
 from ble_peripheral import BLESimplePeripheral
 from stepper import Stepper
 
-#Servo(2) Base start 48 (vertical)
-Base_offset = 48
-
-#Servo (1) Elbow start 80
-Elbow_offset = 80
-
 # Pin Definitions (based on GP numbers)
 SERVO_1_ELBOW_PIN = 2
 SERVO_2_BASE_PIN = 3
@@ -26,10 +20,9 @@ POTENTIOMETER_2_PIN = 27
 POTENTIOMETER_3_PIN = 26
 
 """
-Base servo: (20, 100)
-Elbow servo: (10, 110)
-The above servo limits are the safe region. It may be possible to move outside them but please be
-careful and test with caution :)
+Base servo limits: (0, 100)
+Elbow servo limits: (58, 180)
+The above servo limits are the safe region. Servos do 10 degrees/sec pretty nicely :)
 
 Stepper speed: Max speed is 35 rpm at 8 Nm torque -> try to set speed below 0.5 rps if unsure
                More testing needed to determine torque with actual model.
@@ -37,16 +30,8 @@ Stepper speed: Max speed is 35 rpm at 8 Nm torque -> try to set speed below 0.5 
 
 
 # Angle order is: start_base_angle,end_base_angle, start_elbow_angle, end_elbow_angle
-SERVO_SMOOTH_MOTION = [(20, 70, 30, 90, 5, 0.05), 
-                         (70, 70, 90, 115, 5, 0.05), 
-                         (70, 50, 115, 115, 5, 0.05), 
-                         (50, 50, 115, 90, 5, 0.05), 
-                         (50, 20, 90, 30, 5, 0.05)] # Tested and looks good
-SERVO_JERKY_MOTION = [(50, 90, 30, 50, 1, 0.05), 
-                        (90, 90, 50, 80, 1, 0.05), 
-                        (90, 70, 80, 80, 1, 0.05), 
-                        (70, 70, 80, 50, 1, 0.05), 
-                        (70, 50, 50, 30, 1, 0.05)] # Still needs testing
+TEST_MOTION = [(100, 60, 180, 120, 5, 0.05), 
+                (60, 100, 120, 180, 5, 0.05)] # NOTE: Haven't test this! Be careful :)
 
 
 FLOATING_POINT_ERR = -1e-3
@@ -55,6 +40,8 @@ FLOATING_POINT_ERR = -1e-3
 USE_BLUETOOTH = False # Set to True to use Bluetooth
 ble = bluetooth.BLE()
 bt_peripheral = BLESimplePeripheral(ble)
+curr_elbow = 152
+curr_base = 82
 
 #Blutooth Callback to receive Data
 def on_rx(data):
@@ -102,6 +89,11 @@ def perform_command(command):
 
 def PerformHome():
     print("Performing Home")
+    global curr_base
+    global curr_elbow
+    move_servos_set_timestep(curr_base, 100, curr_elbow, 180)
+    curr_elbow = 180
+    curr_base = 100
 
 def PerformStop():
     print("Performing Stop")
@@ -206,29 +198,27 @@ def move_servos_set_timestep(start_base_angle: int,
       time: the amount of time in seconds to produce the full contraction and extension motion
       timestep: Time between two steps
     """
-    print("Hello")
-    if time == 0 or timestep == 0:
-        print("Time")
+    global curr_base
+    global curr_elbow
+    curr_base = start_base_angle
+    curr_elbow = start_elbow_angle
+
+    
+    if time == 0 or timestep == 0 or timestep > time:
+        print("Improper times passed to servo moving function")
         base_servo.set_servo_position(start_base_angle)
         elbow_servo.set_servo_position(start_elbow_angle)
         return
     elif start_base_angle == end_base_angle and start_elbow_angle == end_elbow_angle:
-        print("angles")
         base_servo.set_servo_position(start_base_angle)
         elbow_servo.set_servo_position(start_elbow_angle)
         return
-    elif timestep > time / 2:
-        print("Timestep parameter too large")
-        return
-
-    curr_base = start_base_angle
-    curr_elbow = start_elbow_angle
 
     max_base_move = abs(end_base_angle - start_base_angle)
     max_elbow_move = abs(end_elbow_angle - start_elbow_angle)
 
-    base_step_size = max_base_move / (time / 2 / timestep)
-    elbow_step_size = max_elbow_move / (time / 2 / timestep)
+    base_step_size = max_base_move / (time / timestep)
+    elbow_step_size = max_elbow_move / (time / timestep)
 
     # Reset angles to prevent build-up of error
     curr_base = start_base_angle
@@ -262,42 +252,26 @@ def move_servos_set_timestep(start_base_angle: int,
         sleep(timestep)
 
 
-def smooth_servos_thread():
+def servos_thread():
     servo_1 = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
     servo_2 = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
-    servo_1.set_servo_position(10)
-    servo_2.set_servo_position(30)
 
     while(True):
-        for motion in SERVO_SMOOTH_MOTION:
-            continue
-            # move_servos_set_timestep(*motion, base_servo = servo_2, elbow_servo = servo_1)
-
-    print("Thread 0 stopped!")
+        for motion in TEST_MOTION:
+            move_servos_set_timestep(*motion, base_servo = servo_2, elbow_servo = servo_1)
 
 def smooth_stepper_thread():
     stepper = Stepper(STEPPER_PUL_PIN, STEPPER_DIR_PIN, steps_per_rev=800)
     angle = 90
-    rps = 0.25
-    stepper.speed_rps(rps)
-    print(angle / 360 / rps * 1.2)
+    rotationsPerSecond = 0.1
+    stepper.speed_rps(rotationsPerSecond)
+    print(angle / 360 / rotationsPerSecond * 1.2)
     while(True):
         stepper.target_deg(angle)
-        print(angle / 360 / rps * 1.2)
-        sleep(angle / 360 / rps * 1.2)
+        print(angle / 360 / rotationsPerSecond * 1.2)
+        sleep(angle / 360 / rotationsPerSecond * 1.2)
         stepper.target_deg(0)
-        sleep(angle / 360 / rps * 1.2)
-
-
-def jerky_servos_thread():
-    servo_1 = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
-    servo_2 = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
-
-    while(True):
-        for motion in SERVO_JERKY_MOTION:
-            move_servos_set_timestep(*motion, base_servo = servo_2, elbow_servo = servo_1)
-
-    print("Thread 0 stopped!")
+        sleep(angle / 360 / rotationsPerSecond * 1.2)
 
 def jerky_stepper_thread():
     stepper = Stepper(STEPPER_PUL_PIN, STEPPER_DIR_PIN, steps_per_rev=800)
@@ -316,16 +290,33 @@ def main():
         while True:
             if (bt_peripheral.is_connected()):
                 bt_peripheral.on_write(on_rx)
+    global curr_base
+    global curr_elbow
 
     #call init function
     try:
         print("starting thread")
-        threadythread = _thread.start_new_thread(smooth_stepper_thread, ())
-        # smooth_servos_thread()
+        elbowServo = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
+        baseServo = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
+
+        # elbowServo.set_servo_position(30)
+
+        # move_servos_set_timestep(100, 60, 180, 120, 10, 0.1)
+        # curr_base = 60
+        # curr_elbow = 120
+        PerformHome()
+
+        # threadythread = _thread.start_new_thread(servos_thread, ())
+        # smooth_stepper_thread()
     except (KeyboardInterrupt, SystemExit):
         print("Thead stopped")
 
         print("Proper ending of program has not been implemented yet (sorry) :)")
+        
+        print("This is the final base")
+        print(curr_base)
+        print("This is the final elbow position")
+        print(curr_elbow)
 
 if __name__ == "__main__":
     #call init function
