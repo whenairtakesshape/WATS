@@ -9,6 +9,10 @@
   background-position: center center;
   flex-direction: column;
   padding-left: 83px;
+  @media screen and (max-width: 768px) {
+    padding-left: 0;
+    padding-top: 92px;
+  }
 }
 
 .introduction-container-header {
