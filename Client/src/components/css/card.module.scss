@@ -1,0 +1,119 @@
+.imageIcon {
+  width: 200px;
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.wearAMask {
+  position: relative;
+  letter-spacing: 0.5px;
+  line-height: 33px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.wearAMaskWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.wearingAFace {
+  width: 429px;
+  position: relative;
+  letter-spacing: 0.5px;
+  line-height: 33px;
+  font-weight: 500;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.wearingAFaceMaskIsRecommeWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 20px;
+}
+.imageParent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+.labelChild {
+  width: 16px;
+  position: relative;
+  border-radius: 50%;
+  background-color: #dfa2fb;
+  height: 16px;
+}
+.label1 {
+  position: relative;
+  letter-spacing: 0.5px;
+  line-height: 32px;
+}
+.label {
+  border-radius: 6px;
+  background-color: #fff;
+  border: 1.6px solid #03588c;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4px 8px;
+  gap: 4px;
+}
+.labelItem {
+  width: 16px;
+  position: relative;
+  border-radius: 50%;
+  background-color: #a8e05f;
+  height: 16px;
+}
+.labelInner {
+  width: 16px;
+  position: relative;
+  border-radius: 50%;
+  background-color: rgba(142, 190, 208, 0.6);
+  height: 16px;
+}
+.labelParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  text-align: left;
+  font-size: 18px;
+}
+.frameGroup {
+  align-self: stretch;
+  // flex: 1;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.frameParent {
+  width: 60%;
+  position: relative;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  background-color: #e6eef4;
+  height: 840px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 32px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 25px;
+  color: #000;
+  font-family: Montserrat;
+}
