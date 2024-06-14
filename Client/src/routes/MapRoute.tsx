@@ -20,6 +20,7 @@ import { WindowContext } from "../contexts/WindowSizeContext";
 import { DataContext } from "../contexts/DataContext";
 import { SearchInfoContext } from "../contexts/SearchInfoContext";
 import { Datapoint } from "../model/DataHandler";
+import CustomMarker from "../components/CustomMarker";
 
 // MapRoute that is rendered in App.tsx
 export function MapRoute() {
@@ -172,19 +173,11 @@ function Map() {
            * when this marker is clicked, handleActiveMarker() and the DataPoint
            * pertaining to this marker/location.
            */
-          <MarkerF
+          <CustomMarker
             key={datapoint.uid}
             position={{ lat: datapoint.lat, lng: datapoint.lon }}
             onClick={() => handleActiveMarker(datapoint)}
           >
-            {/**
-             * if this marker is active (means it has been clicked by user), then InfoWindowF component renders.
-             * InfoWindowF must be aware of the lat and lng over which it will pop up.
-             * when the info window is closed, searchInfo.activeMarker is set to null user is in process
-             * of selecting another marker.
-             * However, if the select button inside InfoWindowF is clicked, the app will navigate to infoPage
-             * and the properties of searchInfo must be set to the default except for the datapoint property.
-             */}
             {searchInfo.activeMarker === datapoint.uid ? (
               <InfoWindowF
                 position={{ lat: datapoint.lat, lng: datapoint.lon }}
@@ -214,7 +207,50 @@ function Map() {
                 </div>
               </InfoWindowF>
             ) : null}
-          </MarkerF>
+          </CustomMarker>
+          // <MarkerF
+          //   key={datapoint.uid}
+          //   position={{ lat: datapoint.lat, lng: datapoint.lon }}
+          //   onClick={() => handleActiveMarker(datapoint)}
+          // >
+          //   {/**
+          //    * if this marker is active (means it has been clicked by user), then InfoWindowF component renders.
+          //    * InfoWindowF must be aware of the lat and lng over which it will pop up.
+          //    * when the info window is closed, searchInfo.activeMarker is set to null user is in process
+          //    * of selecting another marker.
+          //    * However, if the select button inside InfoWindowF is clicked, the app will navigate to infoPage
+          //    * and the properties of searchInfo must be set to the default except for the datapoint property.
+          //    */}
+          //   {searchInfo.activeMarker === datapoint.uid ? (
+          //     <InfoWindowF
+          //       position={{ lat: datapoint.lat, lng: datapoint.lon }}
+          //       onCloseClick={() =>
+          //         setSearchInfo({ ...searchInfo, activeMarker: null })
+          //       }
+          //     >
+          //       <div className="map-route-container-info-window">
+          //         <p>
+          //           {datapoint.city},<br />
+          //           <b>{datapoint.country}</b>
+          //         </p>
+          //         <button
+          //           onClick={() => {
+          //             setSearchInfo({
+          //               term: "",
+          //               zoom: 3,
+          //               center: { lat: 45.765001, lng: -76.001027 },
+          //               activeMarker: null,
+          //               datapoint: datapoint,
+          //             });
+          //             navigate("/info-page");
+          //           }}
+          //         >
+          //           Select
+          //         </button>
+          //       </div>
+          //     </InfoWindowF>
+          //   ) : null}
+          // </MarkerF>
         ))}
       </GoogleMap>
     </div>

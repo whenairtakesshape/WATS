@@ -2,7 +2,7 @@
 import "./css/searchbar.scss";
 
 // libraries import 
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 import react from 'react';
 import { SearchInfoContext } from "../contexts/SearchInfoContext";
 import { CitiesCountriesPropsInterface } from "../model/interfaces";
@@ -16,8 +16,16 @@ interface SearchBarProps {
 function SearchBar(props: SearchBarProps) {
   const { searchInfo, setSearchInfo } = useContext(SearchInfoContext);
   const { data, setData } = useContext(DataContext);
+  const [ searchText, setSearchText ] = useState("");
 
   const searchInput = useRef<HTMLInputElement>(null);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setSearchInfo({ ...searchInfo, term: searchText });
+      props.setCurrentPage(1);
+    }
+  }
 
   const clearSearchInput = () => {
     if (searchInput.current) {
@@ -57,11 +65,12 @@ function SearchBar(props: SearchBarProps) {
         </svg>
       </div>
 
-      <input ref={searchInput} type="text" placeholder="Search" onChange={(event) => {
-        setSearchInfo({ ...searchInfo, term: event.target.value });
-        props.setCurrentPage(1);
-      }} />
-      {/* {<button onClick={() => setSearchInfo({ ...searchInfo, byCity: false })}>by country</button>} */}
+      <input ref={searchInput} type="text" placeholder="Search" 
+        onChange={(event) => {
+          setSearchText(event.target.value);
+        }} 
+        onKeyDown={handleKeyDown}
+      />
       {/* {<button onClick={() => setSearchInfo({ ...searchInfo, byCity: true })}>by city</button>} */}
       {/* {searchFiltered.map((city, key) => {
         return (<text>{city}...</text>);
@@ -80,6 +89,11 @@ function SearchBar(props: SearchBarProps) {
           </defs>
         </svg>
       </div>
+
+      {<button onClick={() => {
+        setSearchInfo({ ...searchInfo, term: searchText });
+        props.setCurrentPage(1);
+      }}>Search</button>}
 
     </div>
 

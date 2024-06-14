@@ -19,6 +19,8 @@ import { WindowContext } from "./contexts/WindowSizeContext";
 import { Data, DataContext } from "./contexts/DataContext";
 import { BreatheRoute } from "./routes/BreatheRoute";
 import { AdminWindow } from "./components/AdminWindow";
+import NavBar from "./components/NavBar";
+
 
 /* 
 Project Structure...
@@ -108,6 +110,7 @@ function App() {
                 setWindowObject: setScreenSize,
               }}
             >
+              <NavBar />
               <SearchInfoContext.Provider value={{ searchInfo, setSearchInfo }}>
                 <Routes>
                   <Route path="/mapRoute" element={<MapRoute />}></Route>
