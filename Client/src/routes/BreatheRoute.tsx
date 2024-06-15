@@ -71,15 +71,25 @@ export const BreatheRoute = () => {
           before engaging in this activity.
         </p>
       </div>
+      <div className="breathe-route-buttun-div"> 
       <button
-        className="breathe-route-return-home"
+        className="breathe-route-nav-button"
         onClick={() => {
-          //makeApiRequest();
-          navigate("/intro");
+          navigate("/mapRoute");
         }}
       >
-        Return Home
+        Go back to the map page
       </button>
+      <button
+        className="breathe-route-nav-button"
+        onClick={() => {
+          navigate("/take-action");
+        }}
+      >
+        Learn how to take action
+      </button>
+      </div>
+
     </div>
   );
 };
