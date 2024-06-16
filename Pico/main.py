@@ -23,6 +23,7 @@ POTENTIOMETER_3_PIN = 26
 Base servo limits: (0, 100)
 Elbow servo limits: (58, 180)
 The above servo limits are the safe region. Servos do 10 degrees/sec pretty nicely :)
+Home location = base = 100, elbow = 180
 
 Stepper speed: Max speed is 35 rpm at 8 Nm torque -> try to set speed below 0.5 rps if unsure
                More testing needed to determine torque with actual model.
@@ -33,11 +34,12 @@ Stepper speed: Max speed is 35 rpm at 8 Nm torque -> try to set speed below 0.5 
 TEST_MOTION = [(100, 60, 180, 120, 5, 0.05), 
                 (60, 100, 120, 180, 5, 0.05)] # NOTE: Haven't test this! Be careful :)
 
+MOTION_LIST = [TEST_MOTION, TEST_MOTION, TEST_MOTION, TEST_MOTION, TEST_MOTION]
 
 FLOATING_POINT_ERR = -1e-3
 
 #Bluetooth
-USE_BLUETOOTH = False # Set to True to use Bluetooth
+USE_BLUETOOTH = True # Set to True to use Bluetooth
 ble = bluetooth.BLE()
 bt_peripheral = BLESimplePeripheral(ble)
 curr_elbow = 152
@@ -96,6 +98,7 @@ def PerformHome():
     curr_base = 100
 
 def PerformStop():
+    PerformHome()
     print("Performing Stop")
 
 def PerformReset():
@@ -120,17 +123,17 @@ def PerformStepContraction():
     print("Performing Step Contraction")
 
 def PerformMotion(motion):
+    PerformHome()
     print("Performing Motion: ", motion)
-    if motion == 1:
-        move_servos(40, 60, 70, 70, time=1);
-    elif motion == 2:
-        move_servos(60, 40, 20, 70);
-    elif motion == 3:
-        move_servos(40, 60, 70, 20);
-    elif motion == 4:
-        move_servos(60, 40, 70, 20);
-    elif motion == 5:
-        move_servos(40, 60, 20, 70);
+
+    PerformMotionServos(motion)
+
+def PerformMotionServos(motion):
+    for step in MOTION_LIST[motion]:
+        move_servos_set_timestep(*step)
+
+def PerformMotionSteppers(motion):
+    print("Stepper motion feature coming soon")
         
 
 class ServoMotor:
@@ -265,13 +268,9 @@ def smooth_stepper_thread():
     angle = 90
     rotationsPerSecond = 0.1
     stepper.speed_rps(rotationsPerSecond)
-    print(angle / 360 / rotationsPerSecond * 1.2)
     while(True):
         stepper.target_deg(angle)
-        print(angle / 360 / rotationsPerSecond * 1.2)
-        sleep(angle / 360 / rotationsPerSecond * 1.2)
         stepper.target_deg(0)
-        sleep(angle / 360 / rotationsPerSecond * 1.2)
 
 def jerky_stepper_thread():
     stepper = Stepper(STEPPER_PUL_PIN, STEPPER_DIR_PIN, steps_per_rev=800)
@@ -290,33 +289,6 @@ def main():
         while True:
             if (bt_peripheral.is_connected()):
                 bt_peripheral.on_write(on_rx)
-    global curr_base
-    global curr_elbow
-
-    #call init function
-    try:
-        print("starting thread")
-        elbowServo = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
-        baseServo = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
-
-        # elbowServo.set_servo_position(30)
-
-        # move_servos_set_timestep(100, 60, 180, 120, 10, 0.1)
-        # curr_base = 60
-        # curr_elbow = 120
-        PerformHome()
-
-        # threadythread = _thread.start_new_thread(servos_thread, ())
-        # smooth_stepper_thread()
-    except (KeyboardInterrupt, SystemExit):
-        print("Thead stopped")
-
-        print("Proper ending of program has not been implemented yet (sorry) :)")
-        
-        print("This is the final base")
-        print(curr_base)
-        print("This is the final elbow position")
-        print(curr_elbow)
 
 if __name__ == "__main__":
     #call init function
