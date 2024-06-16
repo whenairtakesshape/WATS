@@ -9,8 +9,6 @@ import React from "react";
 // components
 import { SwipeCard } from "../components/SwipeCard";
 
-
-
 export function LandingPage() {
   return (
     <div className="landing-route-container">

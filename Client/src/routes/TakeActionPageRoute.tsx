@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./css/takeActionPage.module.scss";
 import Carousel from "../components/takeActionComponents/Carousel";
 import Filter from "../components/takeActionComponents/Filter";
 import { takeActions, TakeActionProps } from "../data/actions";
 const TakeActionPage = () => {
+  const navigate = useNavigate();
   const [filteredCards, setFilteredCards] =
     useState<TakeActionProps[]>(takeActions);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -31,7 +33,6 @@ const TakeActionPage = () => {
         )
       );
     }
-    console.log(filteredCards);
   };
 
   const handleClearFilters = () => {
@@ -100,6 +101,14 @@ const TakeActionPage = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div
+          className={styles.ending}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Finish My Journey
         </div>
       </div>
     </div>
