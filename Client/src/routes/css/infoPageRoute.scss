@@ -7,6 +7,11 @@
   position: relative;
   width: 100vw;
   margin-bottom: 2em;
+  padding-left: 83px;
+  @media screen and (max-width: 768px) {
+    padding-left: 0;
+    padding-top: 92px;
+  }
 }
 
 .info-page-header {
