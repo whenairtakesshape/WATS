@@ -94,10 +94,10 @@ export const NavBar = () => {
     return (
         <div className="navbar-container">
             <div className="nav-atta-section">
-                <button className="navbar-atta-button">
+                <div className="navbar-atta-div">
                     <img src={atta_logo} />
                     <label className="nav-wata-title">When Air Takes Shape</label>
-                </button>
+                </div>
             </div>
             <hr className="navbar-hr"/>
             {isMobile ? (
