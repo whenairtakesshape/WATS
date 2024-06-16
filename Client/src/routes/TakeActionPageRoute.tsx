@@ -101,14 +101,14 @@ const TakeActionPage = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className={styles.ending}
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Finish My Journey
+          <div
+            className={styles.ending}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Finish My Journey
+          </div>
         </div>
       </div>
     </div>
