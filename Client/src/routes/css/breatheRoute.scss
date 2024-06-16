@@ -58,7 +58,12 @@
   }
 }
 
-.breathe-route-return-home {
+.breathe-route-nav-buttun-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.breathe-route-nav-button {
   margin-top: 20px;
   margin-bottom: 20px;
   font-family: Montserrat;
