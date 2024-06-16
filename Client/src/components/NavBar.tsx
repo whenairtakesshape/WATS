@@ -37,7 +37,7 @@ export const NavBar = () => {
                             navigate("/");
                         }}>
                         <img className="navbar-button-logo" src={home_icon} />
-                        {isMobile ? "Start here" : "Login"}
+                        {isMobile ? "Start here" : "Home"}
                     </button>
                     <hr className="navbar-hr navbar-vertical-home-hr"/>
                     <button 
