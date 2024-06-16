@@ -32,9 +32,15 @@ Stepper speed: Max speed is 35 rpm at 8 Nm torque -> try to set speed below 0.5 
 
 # Angle order is: start_base_angle,end_base_angle, start_elbow_angle, end_elbow_angle
 TEST_MOTION = [(100, 60, 180, 120, 5, 0.05), 
-                (60, 100, 120, 180, 5, 0.05)] # NOTE: Haven't test this! Be careful :)
+                (60, 100, 120, 180, 5, 0.05)]
+TEST_MOTION_2 = [(60, 25, 120, 90, 1, 0.5), 
+                (25, 60, 90, 120, 1, 0.5)]
+TEST_MOTION_3 = [(100, 50, 180, 180, 5, 0.05),
+                 (50, 50, 180, 58, 5, 0.05),
+                 (50, 20, 58, 58, 30, 0.05),
+                 (20, 100, 58, 180, 7, 0.05)]
 
-MOTION_LIST = [TEST_MOTION, TEST_MOTION, TEST_MOTION, TEST_MOTION, TEST_MOTION]
+MOTION_LIST = [TEST_MOTION_3, TEST_MOTION, TEST_MOTION, TEST_MOTION_2, TEST_MOTION_2]
 
 FLOATING_POINT_ERR = -1e-3
 
@@ -42,19 +48,31 @@ FLOATING_POINT_ERR = -1e-3
 USE_BLUETOOTH = True # Set to True to use Bluetooth
 ble = bluetooth.BLE()
 bt_peripheral = BLESimplePeripheral(ble)
-curr_elbow = 152
-curr_base = 82
+curr_elbow = 180
+curr_base = 100
+
+newCommand = False
+threadRunning = False
 
 #Blutooth Callback to receive Data
 def on_rx(data):
-    print("Bluetooth Data Recieved: ", data)
+    global newCommand
+    global threadRunning
+    newCommand = True
+    print("Bluetooth Data Received: ", data)
 
-    # Act on Data
-    perform_command(data)
+    # Wait for last command to end before starting new command
+    while (threadRunning):
+        print("Waiting")
+        sleep(0.5)
 
+    newCommand = False
+    commandThread = _thread.start_new_thread(perform_command, (data,))
 
 def perform_command(command):
-    print("Command Recieved: ", command)
+    global threadRunning
+    threadRunning = True
+    print("Command Received: ", command)
     # Perform the command
     if command == b'h':
         PerformHome()
@@ -123,19 +141,33 @@ def PerformStepContraction():
     print("Performing Step Contraction")
 
 def PerformMotion(motion):
-    PerformHome()
     print("Performing Motion: ", motion)
 
     PerformMotionServos(motion)
 
 def PerformMotionServos(motion):
-    for step in MOTION_LIST[motion]:
-        move_servos_set_timestep(*step)
+    global newCommand
+    global threadRunning
+    ServosToStartPosition(motion)
+
+    while(True):
+        for step in MOTION_LIST[motion]:
+            move_servos_set_timestep(*step)
+            print(f"New command: {newCommand}")
+            if (newCommand):
+                print("received new command")
+                threadRunning = False
+                return
+
+def ServosToStartPosition(motion: int):
+    start_base = MOTION_LIST[motion][0][0]
+    start_elbow = MOTION_LIST[motion][0][2]
+
+    move_servos_set_timestep(curr_base, start_base, curr_elbow, start_elbow, 3, 0.05)
 
 def PerformMotionSteppers(motion):
     print("Stepper motion feature coming soon")
         
-
 class ServoMotor:
     # Time in seconds of minimum and maximum accepted pulse lengths
     min_pulse = 0.0005
@@ -159,7 +191,7 @@ class ServoMotor:
             angle = 0
         elif angle > 270:
             angle = 270
-        print(f"Current angle {angle}")
+        # print(f"Current angle {angle}")
             
         servo_cycle = int(65535 * (angle * (self.max_pulse - self.min_pulse) * self.freq / 270 + self.freq * self.min_pulse))
 
@@ -235,8 +267,6 @@ def move_servos_set_timestep(start_base_angle: int,
     move_elbow = (end_elbow_angle - start_elbow_angle) / max_elbow_move * elbow_step_size if max_elbow_move != 0 else 0
 
     # Move until both angles are at end angles
-    print(abs(curr_base - start_base_angle))
-    print(max_base_move)
     while(abs(curr_base - start_base_angle) - max_base_move < FLOATING_POINT_ERR or 
             abs(curr_elbow - start_elbow_angle) - max_elbow_move < FLOATING_POINT_ERR):
         # Check if reached end as security
@@ -265,16 +295,18 @@ def servos_thread():
 
 def smooth_stepper_thread():
     stepper = Stepper(STEPPER_PUL_PIN, STEPPER_DIR_PIN, steps_per_rev=800)
-    angle = 90
+    angle = 30
     rotationsPerSecond = 0.1
     stepper.speed_rps(rotationsPerSecond)
     while(True):
         stepper.target_deg(angle)
+        sleep(angle / 360 / rotationsPerSecond * 1.2)
         stepper.target_deg(0)
+        sleep(angle / 360 / rotationsPerSecond * 1.2)
 
 def jerky_stepper_thread():
     stepper = Stepper(STEPPER_PUL_PIN, STEPPER_DIR_PIN, steps_per_rev=800)
-    angle = 90
+    angle = 30
     rps = 0.5
     stepper.speed_rps(rps)
     while(True):
@@ -285,10 +317,42 @@ def jerky_stepper_thread():
 
 # Main 
 def main():
-    if USE_BLUETOOTH:  # If we're using Bluetooth, run this main loop instead
-        while True:
-            if (bt_peripheral.is_connected()):
-                bt_peripheral.on_write(on_rx)
+    # smooth_stepper_thread()
+    elbow_servo = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
+    base_servo = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
+    # base_servo.set_servo_position(80)
+    # sleep(2)
+    # elbow_servo.set_servo_position(58)
+
+    # move_servos_set_timestep(100, 100, 58, 180, 5, 0.1)
+    # move_servos_set_timestep(100, 80, 180, 180, 5, 0.1)
+    # move_servos_set_timestep(80, 80, 180, 160, 5, 0.1)
+    move_servos_set_timestep(100, 50, 180, 180, 5, 0.1)
+
+    # while(True):
+    #     PerformHome()
+
+    # PerformMotion(0)
+    
+    # for i in range(5):
+    #     print(f"Performing motion {i}")
+    #     global threadRunning
+    #     threadRunning = True
+    #     commandThread = _thread.start_new_thread(PerformMotion, (i,))
+    #     sleep(3)
+    #     global newCommand
+    #     newCommand = True
+
+    #     print(f"Thread running {threadRunning}")
+    #     while(threadRunning):
+    #         print(f"Thread running {threadRunning}")
+    #         sleep(0.5)
+    #     newCommand = False
+
+    # if USE_BLUETOOTH:  # If we're using Bluetooth, run this main loop instead
+    #     while True:
+    #         if (bt_peripheral.is_connected()):
+    #             bt_peripheral.on_write(on_rx)
 
 if __name__ == "__main__":
     #call init function
