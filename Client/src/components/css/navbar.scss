@@ -1,7 +1,7 @@
 .navbar-container {
     position: fixed;
     border: none;
-    width: 83px;
+    width: 92px;
     height: 100%;
     background: white;
     display: flex;
@@ -52,6 +52,8 @@
   width: 100%;
   margin: 0;
   padding: 2vh 15px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   @media screen and (max-width: 768px) {
     padding: 0;
