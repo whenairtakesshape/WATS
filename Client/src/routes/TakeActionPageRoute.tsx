@@ -1,11 +1,43 @@
-import { useCallback } from "react";
+import { useState } from "react";
 import styles from "./css/takeActionPage.module.scss";
 import Carousel from "../components/takeActionComponents/Carousel";
-
+import Filter from "../components/takeActionComponents/Filter";
+import { takeActions, TakeActionProps } from "../data/actions";
 const TakeActionPage = () => {
-  const onTextWrapperContainerClick = useCallback(() => {
-    // Add your code here
-  }, []);
+  const [filteredCards, setFilteredCards] =
+    useState<TakeActionProps[]>(takeActions);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const tagCategories = {
+    Actor: ["Individual", "Community"],
+    Target: ["Reducing health risks", "Reducing air pollution"],
+    Sector: [
+      "Transportation",
+      "Food",
+      "Consumption habits",
+      "Sports & health",
+      "Activism",
+      "Household",
+    ],
+  };
+  const handleApplyFilters = () => {
+    console.log(selectedTags);
+    if (selectedTags.length === 0) {
+      setFilteredCards(takeActions);
+    } else {
+      setFilteredCards(
+        takeActions.filter((card) =>
+          selectedTags.every((tag) => card.tags.includes(tag))
+        )
+      );
+    }
+    console.log(filteredCards);
+  };
+
+  const handleClearFilters = () => {
+    setSelectedTags([]);
+    setFilteredCards(takeActions);
+  };
 
   return (
     <div className={styles.page}>
@@ -22,62 +54,34 @@ const TakeActionPage = () => {
         <div className={styles.frameGroup}>
           <div className={styles.selectCategoriesWrapper}>
             <div className={styles.selectCategories}>
-              <p className={styles.select}>{`Select `}</p>
+              <p className={styles.select}>Filter by</p>
               <p className={styles.select}>Categories</p>
             </div>
-          </div>
-          <div className={styles.dropdownMenu}>
-            <div className={styles.filterItem}>
-              <div className={styles.accessibility}>Accessibility</div>
-              <img
-                className={styles.mediaIconUnfilledChev}
-                alt=""
-                src="Media / Icon / Unfilled / cheveron-down.svg"
+            <div className="">
+              <Filter
+                title="Actors"
+                options={tagCategories.Actor}
+                selectedOptions={selectedTags}
+                onChange={setSelectedTags}
+              />
+
+              <Filter
+                title="Sectors"
+                options={tagCategories.Sector}
+                selectedOptions={selectedTags}
+                onChange={setSelectedTags}
+              />
+              <Filter
+                title="Targets"
+                options={tagCategories.Target}
+                selectedOptions={selectedTags}
+                onChange={setSelectedTags}
               />
             </div>
-            <div className={styles.dropdownMenuInner}>
-              <div className={styles.textWrapperParent}>
-                <div
-                  className={styles.textWrapper}
-                  onClick={onTextWrapperContainerClick}
-                >
-                  <div className={styles.checkbox}>
-                    <div className={styles.checkbox1} />
-                    <div className={styles.label}>Individual</div>
-                  </div>
-                </div>
-                <div className={styles.textWrapper1}>
-                  <div className={styles.checkbox}>
-                    <div className={styles.checkbox1} />
-                    <div className={styles.label}>Community</div>
-                  </div>
-                </div>
-              </div>
+            <div className={styles.buttons}>
+              <button onClick={handleApplyFilters}>Apply Filters</button>
+              <button onClick={handleClearFilters}>Clear Filters</button>
             </div>
-          </div>
-          <div className={styles.dropdownMenudefaultno}>
-            <div className={styles.accessibility1}>Target</div>
-            <img
-              className={styles.mediaIconUnfilledChev}
-              alt=""
-              src="Media / Icon / Unfilled / cheveron-down.svg"
-            />
-          </div>
-          <div className={styles.dropdownMenudefaultno}>
-            <div className={styles.accessibility1}>Difficulty</div>
-            <img
-              className={styles.mediaIconUnfilledChev}
-              alt=""
-              src="Media / Icon / Unfilled / cheveron-down.svg"
-            />
-          </div>
-          <div className={styles.dropdownMenudefaultno}>
-            <div className={styles.accessibility1}>Sector</div>
-            <img
-              className={styles.mediaIconUnfilledChev}
-              alt=""
-              src="Media / Icon / Unfilled / cheveron-down.svg"
-            />
           </div>
         </div>
         <div className={styles.frameWrapper}>
@@ -85,7 +89,14 @@ const TakeActionPage = () => {
             <div className={styles.frameChild} />
             <div className={styles.frameDiv}>
               <div className={styles.frameParent1}>
-                <Carousel />
+                {filteredCards.length > 0 ? (
+                  <Carousel actions={filteredCards} />
+                ) : (
+                  <p>
+                    No Actions found based on current filter combinations.
+                    Please clear one of the filters and try again.
+                  </p>
+                )}
               </div>
             </div>
           </div>

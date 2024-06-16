@@ -22,7 +22,7 @@ import vote from "../assets/takeActionsAssets/vote.png";
 import ethical from "../assets/takeActionsAssets/ethical.png";
 import activism from "../assets/takeActionsAssets/activism.png";
 import mindset from "../assets/takeActionsAssets/mindset.png";
-export interface TakeAction {
+export interface TakeActionProps {
   id: number;
   title: string;
   image: string;
@@ -30,7 +30,7 @@ export interface TakeAction {
   tags: string[];
 }
 
-export const takeActions: TakeAction[] = [
+export const takeActions: TakeActionProps[] = [
   {
     id: 1,
     title: "Wear A Mask",

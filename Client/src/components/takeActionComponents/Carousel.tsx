@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
-import { takeActions } from "../../data/actions";
+import { takeActions, TakeActionProps } from "../../data/actions";
 
 import Card from "./Card";
 import "swiper/css";
@@ -8,7 +8,11 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "../css/carousel.scss";
 
-const Carousel = () => {
+interface CarouselProps {
+  actions: TakeActionProps[];
+}
+
+const Carousel: React.FC<CarouselProps> = ({ actions }) => {
   return (
     <>
       <Swiper
@@ -19,7 +23,7 @@ const Carousel = () => {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        {takeActions.map((action) => (
+        {actions.map((action) => (
           <SwiperSlide key={action.id}>
             <Card action={action} />
           </SwiperSlide>
