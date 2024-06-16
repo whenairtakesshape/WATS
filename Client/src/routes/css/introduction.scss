@@ -1,6 +1,6 @@
 .introduction-container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   background-image: url("../../assets/unsplashBig.png");
   /* Additional styling properties */
@@ -8,6 +8,11 @@
   background-repeat: no-repeat;
   background-position: center center;
   flex-direction: column;
+  padding-left: 83px;
+  @media screen and (max-width: 768px) {
+    padding-left: 0;
+    padding-top: 92px;
+  }
 }
 
 .introduction-container-header {
@@ -30,9 +35,15 @@
     height: 80px;
   }
 
+  @media (max-width: 425px) {
+    p {
+      font-size: 23px;
+    }
+  }
 }
 
-.introduction-container-body {}
+.introduction-container-body {
+}
 
 .introduction-container-box {
   background: #f9f9f9;
@@ -40,11 +51,14 @@
   border-radius: 28px;
   flex-direction: column;
   padding: 30px 40px;
-  margin: 60px 100px 0px;
+  margin: 2em 5em;
+
+  @media (max-width: 710px) {
+    margin: 1em;
+  }
 }
 
 .introduction-container-section-01 {
-
   p {
     color: #000;
     font-family: Montserrat;
@@ -54,10 +68,15 @@
     line-height: 52px;
     letter-spacing: 0.5px;
   }
+
+  @media (max-width: 425px) {
+    p {
+      font-size: 22px;
+    }
+  }
 }
 
 .introduction-container-section-02 {
-
   p {
     color: #000;
     font-family: Montserrat;
@@ -66,6 +85,12 @@
     font-weight: 400;
     line-height: 28px;
     letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 425px) {
+    p {
+      font-size: 13px;
+    }
   }
 }
 
@@ -81,61 +106,51 @@
     line-height: 52px;
     letter-spacing: 0.5px;
   }
+
+  @media (max-width: 425px) {
+    p {
+      font-size: 22px;
+    }
+  }
 }
 
 .introduction-container-section-04 {
   display: flex;
-  margin-top: 20px;
-  justify-content: space-evenly;
-  flex-direction: column;
+  width: 100%;
+  justify-content: center;
   align-items: center;
 
+  .introduction-container-section-04-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 2em;
+    margin-top: 20px;
+    max-width: 800px;
+  }
   img {
     height: 70px;
   }
 
-  .introduction-container-section-04-right {
-    display: flex;
-    height: 180px;
+  .introduction-container-section-04-grid-item {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    column-gap: 1.5em;
 
+    @media (max-width: 630px) {
+      grid-template-columns: 1fr;
 
-    .introduction-container-section-04-right-text-container {
-      display: flex;
-      flex-direction: column;
-      margin-left: 20px;
-
-      p {
-        font-family: Montserrat;
-        font-size: 15px;
-        font-style: normal;
-        line-height: 28px;
-        letter-spacing: 0.5px;
+      .introduction-container-section-04-grid-item-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
-      .introduction-container-section-04-right-text-container-title {
-        color: #000;
-        font-family: Montserrat;
-        font-size: 22px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 41px;
-        letter-spacing: 0.5px;
+      .introduction-container-section-04-grid-item-text {
+        text-align: center;
       }
-
     }
 
-  }
-
-  .introduction-container-section-04-left {
-    display: flex;
-    height: 180px;
-
-
-    .introduction-container-section-04-left-text-container {
-      display: flex;
-      flex-direction: column;
-      margin-left: 20px;
-
+    .introduction-container-section-04-grid-item-text {
       p {
         font-family: Montserrat;
         font-size: 15px;
@@ -144,7 +159,7 @@
         letter-spacing: 0.5px;
       }
 
-      .introduction-container-section-04-left-text-container-title {
+      .introduction-container-section-04-grid-item-text-title {
         color: #000;
         font-family: Montserrat;
         font-size: 22px;
@@ -154,28 +169,32 @@
         letter-spacing: 0.5px;
       }
     }
-
   }
 }
 
 .introduction-container-section-05 {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2em;
 
   button {
+    cursor: pointer;
     border-radius: 16px;
-    background: var(--TempPrimaryColor, #1E4359);
+    background: var(--TempPrimaryColor, #1e4359);
     color: white;
     padding: 18px 26px;
     border: none;
     outline: none;
-    color: var(--material-theme-white, #FFF);
+    color: var(--material-theme-white, #fff);
 
     text-align: center;
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
+  }
+
+  button:hover {
+    opacity: 0.9;
   }
 }

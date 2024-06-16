@@ -9,6 +9,10 @@
 .health-recommendation-card-right-side {
   width: 280px;
   margin-left: 20px;
+
+  @media (max-width: 860px) {
+    width: 100%;
+  }
 }
 
 .health-recommendation-card-right-side-title {
