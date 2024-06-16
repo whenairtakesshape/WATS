@@ -94,12 +94,7 @@ export const NavBar = () => {
     return (
         <div className="navbar-container">
             <div className="nav-atta-section">
-                <button 
-                    className="navbar-atta-button" 
-                    onClick={() => {
-                        setIsMenuOpen(false);
-                        navigate("/mapRoute");
-                    }}>
+                <button className="navbar-atta-button">
                     <img src={atta_logo} />
                     <label className="nav-wata-title">When Air Takes Shape</label>
                 </button>
