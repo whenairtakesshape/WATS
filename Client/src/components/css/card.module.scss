@@ -6,20 +6,20 @@
   flex-shrink: 0;
   object-fit: cover;
 }
-.wearAMask {
+.title {
   position: relative;
   letter-spacing: 0.5px;
   line-height: 33px;
   font-weight: 600;
   text-transform: capitalize;
 }
-.wearAMaskWrapper {
+.titleWrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 }
-.wearingAFace {
+.description {
   width: 429px;
   position: relative;
   letter-spacing: 0.5px;
@@ -28,7 +28,7 @@
   display: inline-block;
   flex-shrink: 0;
 }
-.wearingAFaceMaskIsRecommeWrapper {
+.descriptionWrapper {
   display: flex;
   flex-direction: row;
   align-items: center;

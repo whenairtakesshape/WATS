@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
-import { takeActions, TakeActionProps } from "../../data/actions";
+import { TakeActionProps } from "../../data/actions";
 
 import Card from "./Card";
 import "swiper/css";

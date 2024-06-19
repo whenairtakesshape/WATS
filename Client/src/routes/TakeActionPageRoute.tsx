@@ -44,52 +44,53 @@ const TakeActionPage = () => {
     <div className={styles.page}>
       <div className={styles.headingParent}>
         <div className={styles.heading}>Take Action</div>
-        <div className={styles.heading1}>
+        <div className={styles.subheading}>
           You have taken your first step to become an air pollution activist! On
           this page, discover what behavior to implement into your daily life to
           combat air pollution at your own scale. Use the filtering system to
           find what action is right for you.
         </div>
       </div>
-      <div className={styles.frameParent}>
+      <main className={styles.main}>
         <div className={styles.frameGroup}>
-          <div className={styles.selectCategoriesWrapper}>
-            <div className={styles.selectCategories}>
-              <p className={styles.select}>Filter by</p>
-              <p className={styles.select}>Categories</p>
+          <div className={styles.filterWrapper}>
+            <div className={styles.filterTitle}>
+              <p>Filter by</p>
+              <p>Categories</p>
             </div>
-            <div className="">
-              <Filter
-                title="Actors"
-                options={tagCategories.Actor}
-                selectedOptions={selectedTags}
-                onChange={setSelectedTags}
-              />
 
-              <Filter
-                title="Sectors"
-                options={tagCategories.Sector}
-                selectedOptions={selectedTags}
-                onChange={setSelectedTags}
-              />
-              <Filter
-                title="Targets"
-                options={tagCategories.Target}
-                selectedOptions={selectedTags}
-                onChange={setSelectedTags}
-              />
-            </div>
+            <Filter
+              title="Actors"
+              options={tagCategories.Actor}
+              selectedOptions={selectedTags}
+              onChange={setSelectedTags}
+            />
+
+            <Filter
+              title="Sectors"
+              options={tagCategories.Sector}
+              selectedOptions={selectedTags}
+              onChange={setSelectedTags}
+            />
+            <Filter
+              title="Targets"
+              options={tagCategories.Target}
+              selectedOptions={selectedTags}
+              onChange={setSelectedTags}
+            />
+
             <div className={styles.buttons}>
               <button onClick={handleApplyFilters}>Apply Filters</button>
               <button onClick={handleClearFilters}>Clear Filters</button>
             </div>
           </div>
         </div>
+
         <div className={styles.frameWrapper}>
           <div className={styles.frameContainer}>
             <div className={styles.frameChild} />
             <div className={styles.frameDiv}>
-              <div className={styles.frameParent1}>
+              <div className={styles.carousel}>
                 {filteredCards.length > 0 ? (
                   <Carousel actions={filteredCards} />
                 ) : (
@@ -110,7 +111,7 @@ const TakeActionPage = () => {
             Finish My Journey
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

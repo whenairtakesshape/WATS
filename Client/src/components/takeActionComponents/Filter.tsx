@@ -2,19 +2,6 @@ import React, { useState } from "react";
 import "../css/filter.scss";
 import arrow from "../../assets/takeActionsAssets/cheveron-down.png";
 
-const tagCategories = {
-  Actor: ["Individual", "Community"],
-  Target: ["Reducing health risks", "Reducing air pollution"],
-  Sector: [
-    "Transportation",
-    "Food",
-    "Consumption habits",
-    "Sports & health",
-    "Activism",
-    "Household",
-  ],
-};
-
 interface FilterProps {
   title: string;
   options: string[];
@@ -53,7 +40,7 @@ const Filter: React.FC<FilterProps> = ({
       {isOpen && (
         <div className={`filter-options`}>
           {options.map((option) => (
-            <div className="filter-option">
+            <div className="filter-option" key={option}>
               <div className="checkbox">
                 <input
                   type="checkbox"

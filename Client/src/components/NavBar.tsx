@@ -25,29 +25,31 @@ export const NavBar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-    const renderNavMenu = () => (
-        <div className={`nav-menu ${isMenuOpen ? "show-menu" : ""}`}>
-                <div className="nav-button-section">
-                    <button 
-                        className="navbar-button" 
-                        onClick={() => {
-                            setIsMenuOpen(false);
-                            navigate("/");
-                        }}>
-                        <img className="navbar-button-logo" src={home_icon} />
-                        {isMobile ? "Start here" : "Home"}
-                    </button>
-                    <hr className="navbar-hr navbar-vertical-home-hr"/>
-                    <button 
-                        className="navbar-button" 
-                        onClick={() => {
-                            setIsMenuOpen(false);
-                            navigate("/mapRoute");
-                        }}>
-                        <img className="navbar-button-logo" src={pin_icon} />
-                        Map
-                    </button>
-                    {/* <button className="navbar-button">
+  const renderNavMenu = () => (
+    <div className={`nav-menu ${isMenuOpen ? "show-menu" : ""}`}>
+      <div className="nav-button-section">
+        <button
+          className="navbar-button"
+          onClick={() => {
+            setIsMenuOpen(false);
+            navigate("/");
+          }}
+        >
+          <img className="navbar-button-logo" src={home_icon} />
+          {isMobile ? "Start here" : "Home"}
+        </button>
+        <hr className="navbar-hr navbar-vertical-home-hr" />
+        <button
+          className="navbar-button"
+          onClick={() => {
+            setIsMenuOpen(false);
+            navigate("/mapRoute");
+          }}
+        >
+          <img className="navbar-button-logo" src={pin_icon} />
+          Map
+        </button>
+        {/* <button className="navbar-button">
                         <img src={compare_icon} />
                         Compare Cities
                     </button> */}
@@ -92,24 +94,21 @@ export const NavBar = () => {
     </div>
   );
 
-    return (
-        <div className="navbar-container">
-            <div className="nav-atta-section">
-                <div className="navbar-atta-div">
-                    <img src={atta_logo} />
-                    <label className="nav-wata-title">When Air Takes Shape</label>
-                </div>
-            </div>
-            <hr className="navbar-hr"/>
-            {isMobile ? (
-                <div className="tablet-nav-menu-div">
-                    <button className="tablet-nav-hamburger-button" onClick={toggleMenu}><img src={hamburger_icon} /></button>
-                    {renderNavMenu()}
-                </div>
-          ) : renderNavMenu()
-          }
-
-            
+  return (
+    <div className="navbar-container">
+      <div className="nav-atta-section">
+        <div className="navbar-atta-div">
+          <img src={atta_logo} />
+          <label className="nav-wata-title">When Air Takes Shape</label>
+        </div>
+      </div>
+      <hr className="navbar-hr" />
+      {isMobile ? (
+        <div className="tablet-nav-menu-div">
+          <button className="tablet-nav-hamburger-button" onClick={toggleMenu}>
+            <img src={hamburger_icon} />
+          </button>
+          {renderNavMenu()}
         </div>
       ) : (
         renderNavMenu()

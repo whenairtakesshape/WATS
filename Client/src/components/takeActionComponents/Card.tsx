@@ -35,11 +35,11 @@ const Card: React.FC<CardProps> = ({ action }) => {
             alt={action.title}
             src={action.image}
           />
-          <div className={styles.wearAMaskWrapper}>
-            <div className={styles.wearAMask}>{action.title}</div>
+          <div className={styles.titleWrapper}>
+            <div className={styles.title}>{action.title}</div>
           </div>
-          <div className={styles.wearingAFaceMaskIsRecommeWrapper}>
-            <div className={styles.wearingAFace}>{action.description}</div>
+          <div className={styles.descriptionWrapper}>
+            <div className={styles.description}>{action.description}</div>
           </div>
         </div>
         <div className={styles.labelParent}>
