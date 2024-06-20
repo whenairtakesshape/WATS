@@ -21,6 +21,7 @@ export function SwipeCard(props: SwipeCardProps) {
     initialSlide: 2,
     variableWidth: true,
     onSwipe: () => {
+      console.log("swiped");
       setTimeout(() => {
         navigate("/about-page");
       }, 500);
@@ -43,7 +44,7 @@ export function SwipeCard(props: SwipeCardProps) {
         <div className="swipe-atta">Activism Through Technology and Art</div>
       </div>
 
-      <div className="swipe-lower">
+      {/* <div className="swipe-lower" onClick={() => console.log("swiped")}>
         <Slider {...settings} className="swipe-button">
           <p>Welcome</p>
 
@@ -84,6 +85,15 @@ export function SwipeCard(props: SwipeCardProps) {
           </div>
           <p>Swipe to get started</p>
         </Slider>
+      </div> */}
+      <div className="swipe-lower">
+        <button
+          className="swipe-button"
+          type="button"
+          onClick={() => navigate("/about-page")}
+        >
+          Start
+        </button>
       </div>
     </div>
   );
