@@ -1,7 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
 
 $project-font: "Montserrat";
 
 .app-outer {
   display: flex;
+}
+.swiper {
+  --swiper-theme-color: #1e4359;
 }
