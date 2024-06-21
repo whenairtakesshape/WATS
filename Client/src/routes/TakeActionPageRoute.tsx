@@ -52,63 +52,68 @@ const TakeActionPage = () => {
         </div>
       </div>
       <main className={styles.main}>
-        <div className={styles.frameGroup}>
-          <div className={styles.filterWrapper}>
-            <div className={styles.filterTitle}>
-              <p>Filter by</p>
-              <p>Categories</p>
-            </div>
+        <div className={styles.focus}>
+          <div className={styles.frameGroup}>
+            <div className={styles.filterWrapper}>
+              <div className={styles.filterTitle}>
+                <p>Filter by</p>
+                <p>Categories</p>
+              </div>
 
-            <Filter
-              title="Actors"
-              options={tagCategories.Actor}
-              selectedOptions={selectedTags}
-              onChange={setSelectedTags}
-            />
+              <Filter
+                title="Actors"
+                options={tagCategories.Actor}
+                selectedOptions={selectedTags}
+                onChange={setSelectedTags}
+              />
 
-            <Filter
-              title="Sectors"
-              options={tagCategories.Sector}
-              selectedOptions={selectedTags}
-              onChange={setSelectedTags}
-            />
-            <Filter
-              title="Targets"
-              options={tagCategories.Target}
-              selectedOptions={selectedTags}
-              onChange={setSelectedTags}
-            />
+              <Filter
+                title="Sectors"
+                options={tagCategories.Sector}
+                selectedOptions={selectedTags}
+                onChange={setSelectedTags}
+              />
+              <Filter
+                title="Targets"
+                options={tagCategories.Target}
+                selectedOptions={selectedTags}
+                onChange={setSelectedTags}
+              />
 
-            <div className={styles.buttons}>
-              <button onClick={handleApplyFilters}>Apply Filters</button>
-              <button onClick={handleClearFilters}>Clear Filters</button>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.frameWrapper}>
-          <div className={styles.frameContainer}>
-            <div className={styles.frameChild} />
-            <div className={styles.frameDiv}>
-              <div className={styles.carousel}>
-                {filteredCards.length > 0 ? (
-                  <Carousel actions={filteredCards} />
-                ) : (
-                  <p>
-                    No Actions found based on current filter combinations.
-                    Please clear one of the filters and try again.
-                  </p>
-                )}
+              <div className={styles.buttons}>
+                <button onClick={handleApplyFilters}>Apply Filters</button>
+                <button onClick={handleClearFilters}>Clear Filters</button>
               </div>
             </div>
           </div>
-          <div
-            className={styles.ending}
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Finish My Journey
+
+          <div className={styles.frameWrapper}>
+            <div className={styles.frameContainer}>
+              <div className={styles.frameDiv}>
+                <div className={styles.carousel}>
+                  {filteredCards.length > 0 ? (
+                    <Carousel actions={filteredCards} />
+                  ) : (
+                    <p>
+                      No Actions found based on current filter combinations.
+                      Please clear one of the filters and try again.
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.ending}>
+                <div
+                  className={styles.continueButton}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate("/");
+                  }}
+                >
+                  Finish My Journey
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>

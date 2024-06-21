@@ -20,7 +20,7 @@
   justify-content: flex-start;
 }
 .description {
-  width: 429px;
+  width: 100%;
   position: relative;
   letter-spacing: 0.5px;
   line-height: 33px;
@@ -33,7 +33,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  font-size: 20px;
+  font-size: 18px;
 }
 .imageParent {
   display: flex;
@@ -92,20 +92,19 @@
 }
 .frameGroup {
   align-self: stretch;
-  // flex: 1;
-  border-radius: 6px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 60px;
 }
 .frameParent {
-  width: 60%;
+  width: 80%;
   position: relative;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-  border-radius: 6px;
+  border-radius: 20px;
   background-color: #e6eef4;
-  height: 870px;
+  height: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
