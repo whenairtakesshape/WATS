@@ -176,9 +176,7 @@ export function InfoPage() {
                 <div className="into-page-block-02-section-02">
                   <div className="info-page-block-02-section-02-us-aqi">
                     <p>US AQI</p>
-                    <img src={infoIcon}
-                      style={{ opacity: 0 }}
-                    />
+                    <img src={infoIcon}/>
                   </div>
                   <p className="aqi-number">{searchInfo.datapoint?.aqi}</p>
                 </div>

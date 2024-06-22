@@ -109,7 +109,6 @@ export const NavBar = () => {
       ) : (
         renderNavMenu()
       )}
-      ;
     </div>
   );
 };
