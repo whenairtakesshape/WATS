@@ -1,0 +1,149 @@
+.city-pair-info-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100vw;
+    padding-left: 140px;
+    gap: 20px;
+    font-family: Montserrat;
+
+    @media screen and (max-width: 710px) {
+        padding-left: 0;
+        padding-top: 140px;
+    }
+}
+
+.city-pair-upper-div {
+    display: flex;
+    flex-direction: row;
+    margin-top: 56px;
+    gap: 30px;
+    width: 1260px;
+
+}
+
+.city-pair-back-arrow-button {
+    background: white;
+    height: 72px;
+    width: 72px;
+    margin-top: 44px;
+}
+
+.city-pair-summary-container {
+    display: flex;
+    flex-direction: row;
+    gap: 148px;
+    justify-content: center;
+    padding: 30px;
+    background: #F9F9F9;
+    width: 1150px;
+    height: 840px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.city-summary {
+    width: 440px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+
+.city-summary-header-title {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.city-summary-header-country {    
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.city-summary-description {
+    height: 160px;
+}
+
+.city-summary-aqi {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.city-pair-lower-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #9AC7D999;
+    width: 1260px;
+    border-radius: 20px;
+}
+
+.city-pair-tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.city-pair-tab {
+    background: none;
+    color: black;
+    width: 300px;
+    height: 61px;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.city-pair-tab.selected {
+    text-decoration: underline;
+}
+
+.facts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 30px;
+    width: 100%;
+}
+
+.fact {
+    display: flex;
+    flex-direction: row;
+    background: white;
+    padding: 16px 12px;
+    border-radius: 20px;
+}
+
+.fact-key {
+    width: 170px;
+    font-size: 18px;
+    img {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+.key-fact-values {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.environmental-fact-values {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    gap: 120px;
+}
+
+.fact-val {
+    width: 50%;
+
+}
+
+.compare-cities-breathe-button {
+    padding: 12px 24px;
+    font-size: 22px;
+    font-weight: 600;
+}

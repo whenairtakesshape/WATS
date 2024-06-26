@@ -1,30 +1,29 @@
 // css styles 
 import "./css/compareCitiesRoute.scss";
 
-// assets
+// data 
+import { City, compareCitiesData } from "../data/compareCitiesData";
 
 // libraries import 
-import React from 'react';
+import React, { useState } from 'react';
+import CompareCitiesListPage from "../components/compareCitiesComponents/compareCitiesListPage";
+import CompareCitiesPairPage from "../components/compareCitiesComponents/compareCitiesPairPage";
+
+
 
 
 const CompareCitiesRoute = () => {
+
+    const [selectedCity, setSelectedCity] = useState<City | undefined>(undefined)
+
     return (
-    <div className="compare-cities-container">
-        <div className="compare-cities-header">Compare Cities</div>
-        <div className="compare-cities-content">
-            <div className="compare-cities-description">Here you can compare air quality data between Vancouver and another city of your choice.</div>
-            <div className="compare-cities-subtitle">How it works:</div>
-            <ol className="compare-cities-how-it-works-list">
-                <li>Select a city </li>
-                <li>Compare key factors impacting air quality</li>
-                <li>Get insights on how the cities are related to each other</li>
-                <li>Breathe and notice the differences between the two cities</li>
-                <li>Choose another city</li>
-            </ol>
-            <div className="compare-cities-subtitle">City Pair</div>
+        <div>
+            {selectedCity 
+                ? <CompareCitiesPairPage city={selectedCity} onBackArrowClick={() => setSelectedCity(undefined)}/> 
+                : <CompareCitiesListPage onButtonClick={(city: City) => setSelectedCity(city)}/>}
         </div>
-    </div>
-    );
+    )
+
 }
 
 export default CompareCitiesRoute;

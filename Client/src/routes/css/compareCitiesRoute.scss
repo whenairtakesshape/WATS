@@ -61,3 +61,25 @@ font-size: 18px;
     margin-left: 20px;
     line-height: 28px;
 }
+
+.compare-cities-city-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.city-button {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    background: none;
+    color: black;
+    width: 48%;
+}
+
+.city-button-label {
+    font-family: Montserrat;
+    font-size: 25px;
+    font-weight: 500;
+    text-align: left;
+}
