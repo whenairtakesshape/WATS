@@ -42,7 +42,7 @@ const CompareCitiesPairPage = (props: CompareCitiesPairPageProps) => {
                     <div className="city-summary-header-title">{cityData.cityName}</div>
                     <div className="city-summary-header-country">{cityData.country}</div>
                 </div>
-                <img src={require("../../assets/compareCitiesAssets/images/" + cityData.imageName)}/>
+                <img className="city-summary-image" src={require("../../assets/compareCitiesAssets/images/" + cityData.imageName)}/>
                 <div className="city-summary-description">{cityData.description}</div>
                 <CompareCitiesAqiScale aqi={cityData.aqiRating}/>
             </div>

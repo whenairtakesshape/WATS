@@ -60,6 +60,13 @@
     font-weight: 600;
 }
 
+.city-summary-image {
+    width: 440px;
+    height: 290px;
+    object-fit: cover;
+
+}
+
 .city-summary-description {
     height: 160px;
 }
@@ -146,4 +153,5 @@
     padding: 12px 24px;
     font-size: 22px;
     font-weight: 600;
+    border-radius: 20px;
 }
