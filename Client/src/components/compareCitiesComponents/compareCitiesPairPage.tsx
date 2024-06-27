@@ -15,25 +15,23 @@ import { City, compareCitiesData } from "../../data/compareCitiesData";
 // libraries import 
 import React, { useState } from 'react';
 import CompareCitiesAqiScale from "./compareCitiesAqiScale";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 
 interface CompareCitiesPairPageProps {
     city: City;
     onBackArrowClick: () => void;
+    onBreatheButtonClick: () => void;
 }
 
 
 const CompareCitiesPairPage = (props: CompareCitiesPairPageProps) => {
 
-    const navigate = useNavigate();
 
     const [keyFactsSelected, setKeyFactsSelected] = useState(true);
 
     const vancouverData = compareCitiesData[0];
 
-    const {city, onBackArrowClick} = props;
+    const {city, onBackArrowClick, onBreatheButtonClick} = props;
 
     const renderCitySummary = (cityData: City) => {
         return (
@@ -49,24 +47,7 @@ const CompareCitiesPairPage = (props: CompareCitiesPairPageProps) => {
         );
     }
 
-    /**
-   * makes request to the server API and sends value of the air quality index (aqi) of the 
-   * chosen location by the user. 
-   * then navigates to breatheRoute if request is succesfull.
-   * alerts error message otherwise.
-   */
-    const makeApiRequest = async (aqi: number) => {
-        try {
-            const res = await axios.post(`http://localhost:3001/aqi?value=${aqi}`);
-            console.log(res);
-            alert(`request succesful: ` + res.status);
-            // navigate("/breathe-page"); // TODO: navigate to breathe-page? 
-        }
-        catch (error: any) {
-            alert(error.message);
-            console.error(error);
-        }
-    };
+
 
     return (
         <div className="city-pair-info-page">
@@ -182,7 +163,9 @@ const CompareCitiesPairPage = (props: CompareCitiesPairPageProps) => {
 
                     </div>
                 }
-                <button className="compare-cities-breathe-button" onClick={() => makeApiRequest(city.aqiRating)}>Start breathing!</button>
+                <button className="compare-cities-breathe-button" onClick={onBreatheButtonClick}>
+                    Start breathing!
+                </button>
                 
             </div>
             
