@@ -72,15 +72,18 @@ def PerformMotion(motion):
 
     for i in range(len(PINS)):
         PINS[i].value(num % 2)
+        
+        print(f"Pin {i} has value {num % 2}")
         num = num // 2
         
 # Main 
 def main():
-    if USE_BLUETOOTH:  # If we're using Bluetooth, run this main loop instead
-        while True:
-            if (bt_peripheral.is_connected()):
-                bt_peripheral.on_write(on_rx)
-                print("listening")
+    PerformHome()
+    # if USE_BLUETOOTH:  # If we're using Bluetooth, run this main loop instead
+    #     while True:
+    #         if (bt_peripheral.is_connected()):
+    #             bt_peripheral.on_write(on_rx)
+    #             print("listening")
 
 if __name__ == "__main__":
     #call init function
