@@ -20,27 +20,29 @@ POTENTIOMETER_2_PIN = 27
 POTENTIOMETER_3_PIN = 26
 
 """
-Base servo limits: (0, 100)
-Elbow servo limits: (58, 180)
+Base servo limits: (60, 120)
+Elbow servo limits: (45, 160)
 The above servo limits are the safe region. Servos do 10 degrees/sec pretty nicely :)
 Home location = base = 100, elbow = 180
 
 Stepper speed: Max speed is 35 rpm at 8 Nm torque -> try to set speed below 0.5 rps if unsure
                More testing needed to determine torque with actual model.
 """
+LOWEST_BASE = 120
+LOWEST_ELBOW = 160
+HIGHEST_BASE = 60
+HIGHEST_ELBOW = 45
+curr_base = 80
+curr_elbow = 71.5
 
 
 # Angle order is: start_base_angle,end_base_angle, start_elbow_angle, end_elbow_angle
-TEST_MOTION = [(100, 60, 180, 120, 5, 0.05), 
-                (60, 100, 120, 180, 5, 0.05)]
-TEST_MOTION_2 = [(60, 25, 120, 90, 1, 0.5), 
-                (25, 60, 90, 120, 1, 0.5)]
-TEST_MOTION_3 = [(100, 50, 180, 180, 5, 0.05),
-                 (50, 50, 180, 58, 5, 0.05),
-                 (50, 20, 58, 58, 30, 0.05),
-                 (20, 100, 58, 180, 7, 0.05)]
+TEST_MOTION = [(80, 80, 55, 105, 5, 1), 
+                (80, 80, 105, 55, 5, 1)]
+TEST_MOTION_2 = [(60, 80, 55, 90, 2, 1), 
+                (80, 60, 90, 55, 2, 1)]
 
-MOTION_LIST = [TEST_MOTION_3, TEST_MOTION, TEST_MOTION, TEST_MOTION_2, TEST_MOTION_2]
+MOTION_LIST = [TEST_MOTION, TEST_MOTION, TEST_MOTION, TEST_MOTION_2, TEST_MOTION_2]
 
 FLOATING_POINT_ERR = -1e-3
 
@@ -48,8 +50,6 @@ FLOATING_POINT_ERR = -1e-3
 USE_BLUETOOTH = True # Set to True to use Bluetooth
 ble = bluetooth.BLE()
 bt_peripheral = BLESimplePeripheral(ble)
-curr_elbow = 180
-curr_base = 100
 
 newCommand = False
 threadRunning = False
@@ -106,14 +106,18 @@ def perform_command(command):
         PerformMotion(5)
     else:
         print("Invalid Command")
+    threadRunning = False
 
 def PerformHome():
     print("Performing Home")
     global curr_base
     global curr_elbow
-    move_servos_set_timestep(curr_base, 100, curr_elbow, 180)
-    curr_elbow = 180
-    curr_base = 100
+    move_servos_set_timestep(curr_base, LOWEST_BASE, curr_elbow, LOWEST_ELBOW)
+    curr_elbow = LOWEST_ELBOW
+    curr_base = LOWEST_BASE
+
+def GoToTallest():
+    move_servos_set_timestep(curr_base, HIGHEST_BASE, curr_elbow, HIGHEST_ELBOW, 5, 0.1)
 
 def PerformStop():
     PerformHome()
@@ -121,24 +125,6 @@ def PerformStop():
 
 def PerformReset():
     print("Performing Reset")
-
-def PerformContraction():
-    print("Performing Contraction")
-
-def PerformExpansion():
-    print("Performing Expansion")
-
-def PerformClockwise():
-    print("Performing Clockwise")
-
-def PerformCounterClockwise():
-    print("Performing CounterClockwise")
-
-def PerformStepExpansion():
-    print("Performing Step Expansion")
-
-def PerformStepContraction():
-    print("Performing Step Contraction")
 
 def PerformMotion(motion):
     print("Performing Motion: ", motion)
@@ -155,8 +141,7 @@ def PerformMotionServos(motion):
             move_servos_set_timestep(*step)
             print(f"New command: {newCommand}")
             if (newCommand):
-                print("received new command")
-                threadRunning = False
+                print("ALERT: received new command")
                 return
 
 def ServosToStartPosition(motion: int):
@@ -203,7 +188,7 @@ class ServoMotor:
         
         return angle
 
-def move_servos(start_base_angle: int, end_base_angle: int, start_elbow_angle: int, end_elbow_angle: int, 
+def move_servos(start_base_angle: float, end_base_angle: float, start_elbow_angle: float, end_elbow_angle: float, 
                 base_servo = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN),
                 elbow_servo = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN), 
                 time = 10):
@@ -320,20 +305,7 @@ def main():
     # smooth_stepper_thread()
     elbow_servo = ServoMotor(SERVO_1_ELBOW_PIN, POTENTIOMETER_1_PIN)
     base_servo = ServoMotor(SERVO_2_BASE_PIN, POTENTIOMETER_2_PIN)
-    # base_servo.set_servo_position(80)
-    # sleep(2)
-    # elbow_servo.set_servo_position(58)
 
-    # move_servos_set_timestep(100, 100, 58, 180, 5, 0.1)
-    # move_servos_set_timestep(100, 80, 180, 180, 5, 0.1)
-    # move_servos_set_timestep(80, 80, 180, 160, 5, 0.1)
-    move_servos_set_timestep(100, 50, 180, 180, 5, 0.1)
-
-    # while(True):
-    #     PerformHome()
-
-    # PerformMotion(0)
-    
     # for i in range(5):
     #     print(f"Performing motion {i}")
     #     global threadRunning
@@ -349,10 +321,11 @@ def main():
     #         sleep(0.5)
     #     newCommand = False
 
-    # if USE_BLUETOOTH:  # If we're using Bluetooth, run this main loop instead
-    #     while True:
-    #         if (bt_peripheral.is_connected()):
-    #             bt_peripheral.on_write(on_rx)
+    if USE_BLUETOOTH:  # If we're using Bluetooth, run this main loop instead
+        while True:
+            if (bt_peripheral.is_connected()):
+                bt_peripheral.on_write(on_rx)
+                print("listening")
 
 if __name__ == "__main__":
     #call init function
