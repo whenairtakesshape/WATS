@@ -30,6 +30,7 @@ import { Debugger } from "../components/Debugger";
 import { WindowContext } from "../contexts/WindowSizeContext";
 import { AdminWindow } from "../components/AdminWindow";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
+import { UsAqiPopUp } from "../components/infoPageComponents/UsAqiPopUp";
 
 export function InfoPage() {
   // constants
@@ -176,9 +177,8 @@ export function InfoPage() {
                 <div className="into-page-block-02-section-02">
                   <div className="info-page-block-02-section-02-us-aqi">
                     <p>US AQI</p>
-                    <img src={infoIcon}
-                      style={{ opacity: 0 }}
-                    />
+                    <img className="info-page-info-icon" src={infoIcon} onClick={() => setUsAqiPopUpState(true)}/>
+                     <UsAqiPopUp active={usAqiPopUpState} onClose={() => setUsAqiPopUpState(false)}/>
                   </div>
                   <p className="aqi-number">{searchInfo.datapoint?.aqi}</p>
                 </div>

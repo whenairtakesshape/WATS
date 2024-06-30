@@ -11,6 +11,7 @@ import { InfoPage } from "./routes/InfoPageRoute";
 import { LandingPage } from "./routes/LandingPageRoute";
 import { Introduction } from "./routes/IntroductionRoute";
 import { AboutPage } from "./routes/AboutPageRoute";
+import TakeActionPageRoute from "./routes/TakeActionPageRoute";
 import { SearchInfo, SearchInfoContext } from "./contexts/SearchInfoContext";
 import { DataHandler, Country, City } from "./model/DataHandler";
 import { WindowSize } from "./model/interfaces";
@@ -120,6 +121,10 @@ function App() {
                   <Route
                     path="/breathe-page"
                     element={<BreatheRoute />}
+                  ></Route>
+                  <Route
+                    path="/take-action"
+                    element={<TakeActionPageRoute />}
                   ></Route>
                 </Routes>
                 {/* <button onClick={() => sendAQI(55)}>1</button> */}
