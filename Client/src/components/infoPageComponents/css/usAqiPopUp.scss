@@ -5,5 +5,43 @@
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
-  position: absolute
+  position: absolute;
+  border-radius: 16px;
+  width: 450px;
+  background: var(--atta-color-scheme-temp-text-background, #F9F9F9);
+  border: 2px solid black;
+  top: 30%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  padding: 16px;
 }
+
+.us-aqi-pop-up-x {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  button {
+    border: none;
+    padding: 2px 6px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    background-color: lightgrey;
+    opacity: 0.8;
+  }
+}
+
+.us-aqi-pop-up-header {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.us-aqi-pop-up-subtitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 24px 0 10px;
+}
+

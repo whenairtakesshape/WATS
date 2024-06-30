@@ -1,0 +1,59 @@
+.breathe-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    min-height: 100vh;
+    width: 100vw;
+    padding: 112px 65px;
+    font-family: Montserrat;
+    position: fixed;
+    z-index: 3; // to hide navbar
+    background: white;
+}
+
+.breathe-back-button {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    background: none;
+    color: black;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.chevron-icon {
+    margin-top: 3px;
+}
+
+.breathe-page-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.breathe-gif-or-image {
+    width: 230px;
+    height: 250px;
+    margin-top: 100px;
+    align-self: center;
+  }
+
+.breathe-page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 500;
+
+    span {
+        color: #1E587B;
+    }
+}
+
+.breathe-next-button {
+    width: 340px;
+    padding: 15px;
+    font-size: 25px;
+    font-weight: 500;
+    border-radius: 20px;
+    align-self: center;
+    margin-top: 50px;
+}

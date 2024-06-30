@@ -3,12 +3,7 @@ import "./css/infoPageRoute.scss";
 
 // assets
 import logo from "../assets/attaLogo.webp";
-import smile from "../assets/emojiAssets/smile.png";
-import neutral from "../assets/emojiAssets/neutral.png";
-import sadFace from "../assets/emojiAssets/sadFace.png";
 import infoIcon from "../assets/infoIcon.svg";
-import disappointed from "../assets/emojiAssets/disappointed.png";
-import deadSkin from "../assets/emojiAssets/deadSkin.png";
 import warning from "../assets/warning.svg";
 import admin from "../assets/admin.svg";
 import backArrow from "../assets/backArrow.svg";
@@ -30,6 +25,8 @@ import { Debugger } from "../components/Debugger";
 import { WindowContext } from "../contexts/WindowSizeContext";
 import { AdminWindow } from "../components/AdminWindow";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
+import { UsAqiPopUp } from "../components/infoPageComponents/UsAqiPopUp";
+import RenderEmoji from "../components/RenderEmoji";
 
 export function InfoPage() {
   // constants
@@ -81,25 +78,7 @@ export function InfoPage() {
    */
   const renderEmoji = (): (JSX.Element | undefined) => {
     if (searchInfo.datapoint) {
-      // good range: [0,50]
-      if (searchInfo.datapoint.aqi < goodRange) {
-        return <img src={smile} />;
-        // moderate range: [51, 100]
-      } else if (searchInfo.datapoint.aqi < moderateRange) {
-        return <img src={neutral} />;
-        // unhealthy for sensitive groups range: [101, 150]
-      } else if (searchInfo.datapoint.aqi < unhealthyForSensitiveGroupsRange) {
-        return <img src={sadFace} />;
-        // unhealthy range: [151, 200]
-      } else if (searchInfo.datapoint.aqi < unhealthyRange) {
-        return <img src={sadFace} />;
-        // very unhealthy range: [201, 300]
-      } else if (searchInfo.datapoint.aqi < veryUnhealtyRange) {
-        return <img src={disappointed} />;
-      } else {
-        // hazardous range: [301-500]
-        return <img src={deadSkin} />;
-      }
+      return RenderEmoji(searchInfo.datapoint.aqi);
     }
   };
 
@@ -176,9 +155,8 @@ export function InfoPage() {
                 <div className="into-page-block-02-section-02">
                   <div className="info-page-block-02-section-02-us-aqi">
                     <p>US AQI</p>
-                    <img src={infoIcon}
-                      style={{ opacity: 0 }}
-                    />
+                    <img className="info-page-info-icon" src={infoIcon} onClick={() => setUsAqiPopUpState(true)}/>
+                     <UsAqiPopUp active={usAqiPopUpState} onClose={() => setUsAqiPopUpState(false)}/>
                   </div>
                   <p className="aqi-number">{searchInfo.datapoint?.aqi}</p>
                 </div>

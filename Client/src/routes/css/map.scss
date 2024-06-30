@@ -4,14 +4,12 @@ $map-height: 700px;
   border: 1px solid black;
   height: 100vh;
   width: 100vw;
-  padding-left: 140px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   overflow: hidden;
   @media screen and (max-width: 768px) {
-    padding-left: 0;
     padding-top: 140px;
   }
 }
@@ -20,11 +18,14 @@ $map-height: 700px;
   cursor: pointer;
   position: absolute;
   z-index: 10;
-  left: 5%;
+  left: 150px;
   opacity: 0.8;
   background-color: white;
   padding: 0.5em;
   border-radius: 20%;
+  @media screen and (max-width: 768px) {
+    left: 5%
+  }
 }
 
 .map-route-container-back-button:hover {

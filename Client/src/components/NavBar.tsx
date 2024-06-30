@@ -48,11 +48,16 @@ export const NavBar = () => {
           <img className="navbar-button-logo" src={map_icon} />
           Map
         </button>
-        {/* <button className="navbar-button">
-                        <img src={compare_icon} />
-                        Compare Cities
-                    </button> */}
-        {/* TODO: Add navigation to Take Actions page */}
+        <button 
+          className="navbar-button"
+          onClick={() => {
+            setIsMenuOpen(false);
+            navigate("/compare-cities");
+          }}
+        >
+          <img src={compare_icon} />
+          Compare Cities
+        </button>
         <button
           className="navbar-button"
           onClick={() => {
