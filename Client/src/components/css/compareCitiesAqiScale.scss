@@ -1,0 +1,48 @@
+.compare-cities-aqi-container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.compare-cities-aqi-rating-container {
+    height: 112px;
+    gap: 16px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    img {
+        height: 67px;
+      }
+}
+
+.aqi-rating-container-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.compare-cities-aqi-scale {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+        height: 35px;
+      }
+}
+
+.compare-cities-scale-numbers {
+    display: flex;
+    justify-content: space-between;
+    width: 380px;
+    align-self: center;
+
+    p {
+        font-family: Montserrat;
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 24px;
+    }
+}
+
