@@ -108,7 +108,7 @@ const TakeActionPage = () => {
                   className={styles.continueButton}
                   onClick={(e) => {
                     e.stopPropagation();
-                    navigate("/");
+                    navigate("/thank-you");
                   }}
                 >
                   Finish My Journey

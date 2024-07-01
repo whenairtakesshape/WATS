@@ -12,6 +12,7 @@ import { LandingPage } from "./routes/LandingPageRoute";
 import { Introduction } from "./routes/IntroductionRoute";
 import { AboutPage } from "./routes/AboutPageRoute";
 import TakeActionPageRoute from "./routes/TakeActionPageRoute";
+import { ThankYouPage } from "./routes/ThankYouPageRoute";
 import { SearchInfo, SearchInfoContext } from "./contexts/SearchInfoContext";
 import { DataHandler, Country, City } from "./model/DataHandler";
 import { WindowSize } from "./model/interfaces";
@@ -126,6 +127,7 @@ function App() {
                     path="/take-action"
                     element={<TakeActionPageRoute />}
                   ></Route>
+                  <Route path = "/thank-you" element = {<ThankYouPage />}></Route>
                 </Routes>
                 {/* <button onClick={() => sendAQI(55)}>1</button> */}
               </SearchInfoContext.Provider>

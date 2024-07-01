@@ -1,0 +1,16 @@
+.thank-you-container {
+    display: flex;
+    // background-color: var(--temp-tertiary-background, #F5FAFF);
+    height: 100vh;
+    width: 100vw;
+  
+    background-color: red($color: #000000);
+    background-image: url('../../assets/landingPageBackground.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  
+    align-items: center;
+    justify-content: center;
+  
+  }
