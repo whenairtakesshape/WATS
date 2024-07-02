@@ -3,7 +3,7 @@
     // background-color: var(--temp-tertiary-background, #F5FAFF);
     height: 100vh;
     width: 100vw;
-  
+    padding-left: 140px;
     background-color: red($color: #000000);
     background-image: url('../../assets/landingPageBackground.png');
     background-size: cover;
@@ -37,26 +37,25 @@
   
   .thank-you-container-01 p {
     font-family: Montserrat;
-    font-size: 40px;
+    font-size: 25px;
     font-style: normal;
     font-weight: 600;
     line-height: 52px; /* 130% */
     letter-spacing: 0.5px;
   }
-  
-  .thank-you-container-01 img {
+
+  .thank-you-container-01-img {
     display: flex;
     padding: 4px;
     align-items: center;
+    justify-content: center;
     gap: 20px;
   }
   
   .thank-you-container-01-text p {
-    color: #1D4358;
     text-align: center;
-    /* Surface Pro 8 1280+/H4 Medium 1280+ Surface Pro */
     font-family: Montserrat;
-    font-size: 25px;
+    font-size: 15px;
     font-style: normal;
     font-weight: 500;
     line-height: 33px; /* 132% */

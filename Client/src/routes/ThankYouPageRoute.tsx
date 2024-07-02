@@ -15,8 +15,11 @@ export function ThankYouPage() {
           <div className="thank-you-container-box">
             <div className="thank-you-container-innerbox">
                 <div className="thank-you-container-01">
+                    <br />
                     <p>Thank you for your participation!</p>
-                    <img src={attaLogo} alt='ATTA' />
+                    <div className="thank-you-container-01-img">
+                        <img src={attaLogo} alt='ATTA' />
+                    </div>
                     <div className="thank-you-container-01-text">
                         <p>
                             If you want to learn more about ATTA and stay tuned for future projects and events,
