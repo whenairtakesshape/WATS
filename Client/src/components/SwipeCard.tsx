@@ -33,7 +33,7 @@ export function SwipeCard(props: SwipeCardProps) {
       <div className="swipe-upper">
         <div className="swipe-header">When Air Takes Shape</div>
         <div className="swipe-description">
-          - A breathing sculpture that moves with real-time air quality
+          A breathing sculpture that moves with real-time air quality
         </div>
       </div>
       <div className="swipe-middle">
@@ -43,6 +43,7 @@ export function SwipeCard(props: SwipeCardProps) {
         </div>
         <div className="swipe-atta">Activism Through Technology and Art</div>
       </div>
+      <div></div>
 
       {/* <div className="swipe-lower" onClick={() => console.log("swiped")}>
         <Slider {...settings} className="swipe-button">

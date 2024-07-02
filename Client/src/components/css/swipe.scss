@@ -5,8 +5,8 @@ $swipe-breakpoint-two: ">520px";
 $swipe-breakpoint-four: ">630px";
 
 .swipe {
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 710px;
+  max-height: 634px;
   padding: 2em;
   margin: 0 1em 0 1em;
   background: var(--temp-text-background, #f9f9f9);
@@ -16,7 +16,7 @@ $swipe-breakpoint-four: ">630px";
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 25px;
   display: inline-flex;
   left: 500px;
   top: 100px;
@@ -40,7 +40,7 @@ $swipe-breakpoint-four: ">630px";
 .swipe-header {
   text-align: center;
   color: black;
-  font-size: 50px;
+  font-size: 25px;
   font-family: Montserrat;
   font-weight: 600;
   line-height: 64px;
