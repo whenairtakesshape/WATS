@@ -19,12 +19,13 @@
     position: fixed; /* Fixed position to keep left side fixed */
     left: auto; /* Align to the left */
     background-color: white;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 30px 40px;
+    border-radius: 28px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 60vw; /* Width as a percentage of viewport width */
     max-width: 800px; /* Maximum width */
+    margin: 6em 6em;
   }
   
   .thank-you-container-innerbox {
