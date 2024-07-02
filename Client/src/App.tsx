@@ -12,6 +12,7 @@ import { LandingPage } from "./routes/LandingPageRoute";
 import { Introduction } from "./routes/IntroductionRoute";
 import { AboutPage } from "./routes/AboutPageRoute";
 import TakeActionPageRoute from "./routes/TakeActionPageRoute";
+import CompareCitiesRoute from "./routes/CompareCitiesRoute";
 import { ThankYouPage } from "./routes/ThankYouPageRoute";
 import { SearchInfo, SearchInfoContext } from "./contexts/SearchInfoContext";
 import { DataHandler, Country, City } from "./model/DataHandler";
@@ -122,6 +123,10 @@ function App() {
                   <Route
                     path="/breathe-page"
                     element={<BreatheRoute />}
+                  ></Route>
+                  <Route
+                    path="/compare-cities"
+                    element={<CompareCitiesRoute />}
                   ></Route>
                   <Route
                     path="/take-action"
