@@ -1,0 +1,100 @@
+.thank-you-container {
+    display: flex;
+    // background-color: var(--temp-tertiary-background, #F5FAFF);
+    height: 100vh;
+    width: 100vw;
+    padding-left: 140px;
+    background-color: red($color: #000000);
+    background-image: url('../../assets/landingPageBackground.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  
+    align-items: center;
+    justify-content: center;
+  
+  }
+  
+  .thank-you-container-box {
+    position: fixed; /* Fixed position to keep left side fixed */
+    left: auto; /* Align to the left */
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 60vw; /* Width as a percentage of viewport width */
+    max-width: 800px; /* Maximum width */
+    margin: 6em 6em;
+  }
+  
+  .thank-you-container-innerbox {
+    margin-bottom: 20px;
+  }
+  
+  .thank-you-container-01 {
+    margin-bottom: 20px;
+  }
+  
+  .thank-you-container-01 p {
+    font-family: Montserrat;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 52px; /* 130% */
+    letter-spacing: 0.5px;
+  }
+
+  .thank-you-container-01-img {
+    display: flex;
+    padding: 4px;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .thank-you-container-01-text p {
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 33px; /* 132% */
+    letter-spacing: 0.5px;
+  }
+  
+  .thank-you-container-02 {
+    margin-bottom: 20px;
+  }
+  
+  .thank-you-container-02 img {
+    width: 205px;
+    height: 202px;
+  }
+
+  .thank-you-container-03 {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+  
+    button {
+      cursor: pointer;
+      border-radius: 16px;
+      background: var(--TempPrimaryColor, #1e4359);
+      color: white;
+      padding: 18px 26px;
+      border: none;
+      outline: none;
+      color: var(--material-theme-white, #fff);
+  
+      text-align: center;
+      font-family: Montserrat;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+    }
+  
+    button:hover {
+      opacity: 0.9;
+    }
+  }
