@@ -199,7 +199,7 @@ export function InfoPage() {
               {/** PollutantSection component is info-page-block-03 */}
               <PollutantAndContributingFactorSection />
               {/** ImpactOnHealthAndHealthRecommendationSection component is info-page-block-04 */}
-              <ImpactOnHealthAndHealthRecommendationSection />
+              <ImpactOnHealthAndHealthRecommendationSection aqi={aqi}/>
 
               {/** DidYouKnow component is info-page-block-05 */}
               {/** <DidYouKnowSection />}
