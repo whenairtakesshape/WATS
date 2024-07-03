@@ -27,9 +27,8 @@ export function AboutPage() {
         </div>
         <div className="introduction-container-section-02">
           <p>
-            Activism Through Technology and Art (ATTA) is a community of
-            creatives from across Canada; collaborating on projects to promote
-            social and environmental transformation.
+          Activism Through Technology and Art (ATTA) Society is a community of creatives of from across 
+          Canada, collaborating on projects that promote social and environmental transformation.
           </p>
           <br />
           <p>
@@ -42,23 +41,23 @@ export function AboutPage() {
         </div>
         <div className="introduction-container-section-02">
           <p>
-            Each year, 7 million people die prematurely due to air pollution.
+          According to the World Health Organization (WHO), approximately 7 million deaths occur 
+          prematurely each year due to air pollution. 9 out of 10 people in the world breathe air that contains 
+          high levels of pollutants and exceeds the WHO's air pollution limits
           </p>
           <br />
           <p>
-            When Air Takes Shape was created by ATTA, with the help of Dr.
-            Zimmerman, to educate the public about the life-changing impact of
-            air pollution for life on our planet.
+          Low- and middle-income countries are experiencing the greatest consequences of these challenges, 
+          with 90% of air pollution-related deaths occurring in these regions.
           </p>
           <br />
           <p>
-            This installation was created to connect you with people living in
-            different cities across the world, highlighting the challenges faced
-            by these communities, and giving you the tools to make a difference.
+          We created the installation to connect you with people living in different cities across the world, 
+          highlight the challenges faced by these communities, and equip you with tools to make a difference
           </p>
         </div>
         <div className="introduction-container-section-05">
-          <button onClick={() => navigate("/intro")}>Next</button>
+          <button onClick={() => navigate("/choosing-pathway")}>Next</button>
         </div>
       </div>
     </div>
