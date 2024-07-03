@@ -183,6 +183,26 @@
   }
 }
 
+
+.info-page-block-02-section-04-header-and-popup {
+  display: flex;
+  align-items: center;
+
+  p {
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-right: 10px;
+  }
+
+  img {
+    height: 28px;
+    margin-left: 10px;
+  }
+
+}
 .info-page-modal {
   position: absolute;
   top: 50%;

@@ -22,6 +22,7 @@ import { Data, DataContext } from "./contexts/DataContext";
 import { BreatheRoute } from "./routes/BreatheRoute";
 import { AdminWindow } from "./components/AdminWindow";
 import NavBar from "./components/NavBar";
+import { ChoosingPathwayRoute } from "./routes/ChoosingPathwayRoute";
 
 
 /* 
@@ -120,6 +121,7 @@ function App() {
                   <Route path="/intro" element={<Introduction />}></Route>
                   <Route path="/info-page" element={<InfoPage />}></Route>
                   <Route path="/about-page" element={<AboutPage />}></Route>
+                  <Route path='/choosing-pathway' element={<ChoosingPathwayRoute />}></Route>
                   <Route
                     path="/breathe-page"
                     element={<BreatheRoute />}

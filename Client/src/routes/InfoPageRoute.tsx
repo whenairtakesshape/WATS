@@ -27,6 +27,7 @@ import { AdminWindow } from "../components/AdminWindow";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
 import { UsAqiPopUp } from "../components/infoPageComponents/UsAqiPopUp";
 import RenderEmoji from "../components/RenderEmoji";
+import { IncomeGroupPopUp } from "../components/infoPageComponents/IncomeGroupPopUp";
 
 export function InfoPage() {
   // constants
@@ -61,7 +62,11 @@ export function InfoPage() {
   // state used to render US AQI pop up
   const [usAqiPopUpState, setUsAqiPopUpState] = useState(false);
 
+  // state used for AQI 
   const [aqi, setAqi] = useState<number | undefined>(undefined);
+
+  // state used to render Income Group pop up
+  const [incomePopUpState, setIncomePopUpState] = useState(false);
 
   const getAqi = async (lat: number, lon: number): Promise<void> => {
     const POLLUTANT_API_TOKEN = process.env.REACT_APP_POLLUTANT_TOKEN;
@@ -81,6 +86,7 @@ export function InfoPage() {
         throw new Error('Failed to fetch AQI data.');
     }
 };
+
 
   // following logic will execute upon first render of InfoPage component 
   useEffect(() => {
@@ -188,7 +194,11 @@ export function InfoPage() {
                 {/** Scale component is info-page-block-02-section-03 */}
                 {aqi && <Scale aqi={aqi} />}
                 <div className="info-page-block-02-section-04">
-                  <p className="first">Income Group</p>
+                  <div className="info-page-block-02-section-04-header-and-popup">
+                    <p className="first">Income Group</p>
+                    <img className="info-page-info-icon" src={infoIcon} onClick={() => setIncomePopUpState(true)}/>
+                    <IncomeGroupPopUp active={incomePopUpState} onClose={() => setIncomePopUpState(false)} />
+                  </div>
                   {searchInfo.datapoint.incomeGroup ?
                     <p className="second">{searchInfo.datapoint.incomeGroup}</p> :
                     <p className="second">N/A</p>

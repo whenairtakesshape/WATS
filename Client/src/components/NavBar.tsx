@@ -48,7 +48,7 @@ export const NavBar = () => {
           <img className="navbar-button-logo" src={map_icon} />
           Map
         </button>
-        <button 
+        <button
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
@@ -62,6 +62,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
+            navigate("/take-action");
           }}
         >
           <img className="navbar-button-logo" src={action_icon} />
