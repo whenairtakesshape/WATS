@@ -34,15 +34,15 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({key, position, onClick, chil
             const aqi = res.data.data.aqi;
             if (!aqi) {
                 return blueMarker;
-            } else if (aqi < 50) {
+            } else if (aqi <= 50) {
                 return greenMarker;
-            } else if (aqi < 100) {
+            } else if (aqi <= 100) {
                 return yellowMarker;
-            } else if (aqi < 150) {
+            } else if (aqi <= 150) {
                 return orangeMarker;
-            } else if (aqi < 200) {
+            } else if (aqi <= 200) {
                 return redMarker;
-            } else if (aqi < 250) {
+            } else if (aqi <= 300) {
                 return purpleMarker;
             } else {
                 return maroonMarker;
