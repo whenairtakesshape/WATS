@@ -61,6 +61,27 @@ export function InfoPage() {
   // state used to render US AQI pop up
   const [usAqiPopUpState, setUsAqiPopUpState] = useState(false);
 
+  const [aqi, setAqi] = useState<number | undefined>(undefined);
+
+  const getAqi = async (lat: number, lon: number): Promise<void> => {
+    const POLLUTANT_API_TOKEN = process.env.REACT_APP_POLLUTANT_TOKEN;
+    if (!POLLUTANT_API_TOKEN) {
+        throw new Error('Pollutant API token is not provided.');
+    }
+
+    const pollutantApiUrl = `https://api.waqi.info/feed/geo:${lat};${lon}/?token=${POLLUTANT_API_TOKEN}`;
+
+    try {
+        const res = await axios.get(pollutantApiUrl);
+        if (res.data.data.aqi) {
+          setAqi(res.data.data.aqi);
+        }
+    } catch (error: any) {
+        console.error('Error fetching AQI data:', error.message);
+        throw new Error('Failed to fetch AQI data.');
+    }
+};
+
   // following logic will execute upon first render of InfoPage component 
   useEffect(() => {
     /**
@@ -71,14 +92,18 @@ export function InfoPage() {
       navigate("/mapRoute");
       alert("no location selected");
     }
+
+    // get aqi data
+    if (searchInfo.datapoint)
+    getAqi(searchInfo.datapoint?.lat, searchInfo.datapoint?.lon);
   }, []);
 
   /**
-   * @returns smile, nuetral, or sadFace emoji based on the range of datapoint.aqi
+   * @returns smile, nuetral, or sadFace emoji based on the range of aqi
    */
   const renderEmoji = (): (JSX.Element | undefined) => {
-    if (searchInfo.datapoint) {
-      return RenderEmoji(searchInfo.datapoint.aqi);
+    if (aqi) {
+      return RenderEmoji(aqi);
     }
   };
 
@@ -90,7 +115,7 @@ export function InfoPage() {
    */
   const makeApiRequest = async () => {
     try {
-      // const res = await axios.post(`http://localhost:3001/aqi?value=${searchInfo.datapoint?.aqi}`);
+      // const res = await axios.post(`http://localhost:3001/aqi?value=${aqi}`);
       // console.log(res);
       //alert(`request succesful: ` + res.status);
       navigate("/breathe-page");
@@ -158,10 +183,10 @@ export function InfoPage() {
                     <img className="info-page-info-icon" src={infoIcon} onClick={() => setUsAqiPopUpState(true)}/>
                      <UsAqiPopUp active={usAqiPopUpState} onClose={() => setUsAqiPopUpState(false)}/>
                   </div>
-                  <p className="aqi-number">{searchInfo.datapoint?.aqi}</p>
+                  <p className="aqi-number">{aqi}</p>
                 </div>
                 {/** Scale component is info-page-block-02-section-03 */}
-                <Scale />
+                {aqi && <Scale aqi={aqi} />}
                 <div className="info-page-block-02-section-04">
                   <p className="first">Income Group</p>
                   {searchInfo.datapoint.incomeGroup ?
