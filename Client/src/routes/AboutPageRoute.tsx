@@ -1,5 +1,5 @@
 // css styles import
-import "./css/introductionMap.scss";
+import "./css/introduction.scss";
 
 // assets
 import attaLogo from "../assets/attaLogo.png";
