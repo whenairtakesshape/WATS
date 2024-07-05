@@ -179,7 +179,7 @@
 
   button {
     cursor: pointer;
-    border-radius: 16px;
+    border-radius: 12px;
     background: var(--TempPrimaryColor, #1e4359);
     color: white;
     padding: 18px 26px;
@@ -192,6 +192,12 @@
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
+
+    height: 39px;
+    width: 125px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   button:hover {
