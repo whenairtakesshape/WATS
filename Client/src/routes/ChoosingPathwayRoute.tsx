@@ -28,11 +28,11 @@ export function ChoosingPathwayRoute() {
           <p>Let's start by...</p>
         </div>
         <div className="choosing-pathway-tiles">
-            <div className="choosing-pathway-tile" onClick={() => navigate('/mapRoute')}>
+            <div className="choosing-pathway-tile" onClick={() => navigate('/intro-map')}>
                 <img src={mapIcon} alt="map" />
                 <p>Choosing any city from the map</p>
             </div>
-            <div className="choosing-pathway-tile" onClick={() => navigate('/compare-cities')}>
+            <div className="choosing-pathway-tile" onClick={() => navigate('/intro-compare')}>
                 <img src={compareCitiesIcon} alt="compare cities" />
                 <p>Choosing a suggested city to compare with Vancouver</p>
             </div>

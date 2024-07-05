@@ -64,8 +64,8 @@
     font-family: Montserrat;
     font-size: 25px;
     font-style: normal;
-    font-weight: 600;
-    line-height: 52px;
+    font-weight: 500;
+    line-height: 33px;
     letter-spacing: 0.5px;
   }
 
@@ -117,18 +117,21 @@
 .introduction-container-section-04 {
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
+  margin-top: 24px;
+  gap: 16px;
 
   .introduction-container-section-04-grid {
     display: grid;
     grid-template-columns: 1fr;
-    row-gap: 2em;
+    row-gap: 16px;
     margin-top: 20px;
     max-width: 800px;
   }
   img {
     height: 70px;
+    width: 70px;
   }
 
   .introduction-container-section-04-grid-item {
@@ -153,7 +156,7 @@
     .introduction-container-section-04-grid-item-text {
       p {
         font-family: Montserrat;
-        font-size: 15px;
+        font-size: 18px;
         font-style: normal;
         line-height: 28px;
         letter-spacing: 0.5px;
@@ -162,10 +165,10 @@
       .introduction-container-section-04-grid-item-text-title {
         color: #000;
         font-family: Montserrat;
-        font-size: 22px;
+        font-size: 18px;
         font-style: normal;
         font-weight: 400;
-        line-height: 41px;
+        line-height: 28px;
         letter-spacing: 0.5px;
       }
     }
@@ -194,7 +197,7 @@
     font-weight: 600;
 
     height: 39px;
-    width: 125px;
+    width: 175px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -203,4 +206,15 @@
   button:hover {
     opacity: 0.9;
   }
+}
+
+.introduction-container-section-06 {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.5px;
+  margin-left: 95px;
+  margin-top: 27px;
 }
