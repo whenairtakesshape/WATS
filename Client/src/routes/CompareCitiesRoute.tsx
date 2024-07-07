@@ -72,6 +72,7 @@ const CompareCitiesRoute = () => {
 
   const handleNextCityButtonClick = async () => {
     if (breathingStage == CompareCitiesBreathingStage.FIRST_CITY) {
+      if (selectedCity) {
       try {
         const res = await axios.post(
           `http://localhost:3001/aqi?value=${selectedCity.aqiRating}`
@@ -81,6 +82,7 @@ const CompareCitiesRoute = () => {
       } catch (error: any) {
         alert(error.message);
         console.error(error);
+      }
       }
     } else if (breathingStage == CompareCitiesBreathingStage.SECOND_CITY) {
       try {
