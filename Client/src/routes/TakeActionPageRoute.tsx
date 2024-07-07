@@ -12,12 +12,12 @@ const TakeActionPage = () => {
 
   const tagCategories = {
     Actor: ["Individual", "Community"],
-    Target: ["Reducing health risks", "Reducing air pollution"],
+    Target: ["Reducing Health Risks", "Reducing Air Pollution"],
     Sector: [
       "Transportation",
       "Food",
-      "Consumption habits",
-      "Sports & health",
+      "Consumption Habits",
+      "Sports & Health",
       "Activism",
       "Household",
     ],
@@ -45,10 +45,11 @@ const TakeActionPage = () => {
       <div className={styles.headingParent}>
         <div className={styles.heading}>Take Action</div>
         <div className={styles.subheading}>
-          You have taken your first step to become an air pollution activist! On
-          this page, discover what behavior to implement into your daily life to
-          combat air pollution at your own scale. Use the filtering system to
-          find what action is right for you.
+          You have taken your first step to become an air quality activist! On
+          this page, discover what behavioural change you can make in your daily
+          life to combat air pollution. Use the filters to find what action is
+          right for you. When you are done, feel free to explore other pages or
+          finish your journey!
         </div>
       </div>
       <main className={styles.main}>
@@ -57,7 +58,7 @@ const TakeActionPage = () => {
             <div className={styles.filterWrapper}>
               <div className={styles.filterTitle}>
                 <p>Filter by</p>
-                <p>Categories</p>
+                <p>Category</p>
               </div>
 
               <Filter
@@ -107,7 +108,7 @@ const TakeActionPage = () => {
                   className={styles.continueButton}
                   onClick={(e) => {
                     e.stopPropagation();
-                    navigate("/");
+                    navigate("/thank-you");
                   }}
                 >
                   Finish My Journey

@@ -12,6 +12,8 @@ import { LandingPage } from "./routes/LandingPageRoute";
 import { Introduction } from "./routes/IntroductionRoute";
 import { AboutPage } from "./routes/AboutPageRoute";
 import TakeActionPageRoute from "./routes/TakeActionPageRoute";
+import CompareCitiesRoute from "./routes/CompareCitiesRoute";
+import { ThankYouPage } from "./routes/ThankYouPageRoute";
 import { SearchInfo, SearchInfoContext } from "./contexts/SearchInfoContext";
 import { DataHandler, Country, City } from "./model/DataHandler";
 import { WindowSize } from "./model/interfaces";
@@ -20,6 +22,7 @@ import { Data, DataContext } from "./contexts/DataContext";
 import { BreatheRoute } from "./routes/BreatheRoute";
 import { AdminWindow } from "./components/AdminWindow";
 import NavBar from "./components/NavBar";
+import { ChoosingPathwayRoute } from "./routes/ChoosingPathwayRoute";
 
 
 /* 
@@ -118,14 +121,20 @@ function App() {
                   <Route path="/intro" element={<Introduction />}></Route>
                   <Route path="/info-page" element={<InfoPage />}></Route>
                   <Route path="/about-page" element={<AboutPage />}></Route>
+                  <Route path='/choosing-pathway' element={<ChoosingPathwayRoute />}></Route>
                   <Route
                     path="/breathe-page"
                     element={<BreatheRoute />}
                   ></Route>
                   <Route
+                    path="/compare-cities"
+                    element={<CompareCitiesRoute />}
+                  ></Route>
+                  <Route
                     path="/take-action"
                     element={<TakeActionPageRoute />}
                   ></Route>
+                  <Route path = "/thank-you" element = {<ThankYouPage />}></Route>
                 </Routes>
                 {/* <button onClick={() => sendAQI(55)}>1</button> */}
               </SearchInfoContext.Provider>

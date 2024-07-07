@@ -3,12 +3,7 @@ import "./css/infoPageRoute.scss";
 
 // assets
 import logo from "../assets/attaLogo.webp";
-import smile from "../assets/emojiAssets/smile.png";
-import neutral from "../assets/emojiAssets/neutral.png";
-import sadFace from "../assets/emojiAssets/sadFace.png";
 import infoIcon from "../assets/infoIcon.svg";
-import disappointed from "../assets/emojiAssets/disappointed.png";
-import deadSkin from "../assets/emojiAssets/deadSkin.png";
 import warning from "../assets/warning.svg";
 import admin from "../assets/admin.svg";
 import backArrow from "../assets/backArrow.svg";
@@ -30,6 +25,9 @@ import { Debugger } from "../components/Debugger";
 import { WindowContext } from "../contexts/WindowSizeContext";
 import { AdminWindow } from "../components/AdminWindow";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
+import { UsAqiPopUp } from "../components/infoPageComponents/UsAqiPopUp";
+import RenderEmoji from "../components/RenderEmoji";
+import { IncomeGroupPopUp } from "../components/infoPageComponents/IncomeGroupPopUp";
 
 export function InfoPage() {
   // constants
@@ -64,6 +62,32 @@ export function InfoPage() {
   // state used to render US AQI pop up
   const [usAqiPopUpState, setUsAqiPopUpState] = useState(false);
 
+  // state used for AQI 
+  const [aqi, setAqi] = useState<number | undefined>(undefined);
+
+  // state used to render Income Group pop up
+  const [incomePopUpState, setIncomePopUpState] = useState(false);
+
+  const getAqi = async (lat: number, lon: number): Promise<void> => {
+    const POLLUTANT_API_TOKEN = process.env.REACT_APP_POLLUTANT_TOKEN;
+    if (!POLLUTANT_API_TOKEN) {
+        throw new Error('Pollutant API token is not provided.');
+    }
+
+    const pollutantApiUrl = `https://api.waqi.info/feed/geo:${lat};${lon}/?token=${POLLUTANT_API_TOKEN}`;
+
+    try {
+        const res = await axios.get(pollutantApiUrl);
+        if (res.data.data.aqi) {
+          setAqi(res.data.data.aqi);
+        }
+    } catch (error: any) {
+        console.error('Error fetching AQI data:', error.message);
+        throw new Error('Failed to fetch AQI data.');
+    }
+};
+
+
   // following logic will execute upon first render of InfoPage component 
   useEffect(() => {
     /**
@@ -74,32 +98,18 @@ export function InfoPage() {
       navigate("/mapRoute");
       alert("no location selected");
     }
+
+    // get aqi data
+    if (searchInfo.datapoint)
+    getAqi(searchInfo.datapoint?.lat, searchInfo.datapoint?.lon);
   }, []);
 
   /**
-   * @returns smile, nuetral, or sadFace emoji based on the range of datapoint.aqi
+   * @returns smile, nuetral, or sadFace emoji based on the range of aqi
    */
   const renderEmoji = (): (JSX.Element | undefined) => {
-    if (searchInfo.datapoint) {
-      // good range: [0,50]
-      if (searchInfo.datapoint.aqi < goodRange) {
-        return <img src={smile} />;
-        // moderate range: [51, 100]
-      } else if (searchInfo.datapoint.aqi < moderateRange) {
-        return <img src={neutral} />;
-        // unhealthy for sensitive groups range: [101, 150]
-      } else if (searchInfo.datapoint.aqi < unhealthyForSensitiveGroupsRange) {
-        return <img src={sadFace} />;
-        // unhealthy range: [151, 200]
-      } else if (searchInfo.datapoint.aqi < unhealthyRange) {
-        return <img src={sadFace} />;
-        // very unhealthy range: [201, 300]
-      } else if (searchInfo.datapoint.aqi < veryUnhealtyRange) {
-        return <img src={disappointed} />;
-      } else {
-        // hazardous range: [301-500]
-        return <img src={deadSkin} />;
-      }
+    if (aqi) {
+      return RenderEmoji(aqi);
     }
   };
 
@@ -111,8 +121,8 @@ export function InfoPage() {
    */
   const makeApiRequest = async () => {
     try {
-      const res = await axios.post(`http://localhost:3001/aqi?value=${searchInfo.datapoint?.aqi}`);
-      console.log(res);
+      // const res = await axios.post(`http://localhost:3001/aqi?value=${aqi}`);
+      // console.log(res);
       //alert(`request succesful: ` + res.status);
       navigate("/breathe-page");
     }
@@ -176,14 +186,19 @@ export function InfoPage() {
                 <div className="into-page-block-02-section-02">
                   <div className="info-page-block-02-section-02-us-aqi">
                     <p>US AQI</p>
-                    <img src={infoIcon}/>
+                    <img className="info-page-info-icon" src={infoIcon} onClick={() => setUsAqiPopUpState(true)}/>
+                     <UsAqiPopUp active={usAqiPopUpState} onClose={() => setUsAqiPopUpState(false)}/>
                   </div>
-                  <p className="aqi-number">{searchInfo.datapoint?.aqi}</p>
+                  <p className="aqi-number">{aqi}</p>
                 </div>
                 {/** Scale component is info-page-block-02-section-03 */}
-                <Scale />
+                {aqi && <Scale aqi={aqi} />}
                 <div className="info-page-block-02-section-04">
-                  <p className="first">Income Group</p>
+                  <div className="info-page-block-02-section-04-header-and-popup">
+                    <p className="first">Income Group</p>
+                    <img className="info-page-info-icon" src={infoIcon} onClick={() => setIncomePopUpState(true)}/>
+                    <IncomeGroupPopUp active={incomePopUpState} onClose={() => setIncomePopUpState(false)} />
+                  </div>
                   {searchInfo.datapoint.incomeGroup ?
                     <p className="second">{searchInfo.datapoint.incomeGroup}</p> :
                     <p className="second">N/A</p>
@@ -194,7 +209,7 @@ export function InfoPage() {
               {/** PollutantSection component is info-page-block-03 */}
               <PollutantAndContributingFactorSection />
               {/** ImpactOnHealthAndHealthRecommendationSection component is info-page-block-04 */}
-              <ImpactOnHealthAndHealthRecommendationSection />
+              <ImpactOnHealthAndHealthRecommendationSection aqi={aqi}/>
 
               {/** DidYouKnow component is info-page-block-05 */}
               {/** <DidYouKnowSection />}

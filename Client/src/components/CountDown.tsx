@@ -8,6 +8,8 @@ import axios from "axios";
 
 interface CountDownInterface {
   seconds: number;
+  cityName?: string;
+  onCountDownComplete?: () => void;
 }
 export default function CountDown(props: CountDownInterface) {
 
@@ -30,6 +32,12 @@ export default function CountDown(props: CountDownInterface) {
 
   }, []);
 
+  // restart counter on every compare cities breathing stage
+  useEffect(() => {
+    setCountDown(props.seconds);
+
+  }, [props.cityName]);
+
   /**
    * makes post request to the server API and sends query to stop the physical installation. 
    * alerts for error otherwise. 
@@ -39,8 +47,11 @@ export default function CountDown(props: CountDownInterface) {
       const res = await axios.post(`http://localhost:3001/command?command=s`);
       console.log(res);
       //alert(`request succesful: ` + res.status);
-      // app navigates to mapRoute after request to halt the physical installation executes correctly.
-      navigate("/intro");
+      if (props.onCountDownComplete) {
+        props.onCountDownComplete();
+      } else {
+        navigate("/take-action");
+      }
     }
     catch (error: any) {
       alert(error.message);

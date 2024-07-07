@@ -9,7 +9,11 @@ import { HealthRecommendation, HealthRecommendationLogic } from "./HealthRecomme
 import { HealthRecommendationCard } from "./HealthRecommendationCard";
 import { SearchInfoContext } from "../../../contexts/SearchInfoContext";
 
-export const HealthRecommendationSection = () => {
+interface HealthRecommendationProps {
+  aqi?: number;
+}
+
+export const HealthRecommendationSection = (props: HealthRecommendationProps) => {
 
   // searchInfo state
   const { searchInfo } = useContext(SearchInfoContext);
@@ -20,7 +24,7 @@ export const HealthRecommendationSection = () => {
   // array of HealthRecommendation or null value.
   // see HealthRecommendationLogic.ts for when getHealthRecommendations() returns null.
   const healthRecommendations: Array<HealthRecommendation> | null =
-    healthRecommendationLogic.getHealthRecommendations(searchInfo.datapoint?.aqi);
+    healthRecommendationLogic.getHealthRecommendations(props.aqi);
 
   /**
    * message that will display when there is no information available regarding health recommendations.

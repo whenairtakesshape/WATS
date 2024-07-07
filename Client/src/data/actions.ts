@@ -116,7 +116,7 @@ export const takeActions: TakeActionProps[] = [
     title: "Favor active transport",
     image: bicycle,
     description:
-      "If a commute is 30 minutes or less, try to prioritize active way of commuting such as walking or cycling. In addition to reducing the number of polluting vehicles on the road, it will improve your health reducing weakness against air pollution diseases.",
+      "If a commute is 30 minutes or less and the outdoor conditions allow it, consider active ways of commuting such as walking or cycling. Look up your city's cycling map. Ask a buddy to start cycling together.  Maybe you can turn that grocery trip this weekend into a mental health walk? So many small but good ways to add healthy habits into your routine!",
     tags: ["Reducing Air Pollution", "Individual", "Transportation"],
   },
   {
