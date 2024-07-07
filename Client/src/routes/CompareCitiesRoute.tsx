@@ -74,7 +74,7 @@ const CompareCitiesRoute = () => {
     if (breathingStage == CompareCitiesBreathingStage.FIRST_CITY) {
       try {
         const res = await axios.post(
-          `http://localhost:3001/aqi?value=${vancouverData.aqiRating}`
+          `http://localhost:3001/aqi?value=${selectedCity.aqiRating}`
         );
         console.log(res);
         setBreathingStage(CompareCitiesBreathingStage.SECOND_CITY);
