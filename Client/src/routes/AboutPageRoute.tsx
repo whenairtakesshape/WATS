@@ -1,5 +1,5 @@
 // css styles import
-import "./css/introduction.scss";
+import "./css/aboutPage.scss";
 
 // assets
 import attaLogo from "../assets/attaLogo.png";
@@ -15,17 +15,17 @@ export function AboutPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="introduction-container">
-      <div className="introduction-container-header">
+    <div className="about-container">
+      <div className="about-container-header">
         <img src={attaLogo} />
         <p>When Air Takes Shape</p>
       </div>
 
-      <div className="introduction-container-box">
-        <div className="introduction-container-section-01">
+      <div className="about-container-box">
+        <div className="about-container-section-01">
           <p>About ATTA</p>
         </div>
-        <div className="introduction-container-section-02">
+        <div className="about-container-section-02">
           <p>
           Activism Through Technology and Art (ATTA) Society is a community of creatives of from across 
           Canada, collaborating on projects that promote social and environmental transformation.
@@ -36,14 +36,14 @@ export function AboutPage() {
             social media @attasociety.
           </p>
         </div>
-        <div className="introduction-container-section-03">
+        <div className="about-container-section-01">
           <p>About the installation</p>
         </div>
-        <div className="introduction-container-section-02">
+        <div className="about-container-section-02">
           <p>
           According to the World Health Organization (WHO), approximately 7 million deaths occur 
           prematurely each year due to air pollution. 9 out of 10 people in the world breathe air that contains 
-          high levels of pollutants and exceeds the WHO's air pollution limits
+          high levels of pollutants and exceeds the WHO's air pollution limits.
           </p>
           <br />
           <p>
@@ -53,10 +53,10 @@ export function AboutPage() {
           <br />
           <p>
           We created the installation to connect you with people living in different cities across the world, 
-          highlight the challenges faced by these communities, and equip you with tools to make a difference
+          highlight the challenges faced by these communities, and equip you with tools to make a difference.
           </p>
         </div>
-        <div className="introduction-container-section-05">
+        <div className="about-container-section-05">
           <button onClick={() => navigate("/choosing-pathway")}>Next</button>
         </div>
       </div>
