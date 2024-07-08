@@ -8,8 +8,12 @@ import { useState } from 'react';
 import { ImpactOnHealthSection } from "./impactOnHealthComponents/ImpactOnHealthSection";
 import { HealthRecommendationSection } from "./healthRecommendationComponents/HealthRecommendationSection";
 
+interface ImpactOnHealthAndHealthProps {
+  aqi?: number;
+}
 
-export const ImpactOnHealthAndHealthRecommendationSection = () => {
+
+export const ImpactOnHealthAndHealthRecommendationSection = (props: ImpactOnHealthAndHealthProps) => {
 
   // if true, ImpactOnHealth component renders, HealthRecommendation component renders otherwise
   const [impactOnHealthActive, setImpactOnHealthActive] = useState<boolean>(true);
@@ -37,7 +41,7 @@ export const ImpactOnHealthAndHealthRecommendationSection = () => {
       {/** second section.
        * if impactOnHealthActive is true, ImpactOnHealthSection renders.
        */}
-      {impactOnHealthActive ? <ImpactOnHealthSection /> : <HealthRecommendationSection />}
+      {impactOnHealthActive ? <ImpactOnHealthSection /> : <HealthRecommendationSection aqi={props.aqi} />}
     </div>
   );
 };

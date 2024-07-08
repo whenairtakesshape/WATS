@@ -1,0 +1,49 @@
+.income-pop-up-container {
+    color: #000;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    position: absolute;
+    border-radius: 16px;
+    width: 450px;
+    background: var(--atta-color-scheme-temp-text-background, #F9F9F9);
+    border: 2px solid black;
+    top: 30%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    padding: 16px;
+  }
+  
+  .income-pop-up-x {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  
+    button {
+      border: none;
+      padding: 2px 6px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border-radius: 20px;
+      background-color: lightgrey;
+      opacity: 0.8;
+    }
+  }
+
+  .income-pop-up-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .income-pop-up-header {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  
+  

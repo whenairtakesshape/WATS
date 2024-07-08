@@ -33,7 +33,7 @@ const CompareCitiesListPage = (props: CompareCitiesListPageProps) => {
   return (
     <div className="compare-cities-container">
       <div className="compare-cities-header">
-        Welcome to the Air Quality Comparison!
+        Welcome to the Air Quality Comparison page!
       </div>
       <div className="compare-cities-content">
         <div className="compare-cities-description">
@@ -48,7 +48,7 @@ const CompareCitiesListPage = (props: CompareCitiesListPageProps) => {
           <li>Breathe and notice the differences between the two cities</li>
           <li>Choose another city</li>
         </ol>
-        <div className="compare-cities-subtitle">City pair:</div>
+        <div className="compare-cities-subtitle">Choose one of these cities:</div>
         <div className="compare-cities-city-list">
           {props.showFullCityList
             ? compareCitiesData.slice(1).map((city) => renderCityTile(city))
