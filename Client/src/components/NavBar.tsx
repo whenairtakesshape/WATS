@@ -82,7 +82,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/intro");
+            navigate("/choosing-pathway");
           }}
         >
           <img className="navbar-button-logo" src={info_icon} />
