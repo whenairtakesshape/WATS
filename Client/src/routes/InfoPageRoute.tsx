@@ -121,9 +121,9 @@ export function InfoPage() {
    */
   const makeApiRequest = async () => {
     try {
-      // const res = await axios.post(`http://localhost:3001/aqi?value=${aqi}`);
-      // console.log(res);
-      //alert(`request succesful: ` + res.status);
+      const res = await axios.post(`http://localhost:3001/aqi?value=${aqi}`);
+      console.log(res);
+      alert(`request succesful: ` + res.status);
       navigate("/breathe-page");
     }
     catch (error: any) {
