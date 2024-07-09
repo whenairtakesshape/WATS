@@ -123,7 +123,7 @@ export function InfoPage() {
     try {
       const res = await axios.post(`http://localhost:3001/aqi?value=${aqi}`);
       console.log(res);
-      alert(`request succesful: ` + res.status);
+      // alert(`request succesful: ` + res.status);
       navigate("/breathe-page");
     }
     catch (error: any) {
