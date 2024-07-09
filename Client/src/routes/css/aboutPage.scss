@@ -1,0 +1,130 @@
+.about-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100vw;
+    background-image: url("../../assets/unsplashBig.png");
+    /* Additional styling properties */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    flex-direction: column;
+    padding-left: 140px;
+    @media screen and (max-width: 768px) {
+      padding-left: 0;
+      padding-top: 140px;
+    }
+}
+  
+.about-container-header {
+display: flex;
+align-items: center;
+padding: 20px;
+
+p {
+    margin-left: 20px;
+    color: #000;
+    font-family: Montserrat;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 64px;
+    letter-spacing: 0.5px;
+}
+
+img {
+    height: 80px;
+}
+
+@media (max-width: 425px) {
+    p {
+    font-size: 23px;
+    }
+}
+}
+
+.about-container-box {
+background: #f9f9f9;
+box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+border-radius: 28px;
+flex-direction: column;
+padding: 30px 40px;
+margin: 2em 5em;
+
+@media (max-width: 710px) {
+    margin: 1em;
+}
+}
+
+.about-container-section-01 {
+p {
+    color: #000;
+    font-family: Montserrat;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 52px;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+    margin-bottom: 16px;
+    margin-left: 28px;
+}
+
+@media (max-width: 425px) {
+    p {
+    font-size: 22px;
+    }
+}
+}
+
+.about-container-section-02 {
+p {
+    color: #000;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0.5px;
+    margin-left: 28px;
+    margin-right: 69px;
+}
+
+@media (max-width: 425px) {
+    p {
+    font-size: 13px;
+    }
+}
+}
+
+.about-container-section-05 {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+  
+    button {
+      cursor: pointer;
+      border-radius: 12px;
+      background: var(--TempPrimaryColor, #1e4359);
+      color: white;
+      padding: 18px 26px;
+      border: none;
+      outline: none;
+      color: var(--material-theme-white, #fff);
+  
+      text-align: center;
+      font-family: Montserrat;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+  
+      height: 39px;
+      width: 175px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    button:hover {
+      opacity: 0.9;
+    }
+}

@@ -9,7 +9,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { MapRoute } from "./routes/MapRoute";
 import { InfoPage } from "./routes/InfoPageRoute";
 import { LandingPage } from "./routes/LandingPageRoute";
-import { Introduction } from "./routes/IntroductionRoute";
+import { IntroductionMap } from "./routes/IntroductionMapRoute";
+import { IntroductionCompare } from "./routes/IntroductionCompareRoute";
 import { AboutPage } from "./routes/AboutPageRoute";
 import TakeActionPageRoute from "./routes/TakeActionPageRoute";
 import CompareCitiesRoute from "./routes/CompareCitiesRoute";
@@ -118,7 +119,8 @@ function App() {
                 <Routes>
                   <Route path="/mapRoute" element={<MapRoute />}></Route>
                   <Route path="/" element={<LandingPage />}></Route>
-                  <Route path="/intro" element={<Introduction />}></Route>
+                  <Route path="/intro-map" element={<IntroductionMap />}></Route>
+                  <Route path="/intro-compare" element={<IntroductionCompare />}></Route>
                   <Route path="/info-page" element={<InfoPage />}></Route>
                   <Route path="/about-page" element={<AboutPage />}></Route>
                   <Route path='/choosing-pathway' element={<ChoosingPathwayRoute />}></Route>
