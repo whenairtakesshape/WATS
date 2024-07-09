@@ -43,7 +43,7 @@ export const BreatheRoute = () => {
       console.log(res);
       //alert(`request succesful: ` + res.status);
       // app navigates to mapRoute after request to halt the physical installation executes correctly.
-      navigate("/intro");
+      navigate("/mapRoute");
     } catch (error: any) {
       alert(error.message);
       console.error(error);
@@ -75,7 +75,7 @@ export const BreatheRoute = () => {
       <button
         className="breathe-route-nav-button"
         onClick={() => {
-          navigate("/mapRoute");
+          makeApiRequest();
         }}
       >
         Go back to the map page
