@@ -16,6 +16,7 @@ import hamburger_icon from "../assets/navBar/hamburgerIcon.svg";
 import react, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import axios from "axios";
 
 export const NavBar = () => {
   const navigate = useNavigate();
@@ -26,6 +27,18 @@ export const NavBar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Stops the installation and navigates to specified path
+  const makeApiRequestAndNavigate = async (path: string) => {
+    try {
+      const res = await axios.post(`http://localhost:3001/command?command=s`);
+      console.log(res);
+      navigate(path);
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message);
+    }
+  };
+
   const renderNavMenu = () => (
     <div className={`nav-menu ${isMenuOpen ? "show-menu" : ""}`}>
       <div className="nav-button-section">
@@ -33,7 +46,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/");
+            makeApiRequestAndNavigate("/");
           }}
         >
           <img className="navbar-button-logo" src={home_icon} />
@@ -54,7 +67,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/mapRoute");
+            makeApiRequestAndNavigate("/mapRoute");
           }}
         >
           <img className="navbar-button-logo" src={map_icon} />
@@ -64,7 +77,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/compare-cities");
+            makeApiRequestAndNavigate("/compare-cities");
           }}
         >
           <img src={compare_icon} />
@@ -86,13 +99,12 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/take-action");
+            makeApiRequestAndNavigate("/take-action");
           }}
         >
           <img className="navbar-button-logo" src={action_icon} />
           Take Action
         </button>
-
       </div>
       {/* <div className="nav-admin-login-section">
                     <button className="navbar-button admin-login-button">
