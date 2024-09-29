@@ -36,14 +36,33 @@ export const BreatheRoute = () => {
   /**
    * makes post request to the server API and sends query to stop the physical installation.
    * alerts for error otherwise.
+   * Goes back to Map Page.
    */
-  const makeApiRequest = async () => {
+  const goBackToMap = async () => {
     try {
       const res = await axios.post(`http://localhost:3001/command?command=s`);
       console.log(res);
       //alert(`request succesful: ` + res.status);
       // app navigates to mapRoute after request to halt the physical installation executes correctly.
       navigate("/mapRoute");
+    } catch (error: any) {
+      alert(error.message);
+      console.error(error);
+    }
+  };
+
+  /**
+   * makes post request to the server API and sends query to stop the physical installation.
+   * alerts for error otherwise.
+   * Goes back to take action page.
+   */
+  const goToTakeAction = async () => {
+    try {
+      const res = await axios.post(`http://localhost:3001/command?command=s`);
+      console.log(res);
+      //alert(`request succesful: ` + res.status);
+      // app navigates to take-action after request to halt the physical installation executes correctly.
+      navigate("/take-action");
     } catch (error: any) {
       alert(error.message);
       console.error(error);
@@ -75,7 +94,7 @@ export const BreatheRoute = () => {
       <button
         className="breathe-route-nav-button"
         onClick={() => {
-          makeApiRequest();
+          goBackToMap();
         }}
       >
         Go back to the map page
@@ -83,7 +102,7 @@ export const BreatheRoute = () => {
       <button
         className="breathe-route-nav-button"
         onClick={() => {
-          navigate("/take-action");
+          goToTakeAction();
         }}
       >
         Learn how to take action

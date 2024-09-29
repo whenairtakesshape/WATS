@@ -15,6 +15,7 @@ import hamburger_icon from "../assets/navBar/hamburgerIcon.svg";
 import react, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import axios from "axios";
 
 export const NavBar = () => {
   const navigate = useNavigate();
@@ -25,6 +26,18 @@ export const NavBar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Stops the installation and navigates to specified path
+  const makeApiRequestAndNavigate = async (path: string) => {
+    try {
+      const res = await axios.post(`http://localhost:3001/command?command=s`);
+      console.log(res);
+      navigate(path);
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message);
+    }
+  };
+
   const renderNavMenu = () => (
     <div className={`nav-menu ${isMenuOpen ? "show-menu" : ""}`}>
       <div className="nav-button-section">
@@ -32,7 +45,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/");
+            makeApiRequestAndNavigate("/");
           }}
         >
           <img className="navbar-button-logo" src={home_icon} />
@@ -42,7 +55,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/mapRoute");
+            makeApiRequestAndNavigate("/mapRoute");
           }}
         >
           <img className="navbar-button-logo" src={map_icon} />
@@ -52,7 +65,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/compare-cities");
+            makeApiRequestAndNavigate("/compare-cities");
           }}
         >
           <img src={compare_icon} />
@@ -62,7 +75,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/take-action");
+            makeApiRequestAndNavigate("/take-action");
           }}
         >
           <img className="navbar-button-logo" src={action_icon} />
@@ -72,7 +85,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/about-page");
+            makeApiRequestAndNavigate("/about-page");
           }}
         >
           <img className="navbar-button-logo" src={about_icon} />
@@ -82,7 +95,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/choosing-pathway");
+            makeApiRequestAndNavigate("/choosing-pathway");
           }}
         >
           <img className="navbar-button-logo" src={info_icon} />
