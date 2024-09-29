@@ -3,7 +3,8 @@ import "./css/navbar.scss";
 
 // assets
 import atta_logo from "../assets/navBar/attaLogo.svg";
-import home_icon from "../assets/navBar/homeIcon.svg";
+// import home_icon from "../assets/navBar/homeIcon.svg";
+import aqi_icon from "../assets/navBar/aqiIcon.svg";
 import map_icon from "../assets/navBar/mapIcon.svg";
 import compare_icon from "../assets/navBar/compareIcon.svg";
 import action_icon from "../assets/navBar/actionIcon.svg";
@@ -41,7 +42,7 @@ export const NavBar = () => {
   const renderNavMenu = () => (
     <div className={`nav-menu ${isMenuOpen ? "show-menu" : ""}`}>
       <div className="nav-button-section">
-        <button
+        {/* <button
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
@@ -50,7 +51,18 @@ export const NavBar = () => {
         >
           <img className="navbar-button-logo" src={home_icon} />
           {isMobile ? "Start here" : "Home"}
+        </button> */}
+          <button
+          className="navbar-button"
+          onClick={() => {
+            setIsMenuOpen(false);
+            navigate("/about-page");
+          }}
+        >
+          <img className="navbar-button-logo" src={about_icon} />
+          About Us
         </button>
+
         <button
           className="navbar-button"
           onClick={() => {
@@ -71,6 +83,18 @@ export const NavBar = () => {
           <img src={compare_icon} />
           Compare Cities
         </button>
+        
+        <button
+          className="navbar-button"
+          onClick={() => {
+            setIsMenuOpen(false);
+            navigate("/choosing-pathway");
+          }}
+        >
+          <img className="navbar-button-logo" src={aqi_icon} />
+          AQI Scale
+        </button>
+        
         <button
           className="navbar-button"
           onClick={() => {
@@ -80,26 +104,6 @@ export const NavBar = () => {
         >
           <img className="navbar-button-logo" src={action_icon} />
           Take Action
-        </button>
-        <button
-          className="navbar-button"
-          onClick={() => {
-            setIsMenuOpen(false);
-            makeApiRequestAndNavigate("/about-page");
-          }}
-        >
-          <img className="navbar-button-logo" src={about_icon} />
-          About Us
-        </button>
-        <button
-          className="navbar-button"
-          onClick={() => {
-            setIsMenuOpen(false);
-            makeApiRequestAndNavigate("/choosing-pathway");
-          }}
-        >
-          <img className="navbar-button-logo" src={info_icon} />
-          How To
         </button>
       </div>
       {/* <div className="nav-admin-login-section">
