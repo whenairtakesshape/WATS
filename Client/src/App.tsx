@@ -11,6 +11,7 @@ import { InfoPage } from "./routes/InfoPageRoute";
 import { LandingPage } from "./routes/LandingPageRoute";
 import { IntroductionMap } from "./routes/IntroductionMapRoute";
 import { IntroductionCompare } from "./routes/IntroductionCompareRoute";
+import {AQIScaleRoute} from "./routes/AQIScaleRoute"
 import { AboutPage } from "./routes/AboutPageRoute";
 import TakeActionPageRoute from "./routes/TakeActionPageRoute";
 import CompareCitiesRoute from "./routes/CompareCitiesRoute";
@@ -135,6 +136,10 @@ function App() {
                   <Route
                     path="/take-action"
                     element={<TakeActionPageRoute />}
+                  ></Route>
+                  <Route
+                    path="/aqi-scale"
+                    element={<AQIScaleRoute />}
                   ></Route>
                   <Route path = "/thank-you" element = {<ThankYouPage />}></Route>
                 </Routes>

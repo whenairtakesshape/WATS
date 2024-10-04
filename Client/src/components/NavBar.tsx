@@ -75,7 +75,7 @@ export const NavBar = () => {
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/choosing-pathway");
+            navigate("/aqi-scale");
           }}
         >
           <img className="navbar-button-logo" src={aqi_icon} />
