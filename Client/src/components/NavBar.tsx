@@ -106,7 +106,7 @@ export const NavBar = () => {
     <div className="navbar-container">
       <div className="nav-atta-section">
         <div className="navbar-atta-div">
-          <img src={atta_logo} />
+          <img src={atta_logo}  onClick={() => navigate("/")}/>
         </div>
       </div>
       {isMobile ? (
