@@ -1,14 +1,19 @@
 //styles and assets
 import "./css/AQIscale.scss";
 
+//libraries 
+import axios from "axios";
+
+//components
 import { useState, useEffect } from "react";
 
 
 
 interface Bar {
-  label: string,
-  aqiText: string,
-  description: string
+  label: string, // for dev readibility 
+  aqiText: string, // display on scale
+  aqiNumber : number, // Post to backend when selected
+  description: string // display below bar when selected
 
 }
 
@@ -17,16 +22,18 @@ export function AQIScale() {
   /** constants */
 
 
-  const goodRange = 51;
-  const moderateRange = 101;
-  const unhealthyForSensitiveGroupsRange = 151;
-  const unhealthyRange = 201;
-  const veryUnhealtyRange = 301;
+  const goodRange = 1;
+  const moderateRange = 51;
+  const unhealthyForSensitiveGroupsRange = 101;
+  const unhealthyRange = 151;
+  const veryUnhealtyRange = 201;
+  const HazardousRange = 301;
 
   const bars: Bar[] = [{
 
     label: "green",
     aqiText: "<= 50 ",
+    aqiNumber : goodRange,
     description: "Good"
 
   },
@@ -34,6 +41,7 @@ export function AQIScale() {
 
     label: "yellow",
     aqiText: "51 - 100",
+    aqiNumber : moderateRange,
     description: "Moderate"
 
 
@@ -42,6 +50,7 @@ export function AQIScale() {
 
     label: "orange",
     aqiText: "101 - 150",
+    aqiNumber : unhealthyForSensitiveGroupsRange,
     description: "Unhealthy For Sensitive Groups"
 
 
@@ -50,6 +59,7 @@ export function AQIScale() {
 
     label: "red",
     aqiText: "151 - 200",
+    aqiNumber : unhealthyRange,
     description: "Unhealthy"
 
 
@@ -58,6 +68,7 @@ export function AQIScale() {
 
     label: "purple",
     aqiText: "201 - 300",
+    aqiNumber : veryUnhealtyRange,
     description: "Very Unhealthy"
 
 
@@ -66,6 +77,7 @@ export function AQIScale() {
 
     label: "brown",
     aqiText: "> 300",
+    aqiNumber : HazardousRange,
     description: "Hazardous"
 
 
@@ -76,16 +88,44 @@ export function AQIScale() {
 
   /** LOGIC */
 
+  const postAQI = async (aqi : number) => {
+    try {
+      const res = await axios.post(`http://localhost:3001/aqi?value=${aqi}`);
+      console.log(res);
+      
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message);
+    }
+  };
+
+  const postStopRequest = async() =>  {
+    try {
+      const res = await axios.post(`http://localhost:3001/command?command=s`);
+      console.log(res);
+
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message);
+    }
+  };
+
+  // TODO : do we want a time out between selects?
 
   const handleSelect = (bar: Bar) => {
 
     if (selectedBar && bar.label == selectedBar.label) {
+      postStopRequest();
       setSelectedBar(null);
     } else {
+      postAQI(bar.aqiNumber);
       setSelectedBar(bar);
     }
-
   };
+
+
+  
+
 
 
   return (

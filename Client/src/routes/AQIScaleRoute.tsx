@@ -4,55 +4,37 @@ import "./css/aqiScaleRoute.scss";
 // assets
 
 // libraries
-import { useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // components
-import { SearchInfoContext } from "../contexts/SearchInfoContext";
 import { AQIScale } from "../components/aqiScaleComponents/AQIScale";
 
 export const AQIScaleRoute = () => {
-  // navigation hook used to navigae to other routes.
-  const navigate = useNavigate();
 
-  // searchInfo global state becomes available by the use of SearchInfoContext.
-  const { searchInfo, setSearchInfo } = useContext(SearchInfoContext);
-
-  /**
-   * on first render of this component the following logic will execute.
-   * if the datapoint point property of searchInfo is null, app will navigate to mapRoute.
-   */
-  useEffect(() => {
-    if (searchInfo.datapoint == null) {
-      //alert("no location selected");
-      //makeApiRequest();
-      //navigate("/intro");
+  const postAQI = async (aqi : number) => {
+    try {
+      const res = await axios.post(`http://localhost:3001/aqi?value=${aqi}`);
+      console.log(res);
+      
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message);
     }
-  }, []);
+  };
 
-  /**
-   * makes post request to the server API and sends query to stop the physical installation.
-   * alerts for error otherwise.
-   */
-  const makeApiRequest = async () => {
+  const postStopRequest = async() =>  {
     try {
       const res = await axios.post(`http://localhost:3001/command?command=s`);
       console.log(res);
-      //alert(`request succesful: ` + res.status);
-      // app navigates to mapRoute after request to halt the physical installation executes correctly.
-      navigate("/mapRoute");
+
     } catch (error: any) {
-      alert(error.message);
       console.error(error);
+      alert(error.message);
     }
   };
 
   return (
-    <div className="aqiscale-outer-container">
-
-
-
+    <div className="aqiscale-outer-container">  
       <div className="aqiscale-box">
 
         <div className="aqiscale-box-section-01">
