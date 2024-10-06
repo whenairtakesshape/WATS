@@ -18,10 +18,10 @@ export function ChoosingPathwayRoute() {
 
   return (
     <div className="choosing-pathway-container">
-      {/* <div className="choosing-pathway-container-header">
+      <div className="choosing-pathway-container-header">
         <img src={attaLogo} />
         <p>When Air Takes Shape</p>
-      </div> */}
+      </div>
 
       <div className="choosing-pathway-container-box">
         <div className="choosing-pathway-container-section-01">
