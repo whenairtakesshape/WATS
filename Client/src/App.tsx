@@ -11,6 +11,7 @@ import { InfoPage } from "./routes/InfoPageRoute";
 import { LandingPage } from "./routes/LandingPageRoute";
 import { IntroductionMap } from "./routes/IntroductionMapRoute";
 import { IntroductionCompare } from "./routes/IntroductionCompareRoute";
+import {AQIScaleRoute} from "./routes/AQIScaleRoute"
 import { AboutPage } from "./routes/AboutPageRoute";
 import TakeActionPageRoute from "./routes/TakeActionPageRoute";
 import CompareCitiesRoute from "./routes/CompareCitiesRoute";
@@ -24,6 +25,9 @@ import { BreatheRoute } from "./routes/BreatheRoute";
 import { AdminWindow } from "./components/AdminWindow";
 import NavBar from "./components/NavBar";
 import { ChoosingPathwayRoute } from "./routes/ChoosingPathwayRoute";
+
+// hooks
+import useInactivityTimer from './hooks/useInactivityTimer';
 
 
 /* 
@@ -42,6 +46,9 @@ Most .tsx files have a .css file associated with it and can be found in the css 
 */
 
 function App() {
+  // global timer to go back to the home page if no activity for more than 2min
+  useInactivityTimer(120000);
+
   // data handler object, used to obtain data on cities and countries.
   const dataHandler: DataHandler = new DataHandler();
 
@@ -98,7 +105,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    // <Router>
       <div className="app-outer">
         <main>
           {/**
@@ -136,6 +143,10 @@ function App() {
                     path="/take-action"
                     element={<TakeActionPageRoute />}
                   ></Route>
+                  <Route
+                    path="/aqi-scale"
+                    element={<AQIScaleRoute />}
+                  ></Route>
                   <Route path = "/thank-you" element = {<ThankYouPage />}></Route>
                 </Routes>
                 {/* <button onClick={() => sendAQI(55)}>1</button> */}
@@ -144,7 +155,7 @@ function App() {
           </DataContext.Provider>
         </main>
       </div>
-    </Router>
+    // </Router>
   );
 }
 

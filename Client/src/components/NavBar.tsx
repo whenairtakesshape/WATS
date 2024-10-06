@@ -3,7 +3,8 @@ import "./css/navbar.scss";
 
 // assets
 import atta_logo from "../assets/navBar/attaLogo.svg";
-import home_icon from "../assets/navBar/homeIcon.svg";
+// import home_icon from "../assets/navBar/homeIcon.svg";
+import aqi_icon from "../assets/navBar/aqiIcon.svg";
 import map_icon from "../assets/navBar/mapIcon.svg";
 import compare_icon from "../assets/navBar/compareIcon.svg";
 import action_icon from "../assets/navBar/actionIcon.svg";
@@ -15,6 +16,7 @@ import hamburger_icon from "../assets/navBar/hamburgerIcon.svg";
 import react, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import axios from "axios";
 
 export const NavBar = () => {
   const navigate = useNavigate();
@@ -25,50 +27,32 @@ export const NavBar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Stops the installation and navigates to specified path
+  const makeApiRequestAndNavigate = async (path: string) => {
+    try {
+      const res = await axios.post(`http://localhost:3001/command?command=s`);
+      console.log(res);
+      navigate(path);
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message);
+    }
+  };
+
   const renderNavMenu = () => (
     <div className={`nav-menu ${isMenuOpen ? "show-menu" : ""}`}>
       <div className="nav-button-section">
-        <button
+        {/* <button
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/");
+            makeApiRequestAndNavigate("/");
           }}
         >
           <img className="navbar-button-logo" src={home_icon} />
           {isMobile ? "Start here" : "Home"}
-        </button>
-        <button
-          className="navbar-button"
-          onClick={() => {
-            setIsMenuOpen(false);
-            navigate("/mapRoute");
-          }}
-        >
-          <img className="navbar-button-logo" src={map_icon} />
-          Map
-        </button>
-        <button
-          className="navbar-button"
-          onClick={() => {
-            setIsMenuOpen(false);
-            navigate("/compare-cities");
-          }}
-        >
-          <img src={compare_icon} />
-          Compare Cities
-        </button>
-        <button
-          className="navbar-button"
-          onClick={() => {
-            setIsMenuOpen(false);
-            navigate("/take-action");
-          }}
-        >
-          <img className="navbar-button-logo" src={action_icon} />
-          Take Action
-        </button>
-        <button
+        </button> */}
+          <button
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
@@ -78,15 +62,48 @@ export const NavBar = () => {
           <img className="navbar-button-logo" src={about_icon} />
           About Us
         </button>
+
         <button
           className="navbar-button"
           onClick={() => {
             setIsMenuOpen(false);
-            navigate("/choosing-pathway");
+            makeApiRequestAndNavigate("/mapRoute");
           }}
         >
-          <img className="navbar-button-logo" src={info_icon} />
-          How To
+          <img className="navbar-button-logo" src={map_icon} />
+          Map
+        </button>
+        <button
+          className="navbar-button"
+          onClick={() => {
+            setIsMenuOpen(false);
+            makeApiRequestAndNavigate("/compare-cities");
+          }}
+        >
+          <img src={compare_icon} />
+          Compare Cities
+        </button>
+        
+        <button
+          className="navbar-button"
+          onClick={() => {
+            setIsMenuOpen(false);
+            navigate("/aqi-scale");
+          }}
+        >
+          <img className="navbar-button-logo" src={aqi_icon} />
+          AQI Scale
+        </button>
+        
+        <button
+          className="navbar-button"
+          onClick={() => {
+            setIsMenuOpen(false);
+            makeApiRequestAndNavigate("/take-action");
+          }}
+        >
+          <img className="navbar-button-logo" src={action_icon} />
+          Take Action
         </button>
       </div>
       {/* <div className="nav-admin-login-section">
@@ -101,7 +118,7 @@ export const NavBar = () => {
     <div className="navbar-container">
       <div className="nav-atta-section">
         <div className="navbar-atta-div">
-          <img src={atta_logo} />
+          <img src={atta_logo}  onClick={() => navigate("/")}/>
         </div>
       </div>
       {isMobile ? (
