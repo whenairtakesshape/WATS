@@ -15,28 +15,11 @@ export const AQIScaleRoute = () => {
         </div>
 
         <div className="aqiscale-box-section-02">
-          <p>
-            The Air Quality Index (AQI) condenses information about complex pollutant concentration data
-            into a unitless number often accompanied by a color and a categorical label.
-            AQIs are an effective communication tool that enable the wider public to understand air
-            quality data and associated health risks.
-
-            air quality standards, data collection capabilities and health guidelines.
-          </p>
-
-          <p>
-          It is important to be mindful that the AQI is a regionalised scale developed by local regulatory bodies. Each country and body can have widely varying AQI calculation methods reflecting
-
-          </p>  
-
-          <p>
-            ( A line about the AQI data we are using for the installation)
-          </p>
-
-          <p className="action-item">
-            Select an AQI range from the scale below to interact with the installation.
-          </p>
-
+        <p> The Air Quality Index (AQI) simplifies complex pollution data into easy-to-understand numbers, colors, and categories, helping the public grasp air quality and the health risks associated with it. </p>
+        <p> AQI scales are region-specific & developed by local regulatory bodies, which may vary significantly in their calculation methods and thresholds.</p>
+        <p> This scale follows the US AQI system, which divides air quality into 6 categories ranging from good to hazardous. Each category reflects a different level of health impact. </p>
+        <p> Our installation visually interprets these health effects by changing its movement based on the selected air quality. As the AQI worsens, the motion becomes more constrained and labored, illustrating the impact on our health. </p>
+        <p className="action-item"> Choose an AQI range below to experience the installation's response. </p>
         </div>
 
        
