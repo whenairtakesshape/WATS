@@ -40,7 +40,7 @@ Does not support small screens
   }
   
   
-  .bar:hover, .bar.selected {
+  .bar.selected {
 
     height: 9em; /* Adjust height as needed */
     p{
@@ -56,13 +56,13 @@ Does not support small screens
     opacity: 0;
 
     max-width: 13em;   /*To prevent text wrapping animation quirk. Fixing text width so text wrapping does not change with element width */
-    margin:auto;
+   
 
 
     p {
       color: #000;
       font-family: Montserrat;
-      font-size: 1.2em;
+      font-size: 1em;
       font-style: normal;
       font-weight: 400;
       line-height: 1.5em;
