@@ -26,6 +26,9 @@ import { AdminWindow } from "./components/AdminWindow";
 import NavBar from "./components/NavBar";
 import { ChoosingPathwayRoute } from "./routes/ChoosingPathwayRoute";
 
+// hooks
+import useInactivityTimer from './hooks/useInactivityTimer';
+
 
 /* 
 Project Structure...
@@ -43,6 +46,9 @@ Most .tsx files have a .css file associated with it and can be found in the css 
 */
 
 function App() {
+  // global timer to go back to the home page if no activity for more than 2min
+  useInactivityTimer(120000);
+
   // data handler object, used to obtain data on cities and countries.
   const dataHandler: DataHandler = new DataHandler();
 
