@@ -105,7 +105,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    // <Router>
       <div className="app-outer">
         <main>
           {/**
@@ -155,7 +155,7 @@ function App() {
           </DataContext.Provider>
         </main>
       </div>
-    </Router>
+    // </Router>
   );
 }
 
