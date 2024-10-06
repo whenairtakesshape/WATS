@@ -123,30 +123,24 @@ export function AQIScale() {
     }
   };
 
-
-  
-
-
-
   return (
+      <div className="scale-container">
+        {bars.map((bar) => (
+          <div key={bar.label + "container"} className={`bar-container ${selectedBar?.label === bar.label ? 'selected' : ''}`}>
 
-
-    <div className="scale-container">
-      {bars.map((bar) => (
-        <div key={bar.label + "container"} className={`bar-container ${selectedBar?.label === bar.label ? 'selected' : ''}`}>
-
-          <div
-            key={bar.label}
-            className={`bar ${bar.label} ${selectedBar?.label === bar.label ? 'selected' : ''}`}
-            onClick={() => handleSelect(bar)}
-          >
-            <p>{bar.aqiText}</p>
+            <div
+              key={bar.label}
+              className={`bar ${bar.label} ${selectedBar?.label === bar.label ? 'selected' : ''}`}
+              onClick={() => handleSelect(bar)}
+            >
+              <p>{selectedBar?.label != bar.label ? bar.aqiText : 'Click To Stop'}</p>
+            </div>
+            <div className="bar-description"> <p>{bar.description}</p> </div>
           </div>
-          <div className="bar-description"> <p>{bar.description}</p> </div>
-        </div>
 
-      ))}
-    </div>
+        ))}
+              
+      </div>
   );
 
 }
