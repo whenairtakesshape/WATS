@@ -1,9 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+
 
 const useInactivityTimer = (inactivityTime = 120000) => {
   const [lastActivity, setLastActivity] = useState(Date.now());
   const navigate = useNavigate();
+  const makeApiRequestAndNavigate = async () => {
+    try {
+      const res = await axios.post(`http://localhost:3001/command?command=s`);
+      console.log(res);
+      navigate('/');
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message);
+    }
+  };
 
   useEffect(() => {
     const resetTimer = () => setLastActivity(Date.now());
@@ -15,7 +28,7 @@ const useInactivityTimer = (inactivityTime = 120000) => {
 
     const checkInactivity = setInterval(() => {
       if (Date.now() - lastActivity > inactivityTime) {
-        navigate('/');
+        makeApiRequestAndNavigate();
       }
     }, 10000);
 
